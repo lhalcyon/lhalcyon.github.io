@@ -86,16 +86,23 @@
 
 
 
-<meta name="description" content="know thyself.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Halcyon days">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="环境 Xcode 8.3.3 Swift3.+  步骤1.创建混编桥接头文件 名称随便取,最好能和普通header文件做区别 2.项目配置桥接文件 点击工程,选中Build Settings,子选项勾选All 在下面配置中找到(或者搜索)Swift Compile - General 配置混编桥接头文件   点开图中红圈区域进行配置,如我所建的文件在工程里路径为MyProject/Hybrid-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="混编:Swift调用Objective-C">
+<meta property="og:url" content="http://yoursite.com/2017/06/20/Swift调用Objective-C/index.html">
 <meta property="og:site_name" content="Halcyon days">
-<meta property="og:description" content="know thyself.">
+<meta property="og:description" content="环境 Xcode 8.3.3 Swift3.+  步骤1.创建混编桥接头文件 名称随便取,最好能和普通header文件做区别 2.项目配置桥接文件 点击工程,选中Build Settings,子选项勾选All 在下面配置中找到(或者搜索)Swift Compile - General 配置混编桥接头文件   点开图中红圈区域进行配置,如我所建的文件在工程里路径为MyProject/Hybrid-C">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/hybrid-compile.png">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/bridge-config.png">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/path-config.png">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/reference.png">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/reference1.png">
+<meta property="og:updated_time" content="2018-01-31T15:52:22.719Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Halcyon days">
-<meta name="twitter:description" content="know thyself.">
+<meta name="twitter:title" content="混编:Swift调用Objective-C">
+<meta name="twitter:description" content="环境 Xcode 8.3.3 Swift3.+  步骤1.创建混编桥接头文件 名称随便取,最好能和普通header文件做区别 2.项目配置桥接文件 点击工程,选中Build Settings,子选项勾选All 在下面配置中找到(或者搜索)Swift Compile - General 配置混编桥接头文件   点开图中红圈区域进行配置,如我所建的文件在工程里路径为MyProject/Hybrid-C">
+<meta name="twitter:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/hybrid-compile.png">
 
 
 
@@ -125,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/20/Swift调用Objective-C/"/>
 
 
 
 
 
-  <title>Halcyon days</title>
+  <title>混编:Swift调用Objective-C | Halcyon days</title>
   
 
 
@@ -150,8 +157,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -258,859 +264,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/29/IDEA+Gradle创建Mybatis+SpringMVC项目/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/29/IDEA+Gradle创建Mybatis+SpringMVC项目/" itemprop="url">IDEA+Gradle创建MyBatis+SpringMVC项目</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-29T09:58:20+08:00">
-                2018-01-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  3,466
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <div class="note info"><p>Gradle是一个基于Apache Ant和Apache Maven概念的项目自动化构建工具.它使用一种基于Groovy的特定领域语言(DSL)来声明项目设置,抛弃了基于XML的各种繁琐配置.</p>
-<p>IDEA 全称IntelliJ IDEA,是java语言开发的集成环境,IntelliJ在业界被公认为最好的java开发工具之一,尤其在智能代码助手、代码自动提示、重构、J2EE支持、Ant、JUnit、CVS整合、代码审查、 创新的GUI设计等方面的功能可以说是超常的.</p></div>
-
-        
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/01/29/IDEA+Gradle创建Mybatis+SpringMVC项目/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/25/Android-Studio版本兼容Api警告/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/25/Android-Studio版本兼容Api警告/" itemprop="url">Android Studio版本兼容Api警告</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-25T10:10:12+08:00">
-                2017-09-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  209
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Android-Studio版本兼容Api警告"><a href="#Android-Studio版本兼容Api警告" class="headerlink" title="Android Studio版本兼容Api警告"></a>Android Studio版本兼容Api警告</h2><div class="note info"><p>最近在开发中,组内的小伙伴在开发中使用了高版本SDK25的Api,但是我们的项目最低兼容14,因此测试在5.1上的手机直接就崩溃了,问其在开发中没有看到警告吗,回复说确实没看到.后来查究一下,他的工具上确实没有显示.本文简述下如何手动去调整兼容Api的提示等级,避免在开发中用到高版本的Api却不自察.</p></div>
-<p>首先win电脑是打开<code>Android Studio</code>的 <code>Setting</code>  ,mac是打开<code>Android Studio</code>的 <code>Preferences</code></p>
-<p>选择<code>Editor</code>中的<code>Inspections</code> 对<code>Calling new methods on older versions</code>进行勾选并且配置为<code>Error</code>级别</p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170925/as_inspection_api_compatible.png" alt="api_compatible"></p>
-<p>如此简单即可搞定.如遇到其他警告,错误代码没提示也可类似进行操作配置.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/15/Xcode代码提示问题处理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/15/Xcode代码提示问题处理/" itemprop="url">Xcode代码提示问题处理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-15T13:32:45+08:00">
-                2017-08-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  447
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <div class="note info"><p>最近在写<code>Swift</code>.对于笔者这种被<code>JetBrains</code>的几大IDE工具给惯坏的开发者,Xcode的代码提示真是无力吐槽,先不论智能提示度,就连基本的提示也经常出不来.这里就简单总结下iOS同事传授的几招解决办法</p></div>
-<h3 id="1-Clean-Project"><a href="#1-Clean-Project" class="headerlink" title="1.Clean Project"></a>1.Clean Project</h3><p>最直接的办法就是清空项目.</p>
-<p>可视化按钮入口再哪请自行查找,笔者一般是用<code>Command+Shift+K</code>进行清空,此方法一般有效,缺点是会重新编译项目,比较慢</p>
-<h3 id="2-清空Xcode缓存"><a href="#2-清空Xcode缓存" class="headerlink" title="2.清空Xcode缓存"></a>2.清空Xcode缓存</h3><p>前往Xcode的缓存目录,清空项目编译缓存.</p>
-<p>具体操作为右键Finder<code>前往文件夹</code>文件夹路径为<code>/用户/ceyx/资源库/Developer/Xcode/DerivedData</code>  其中<code>ceyx</code> 替换为自己的用户名,删除目录下所有文件,然后重新打开Xcode,编译.</p>
-<p><strong>此方法比1更慢,往往也更有效</strong></p>
-<h3 id="3-终极大招"><a href="#3-终极大招" class="headerlink" title="3.终极大招"></a>3.终极大招</h3><p>如若上述两种方法还无效,只能使用绝招了…重启Xcode,还不行就重启电脑… 笔者黔驴技穷了,只能充当下网吧老板传授下终极大招.👻</p>
-<p>题外话,对于JetBrains出品的appcode还未尝试过,不知对于Xcode项目兼容到何程度,是否支持Cocoapod等,有时间会去体验下,希望至少在代码提示上能更友善些😀</p>
-<p>笔者去体验了下Appcode,其代码提示和快捷键如Jetbrains其他产品一样非常智能,但是代码中偶有飘红,却可以成功运行,比较干扰编码.尤为尴尬的一点是,Appcode不支持storyboard,即在项目内点开storyboard文件就直接跳转xcode了😥. 如真的被Xcode逼疯的童鞋可以考虑下用AppCode编码,用Xcode操作storyboard</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/20/Linux+Jenkins+Gradle构建Android参数化自动打包(二)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/20/Linux+Jenkins+Gradle构建Android参数化自动打包(二)/" itemprop="url">Linux+Jenkins+Gradle构建Android参数化自动打包(二)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-20T21:45:30+08:00">
-                2017-07-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  910
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在前一篇文章中,说明了在CenterOS上进行一系列的环境搭建,本文开始说明关于项目的一系列配置</p>
-
-        
-          <div class="out-img-topic">
-            <img src=https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/pgyer_api.png class="img-topic" />
-          </div>
-        
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/20/Linux+Jenkins+Gradle构建Android参数化自动打包(二)/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/07/Linux+Jenkins+Gradle构建Android参数化自动打包(一)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/07/Linux+Jenkins+Gradle构建Android参数化自动打包(一)/" itemprop="url">Linux+Jenkins+Gradle构建Android参数化自动打包(一)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-07T20:40:25+08:00">
-                2017-07-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,775
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在文章开始前,先说下写这篇文章产出的原因及环境.</p>
-<div class="note info"><p>关于Jenkins部署安卓自动打包有很多好处,可以配置参数进行构建,选择打包环境、设置App版本、设置加密开关等.起初,笔者也是参考了一些网上的教程,将自动化打包构建在了自己的windows开发机器上,而将Jenkins自动构建Android部署在服务器上和本机上在环境构建方面略有不同,坑略多.</p>
-<p>参数化构建的过程却是很便捷,但是部署在本机上自动化打包其实是个会增加打包时长的工作,因为自动化打包会首先去代码仓库拉取代码到本地,然后再开始打包,这个过程会比直接用AS打包慢很多.后来提出需求,要将自动化打包配置到服务器上.运维就提供了一台<code>Linux</code>服务器,并且上面已配置后台的自动化打包环境,用的是<code>Jdk1.7</code>和比较旧版本的<code>Jenkins</code>,于是我们得另行使用独立的安装的环境.</p></div>
-<h3 id="最终结果"><a href="#最终结果" class="headerlink" title="最终结果"></a>最终结果</h3><p>最终我们要实现的是实现Jenkins上面配置<strong>应用版本号</strong>、<strong>Git分支</strong>、<strong>应用渠道</strong>、<strong>请求基地址</strong>、<strong>应用环境</strong>等参数,进行一键参数化构建打包上传至蒲公英并发送邮件通知给<strong>自定义的接收者</strong></p>
-<p>最终实现参数化配置大致如下所示:</p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_total.png" alt="jenkins_total"></p>
-<p>发送邮件(邮件内容较长,进行了相应缩小)</p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_result.jpg" alt="jenkins_total"></p>
-
-        
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/07/Linux+Jenkins+Gradle构建Android参数化自动打包(一)/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -1140,9 +296,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/20/Swift调用Objective-C/" itemprop="url">混编:Swift调用Objective-C</a></h1>
+          <h1 class="post-title" itemprop="name headline">混编:Swift调用Objective-C</h1>
         
 
         <div class="post-meta">
@@ -1233,9 +387,7 @@
       
 
       
-        
-          
-            <h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><ul>
+        <h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><ul>
 <li>Xcode 8.3.3</li>
 <li>Swift3.+</li>
 </ul>
@@ -1256,8 +408,6 @@
 <p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/reference.png" alt="reference"></p>
 <p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/reference1.png" alt="reference1"></p>
 
-          
-        
       
     </div>
     
@@ -1274,12 +424,28 @@
       
 
       
+      
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/07/Linux+Jenkins+Gradle构建Android参数化自动打包(一)/" rel="prev" title="Linux+Jenkins+Gradle构建Android参数化自动打包(一)">
+                Linux+Jenkins+Gradle构建Android参数化自动打包(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -1289,10 +455,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -1300,6 +467,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -1322,8 +493,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1378,6 +558,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建混编桥接头文件"><span class="nav-number">2.1.</span> <span class="nav-text">1.创建混编桥接头文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-项目配置桥接文件"><span class="nav-number">2.2.</span> <span class="nav-text">2.项目配置桥接文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用注意"><span class="nav-number">3.</span> <span class="nav-text">引用注意</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1516,6 +712,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
