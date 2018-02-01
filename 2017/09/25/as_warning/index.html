@@ -86,30 +86,19 @@
 
 
 
-<meta name="description" content="前言在文章开始前,先说下写这篇文章产出的原因及环境. 关于Jenkins部署安卓自动打包有很多好处,可以配置参数进行构建,选择打包环境、设置App版本、设置加密开关等.起初,笔者也是参考了一些网上的教程,将自动化打包构建在了自己的windows开发机器上,而将Jenkins自动构建Android部署在服务器上和本机上在环境构建方面略有不同,坑略多. 参数化构建的过程却是很便捷,但是部署在本机上自动">
+<meta name="description" content="Android Studio版本兼容Api警告最近在开发中,组内的小伙伴在开发中使用了高版本SDK25的Api,但是我们的项目最低兼容14,因此测试在5.1上的手机直接就崩溃了,问其在开发中没有看到警告吗,回复说确实没看到.后来查究一下,他的工具上确实没有显示.本文简述下如何手动去调整兼容Api的提示等级,避免在开发中用到高版本的Api却不自察. 首先win电脑是打开Android Studio的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux+Jenkins+Gradle构建Android参数化自动打包(一)">
-<meta property="og:url" content="http://yoursite.com/2017/07/07/Linux+Jenkins+Gradle构建Android参数化自动打包(一)/index.html">
+<meta property="og:title" content="Android Studio版本兼容Api警告">
+<meta property="og:url" content="http://yoursite.com/2017/09/25/as_warning/index.html">
 <meta property="og:site_name" content="Halcyon days">
-<meta property="og:description" content="前言在文章开始前,先说下写这篇文章产出的原因及环境. 关于Jenkins部署安卓自动打包有很多好处,可以配置参数进行构建,选择打包环境、设置App版本、设置加密开关等.起初,笔者也是参考了一些网上的教程,将自动化打包构建在了自己的windows开发机器上,而将Jenkins自动构建Android部署在服务器上和本机上在环境构建方面略有不同,坑略多. 参数化构建的过程却是很便捷,但是部署在本机上自动">
+<meta property="og:description" content="Android Studio版本兼容Api警告最近在开发中,组内的小伙伴在开发中使用了高版本SDK25的Api,但是我们的项目最低兼容14,因此测试在5.1上的手机直接就崩溃了,问其在开发中没有看到警告吗,回复说确实没看到.后来查究一下,他的工具上确实没有显示.本文简述下如何手动去调整兼容Api的提示等级,避免在开发中用到高版本的Api却不自察. 首先win电脑是打开Android Studio的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_total.png">
-<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_result.jpg">
-<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/sdk_manager_accept_license.png">
-<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_plugin1.jpg">
-<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_plugin2.jpg">
-<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_plugin3.jpg">
-<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_plugin4.jpg">
-<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_plugin5.jpg">
-<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_plugin6.jpg">
-<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_plugin7.jpg">
-<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_plugin8.jpg">
-<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_config.png">
-<meta property="og:updated_time" content="2018-01-31T16:02:06.623Z">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170925/as_inspection_api_compatible.png">
+<meta property="og:updated_time" content="2018-02-01T13:52:41.845Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux+Jenkins+Gradle构建Android参数化自动打包(一)">
-<meta name="twitter:description" content="前言在文章开始前,先说下写这篇文章产出的原因及环境. 关于Jenkins部署安卓自动打包有很多好处,可以配置参数进行构建,选择打包环境、设置App版本、设置加密开关等.起初,笔者也是参考了一些网上的教程,将自动化打包构建在了自己的windows开发机器上,而将Jenkins自动构建Android部署在服务器上和本机上在环境构建方面略有不同,坑略多. 参数化构建的过程却是很便捷,但是部署在本机上自动">
-<meta name="twitter:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_total.png">
+<meta name="twitter:title" content="Android Studio版本兼容Api警告">
+<meta name="twitter:description" content="Android Studio版本兼容Api警告最近在开发中,组内的小伙伴在开发中使用了高版本SDK25的Api,但是我们的项目最低兼容14,因此测试在5.1上的手机直接就崩溃了,问其在开发中没有看到警告吗,回复说确实没看到.后来查究一下,他的工具上确实没有显示.本文简述下如何手动去调整兼容Api的提示等级,避免在开发中用到高版本的Api却不自察. 首先win电脑是打开Android Studio的">
+<meta name="twitter:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170925/as_inspection_api_compatible.png">
 
 
 
@@ -139,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/07/Linux+Jenkins+Gradle构建Android参数化自动打包(一)/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/09/25/as_warning/"/>
 
 
 
 
 
-  <title>Linux+Jenkins+Gradle构建Android参数化自动打包(一) | Halcyon days</title>
+  <title>Android Studio版本兼容Api警告 | Halcyon days</title>
   
 
 
@@ -286,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/07/Linux+Jenkins+Gradle构建Android参数化自动打包(一)/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/25/as_warning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
@@ -303,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Linux+Jenkins+Gradle构建Android参数化自动打包(一)</h1>
+          <h1 class="post-title" itemprop="name headline">Android Studio版本兼容Api警告</h1>
         
 
         <div class="post-meta">
@@ -315,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-07T20:40:25+08:00">
-                2017-07-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-25T10:10:12+08:00">
+                2017-09-25
               </time>
             
 
@@ -369,7 +358,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,775
+                  209
                 </span>
               
 
@@ -394,98 +383,11 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在文章开始前,先说下写这篇文章产出的原因及环境.</p>
-<div class="note info"><p>关于Jenkins部署安卓自动打包有很多好处,可以配置参数进行构建,选择打包环境、设置App版本、设置加密开关等.起初,笔者也是参考了一些网上的教程,将自动化打包构建在了自己的windows开发机器上,而将Jenkins自动构建Android部署在服务器上和本机上在环境构建方面略有不同,坑略多.</p>
-<p>参数化构建的过程却是很便捷,但是部署在本机上自动化打包其实是个会增加打包时长的工作,因为自动化打包会首先去代码仓库拉取代码到本地,然后再开始打包,这个过程会比直接用AS打包慢很多.后来提出需求,要将自动化打包配置到服务器上.运维就提供了一台<code>Linux</code>服务器,并且上面已配置后台的自动化打包环境,用的是<code>Jdk1.7</code>和比较旧版本的<code>Jenkins</code>,于是我们得另行使用独立的安装的环境.</p></div>
-<h3 id="最终结果"><a href="#最终结果" class="headerlink" title="最终结果"></a>最终结果</h3><p>最终我们要实现的是实现Jenkins上面配置<strong>应用版本号</strong>、<strong>Git分支</strong>、<strong>应用渠道</strong>、<strong>请求基地址</strong>、<strong>应用环境</strong>等参数,进行一键参数化构建打包上传至蒲公英并发送邮件通知给<strong>自定义的接收者</strong></p>
-<p>最终实现参数化配置大致如下所示:</p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_total.png" alt="jenkins_total"></p>
-<p>发送邮件(邮件内容较长,进行了相应缩小)</p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_result.jpg" alt="jenkins_total"></p>
-<a id="more"></a>
-<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p><strong>所需环境</strong></p>
-<ul>
-<li>新版Jenkins(需能安装参数化构建插件)</li>
-<li>Tomcat</li>
-<li>新版Jenkins</li>
-<li>Android SDK</li>
-<li>Android NDK</li>
-<li>aapt</li>
-<li>Git</li>
-<li>Gradle</li>
-<li>其它(视自身项目所需)</li>
-</ul>
-<p><strong>CenterOS64位已有环境</strong></p>
-<ul>
-<li>Jdk1.7</li>
-<li>Tomcat</li>
-<li>旧版Jenkins</li>
-</ul>
-<h4 id="1-Jdk安装及配置"><a href="#1-Jdk安装及配置" class="headerlink" title="1. Jdk安装及配置"></a>1. Jdk安装及配置</h4><p>由于Android开发使用的 <code>Jdk1.8</code>,因此不能复用服务器上现有的Jdk </p>
-<p>首先去<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">Oracle Downloads</a>下载 <strong>Jdk for Linux</strong>.笔者下载的是<code>jdk-8u131-linux-x64.tar.gz</code></p>
-<p>上传到服务器,进入相关目录解压</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf jdk-8u131-linux-x64.tar.gz</span><br></pre></td></tr></table></figure>
-<p>可将目录移至其他目录.其实最好在解压前就将压缩包移至目标目录</p>
-<p><strong>Jdk环境变量配置</strong>(可选)</p>
-<p>由于后台使用了<code>JAVA_HOME</code>、<code>JENKINS_HOME</code>等一系列环境变量名,所以服务器上默认调用的会是他们的环境变量,我们开发的一套只能在自己的Tomcat、Jenkins中进行指定,具体下文会进行说明</p>
-<h4 id="2-Tomcat安装及配置"><a href="#2-Tomcat安装及配置" class="headerlink" title="2. Tomcat安装及配置"></a>2. Tomcat安装及配置</h4><p>首先去<a href="http://tomcat.apache.org/" target="_blank" rel="noopener">Tomcat Download</a>选择版本进行下载.这里笔者选择的是<code>apache-tomcat-7.0.79.tar.gz</code></p>
-<p>上传到服务器,进入相关目录解压</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxv -f apache-tomcat-7.0.79.tar.gz</span><br></pre></td></tr></table></figure>
-<h5 id="a-端口修改"><a href="#a-端口修改" class="headerlink" title="a.端口修改"></a>a.端口修改</h5><p>由于常规tomcat端口被已有tomcat占用,因此我们需要修改端口</p>
-<p>进入<code>conf</code>目录下的<code>server.xml</code>修改,此处笔者是用<strong>Vim</strong>修改.不会用的同学请出门左转度娘🤔</p>
-<p>主要修改的是,设置为自定义端口号</p>
-<ul>
-<li><code>Tomcat admin port</code> 即文件最上面的端口号</li>
-<li><code>Http/1.1 port</code> 连接访问的端口号</li>
-<li><code>AJP/1.3 port</code></li>
-</ul>
-<h5 id="b-环境配置"><a href="#b-环境配置" class="headerlink" title="b.环境配置"></a>b.环境配置</h5><p>指定Tomcat运行时环境,在<code>bin</code>目录下修改<code>setclasspath.sh</code> 以下是笔者的环境,请自行替换路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/android/java/jdk1.8.0_131</span><br><span class="line">export JRE_HOME=/usr/android/java/jdk1.8.0_131/jre</span><br><span class="line">export JENKINS_HOME=/home/android/jenkins</span><br></pre></td></tr></table></figure>
-<h4 id="3-Gradle安装及配置"><a href="#3-Gradle安装及配置" class="headerlink" title="3. Gradle安装及配置"></a>3. Gradle安装及配置</h4><p>首先去<a href="http://services.gradle.org/distributions/" target="_blank" rel="noopener">Gradle Download</a>下载对应Gradle版本,笔者使用到的是<code>gradle-3.3-all.zip</code></p>
-<p>上传到指定目录解压</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip gradle-3.3-all.zip</span><br></pre></td></tr></table></figure>
-<p>然后添加环境变量<code>vim /etc/profile</code>,在环境变量配置处增加一句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export GRADLE_HOME=/home/gradle-3.3/bin</span><br></pre></td></tr></table></figure>
-<h4 id="4-Android-Sdk-For-Linux-安装及更新"><a href="#4-Android-Sdk-For-Linux-安装及更新" class="headerlink" title="4. Android Sdk For Linux 安装及更新"></a>4. Android Sdk For Linux 安装及更新</h4><p>这里下载Sdk解压都不是难点.难点在于安装之后更新的问题.</p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/sdk_manager_accept_license.png" alt="sdk_manager_agree_license"></p>
-<p>用AS或者Eclipse的同学肯定接触过<code>Sdk Manager</code>,此处选择更新后要手动点<code>Accept License</code>才能启动更新.但是在Linux下没有界面化的勾选可用.因此需要用脚本来更新.网上有说复制<code>License</code>的方法笔者试了无效,也许是姿势不对吧,此处也是踩了很久的坑才搜出来的解决方法:</p>
-<p><a href="http://blog.csdn.net/yygydjkthh/article/details/48263973" target="_blank" rel="noopener">更新Sdk方法传送门</a> 这里先感谢下该作者👏</p>
-<p>这里也为不愿跳传送门的同学说明一下,就几个步骤.</p>
-<p><strong>a.查看可更新列表</strong></p>
-<p>在Sdk的<code>tools</code>目录使用<code>./android list sdk --all</code>查看远程服务器提供的Sdk包的序号,记录想要更新的Sdk序号</p>
-<p><strong>b.编辑脚本</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/expect</span><br><span class="line">set timeout -1</span><br><span class="line">spawn /usr/local/android-sdk-linux/tools/android update sdk -u -a -t 1,2,3,24,25,26,27,28,30,95,96,102,103,104,105,106,107</span><br><span class="line">expect &#123;</span><br><span class="line">    &quot;Do you accept the license&quot; &#123; exp_send &quot;y\r&quot; ; exp_continue &#125;</span><br><span class="line">    eof</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此处<code>1,2,3,...</code>为需要下载的Sdk序号</p>
-<p><strong>c.运行脚本</strong></p>
-<p>待脚本跑完,sdk就更新完毕了</p>
-<blockquote>
-<p>注意此处脚本用到了<code>expect</code>,需要在服务器上安装,此处提供<a href="http://www.centoscn.com/image-text/install/2014/0310/2532.html" target="_blank" rel="noopener">expect安装传送门</a></p>
-</blockquote>
-<h4 id="5-Ndk-for-Linux安装"><a href="#5-Ndk-for-Linux安装" class="headerlink" title="5. Ndk for Linux安装"></a>5. Ndk for Linux安装</h4><p>安装较简单,后续需配置Jenkins系统变量,下文会进行说明</p>
-<blockquote>
-<p>项目因用到了Jni,需要安装Ndk,可是后期发现在项目里每次均去编译jni导致项目的compile sdk不能使用高于23的,致使Instant Run等功能使用,很影响开发效率.后期改在项目外编译好了静态库然后放入项目中,这样不会限制项目自身的SDK版本,因此<strong>若未使用JNI的项目,则可跳过此步骤</strong></p>
-</blockquote>
-<h4 id="6-Git安装及环境变量配置"><a href="#6-Git安装及环境变量配置" class="headerlink" title="6. Git安装及环境变量配置"></a>6. Git安装及环境变量配置</h4><p>下载安装并配置环境变量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export GIT_HOME=/usr/android/git-2.12.2/bin</span><br></pre></td></tr></table></figure>
-<h4 id="7-Jenkins安装及配置"><a href="#7-Jenkins安装及配置" class="headerlink" title="7. Jenkins安装及配置"></a>7. Jenkins安装及配置</h4><h5 id="a-下载"><a href="#a-下载" class="headerlink" title="a. 下载"></a>a. 下载</h5><p>下载Jenkins将war包放入Tomcat的<code>webapps</code>目录下,启动tomcat</p>
-<p>然后在地址栏输入路径<code>http://localhost:/8777</code> 其中<code>8777</code>为第二步中自定义的端口号</p>
-<h5 id="b-插件安装"><a href="#b-插件安装" class="headerlink" title="b. 插件安装"></a>b. 插件安装</h5><p>然后安装插件(基本参考网上的)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">1.Branch API Plugin</span><br><span class="line">2.build timeout plugin</span><br><span class="line">3.build-name-setter</span><br><span class="line">4.Credentials Binding Plugin</span><br><span class="line">5.description setter plugin</span><br><span class="line">6.Dynamic Parameter Plug-in</span><br><span class="line">7.Environment Injector Plugin</span><br><span class="line">9.Git plugin</span><br><span class="line">10.GIT server Plugin</span><br><span class="line">11.Gradle Plugin</span><br><span class="line">12.Git Parameter Plug-In</span><br><span class="line">13.Pipeline: Basic Steps</span><br><span class="line">14.Pipeline: Build Step</span><br><span class="line">15.Pipeline: Input Step</span><br><span class="line">16.Pipeline: Nodes and Processes</span><br><span class="line">17.Pipeline: Stage Step</span><br><span class="line">18.Scriptler</span><br><span class="line">19.Workspace Cleanup Plugin</span><br><span class="line">20.Post-Build Script Plug-in</span><br><span class="line">21.Email Extension Plugin</span><br><span class="line">22.SSH Slaves plugin</span><br><span class="line">23.Timestamper</span><br><span class="line">(不明为什么少8)</span><br></pre></td></tr></table></figure>
-<p>因为Jenkins版本不同,实际使用中发现缺失不少</p>
-<p>以下附上笔者所安装的所有插件(若无问题的可跳过)</p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_plugin1.jpg" alt="jenkins_plugin_1"></p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_plugin2.jpg" alt="jenkins_plugin_2"></p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_plugin3.jpg" alt="jenkins_plugin_3"></p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_plugin4.jpg" alt="jenkins_plugin_4"></p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_plugin5.jpg" alt="jenkins_plugin_5"></p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_plugin6.jpg" alt="jenkins_plugin_6"></p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_plugin7.jpg" alt="jenkins_plugin_7"></p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_plugin8.jpg" alt="jenkins_plugin_8"></p>
-<h5 id="c-环境变量配置"><a href="#c-环境变量配置" class="headerlink" title="c. 环境变量配置"></a>c. 环境变量配置</h5><p><strong>环境变量</strong></p>
-<p>首先点击<code>系统管理</code>-&gt;<code>系统设置</code>配置Jdk、Android Sdk、Gradle、Android Ndk环境变量(此处也可配置Git目录,笔者是将Git目录配置在Linux环境变量中了)</p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/jenkins_config.png" alt="jenkins_plugin_8"></p>
-<p><em>其它如邮件相关配置的在下篇会说明</em></p>
-<p>至此环境大体上配置已经完成,下篇即可进入项目相关配置</p>
+        <h2 id="Android-Studio版本兼容Api警告"><a href="#Android-Studio版本兼容Api警告" class="headerlink" title="Android Studio版本兼容Api警告"></a>Android Studio版本兼容Api警告</h2><div class="note info"><p>最近在开发中,组内的小伙伴在开发中使用了高版本SDK25的Api,但是我们的项目最低兼容14,因此测试在5.1上的手机直接就崩溃了,问其在开发中没有看到警告吗,回复说确实没看到.后来查究一下,他的工具上确实没有显示.本文简述下如何手动去调整兼容Api的提示等级,避免在开发中用到高版本的Api却不自察.</p></div>
+<p>首先win电脑是打开<code>Android Studio</code>的 <code>Setting</code>  ,mac是打开<code>Android Studio</code>的 <code>Preferences</code></p>
+<p>选择<code>Editor</code>中的<code>Inspections</code> 对<code>Calling new methods on older versions</code>进行勾选并且配置为<code>Error</code>级别</p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170925/as_inspection_api_compatible.png" alt="api_compatible"></p>
+<p>如此简单即可搞定.如遇到其他警告,错误代码没提示也可类似进行操作配置.</p>
 
       
     </div>
@@ -510,8 +412,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/20/Swift调用Objective-C/" rel="next" title="混编:Swift调用Objective-C">
-                <i class="fa fa-chevron-left"></i> 混编:Swift调用Objective-C
+              <a href="/2017/08/15/xcode-idiot/" rel="next" title="Xcode代码提示问题处理">
+                <i class="fa fa-chevron-left"></i> Xcode代码提示问题处理
               </a>
             
           </div>
@@ -520,8 +422,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/20/Linux+Jenkins+Gradle构建Android参数化自动打包(二)/" rel="prev" title="Linux+Jenkins+Gradle构建Android参数化自动打包(二)">
-                Linux+Jenkins+Gradle构建Android参数化自动打包(二) <i class="fa fa-chevron-right"></i>
+              <a href="/2018/01/29/ssm_build/" rel="prev" title="IDEA+Gradle创建MyBatis+SpringMVC项目">
+                IDEA+Gradle创建MyBatis+SpringMVC项目 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -605,7 +507,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -616,7 +518,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -651,7 +553,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最终结果"><span class="nav-number">2.</span> <span class="nav-text">最终结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境搭建"><span class="nav-number">3.</span> <span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Jdk安装及配置"><span class="nav-number">3.1.</span> <span class="nav-text">1. Jdk安装及配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Tomcat安装及配置"><span class="nav-number">3.2.</span> <span class="nav-text">2. Tomcat安装及配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-端口修改"><span class="nav-number">3.2.1.</span> <span class="nav-text">a.端口修改</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-环境配置"><span class="nav-number">3.2.2.</span> <span class="nav-text">b.环境配置</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Gradle安装及配置"><span class="nav-number">3.3.</span> <span class="nav-text">3. Gradle安装及配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Android-Sdk-For-Linux-安装及更新"><span class="nav-number">3.4.</span> <span class="nav-text">4. Android Sdk For Linux 安装及更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Ndk-for-Linux安装"><span class="nav-number">3.5.</span> <span class="nav-text">5. Ndk for Linux安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Git安装及环境变量配置"><span class="nav-number">3.6.</span> <span class="nav-text">6. Git安装及环境变量配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-Jenkins安装及配置"><span class="nav-number">3.7.</span> <span class="nav-text">7. Jenkins安装及配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-下载"><span class="nav-number">3.7.1.</span> <span class="nav-text">a. 下载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-插件安装"><span class="nav-number">3.7.2.</span> <span class="nav-text">b. 插件安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#c-环境变量配置"><span class="nav-number">3.7.3.</span> <span class="nav-text">c. 环境变量配置</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-Studio版本兼容Api警告"><span class="nav-number">1.</span> <span class="nav-text">Android Studio版本兼容Api警告</span></a></li></ol></div>
             
 
           </div>

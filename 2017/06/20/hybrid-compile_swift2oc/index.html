@@ -86,16 +86,23 @@
 
 
 
-<meta name="description" content="know thyself.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Halcyon days">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta name="description" content="环境 Xcode 8.3.3 Swift3.+  步骤1.创建混编桥接头文件 名称随便取,最好能和普通header文件做区别 2.项目配置桥接文件 点击工程,选中Build Settings,子选项勾选All 在下面配置中找到(或者搜索)Swift Compile - General 配置混编桥接头文件   点开图中红圈区域进行配置,如我所建的文件在工程里路径为MyProject/Hybrid-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="混编:Swift调用Objective-C">
+<meta property="og:url" content="http://yoursite.com/2017/06/20/hybrid-compile_swift2oc/index.html">
 <meta property="og:site_name" content="Halcyon days">
-<meta property="og:description" content="know thyself.">
+<meta property="og:description" content="环境 Xcode 8.3.3 Swift3.+  步骤1.创建混编桥接头文件 名称随便取,最好能和普通header文件做区别 2.项目配置桥接文件 点击工程,选中Build Settings,子选项勾选All 在下面配置中找到(或者搜索)Swift Compile - General 配置混编桥接头文件   点开图中红圈区域进行配置,如我所建的文件在工程里路径为MyProject/Hybrid-C">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/hybrid-compile.png">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/bridge-config.png">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/path-config.png">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/reference.png">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/reference1.png">
+<meta property="og:updated_time" content="2018-02-01T13:52:41.848Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Halcyon days">
-<meta name="twitter:description" content="know thyself.">
+<meta name="twitter:title" content="混编:Swift调用Objective-C">
+<meta name="twitter:description" content="环境 Xcode 8.3.3 Swift3.+  步骤1.创建混编桥接头文件 名称随便取,最好能和普通header文件做区别 2.项目配置桥接文件 点击工程,选中Build Settings,子选项勾选All 在下面配置中找到(或者搜索)Swift Compile - General 配置混编桥接头文件   点开图中红圈区域进行配置,如我所建的文件在工程里路径为MyProject/Hybrid-C">
+<meta name="twitter:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/hybrid-compile.png">
 
 
 
@@ -125,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/20/hybrid-compile_swift2oc/"/>
 
 
 
 
 
-  <title>归档 | Halcyon days</title>
+  <title>混编:Swift调用Objective-C | Halcyon days</title>
   
 
 
@@ -150,7 +157,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -258,301 +265,201 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      <span class="archive-page-counter">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/20/hybrid-compile_swift2oc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">混编:Swift调用Objective-C</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-20T16:02:11+08:00">
+                2017-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 7 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/02/01/update_glibc_issue/" itemprop="url">
-              
-                <span itemprop="name">Linux升级Glibc2.14中文乱码</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-01T10:28:00+08:00"
-              content="2018-02-01" >
-          02-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/01/29/ssm_build/" itemprop="url">
-              
-                <span itemprop="name">IDEA+Gradle创建MyBatis+SpringMVC项目</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-01-29T09:58:20+08:00"
-              content="2018-01-29" >
-          01-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2017">2017</h1>
-          </div>
-        
-        
+            
+          
 
-        
+          
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/25/as_warning/" itemprop="url">
+          
+            <div class="post-wordcount">
               
-                <span itemprop="name">Android Studio版本兼容Api警告</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  192
+                </span>
               
-            </a>
-        
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-25T10:10:12+08:00"
-              content="2017-09-25" >
-          09-25
-        </time>
-      </div>
+              
 
-    </header>
-  </article>
+              
+            </div>
+          
 
+          
 
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/08/15/xcode-idiot/" itemprop="url">
-              
-                <span itemprop="name">Xcode代码提示问题处理</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-15T13:32:45+08:00"
-              content="2017-08-15" >
-          08-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/20/linux-jenkins-gradle_build_android2/" itemprop="url">
-              
-                <span itemprop="name">Linux+Jenkins+Gradle构建Android参数化自动打包(二)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-20T21:45:30+08:00"
-              content="2017-07-20" >
-          07-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><ul>
+<li>Xcode 8.3.3</li>
+<li>Swift3.+</li>
+</ul>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="1-创建混编桥接头文件"><a href="#1-创建混编桥接头文件" class="headerlink" title="1.创建混编桥接头文件"></a>1.创建混编桥接头文件</h4><p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/hybrid-compile.png" alt="hybrid-compile"></p>
+<p>名称随便取,最好能和普通header文件做区别</p>
+<h4 id="2-项目配置桥接文件"><a href="#2-项目配置桥接文件" class="headerlink" title="2.项目配置桥接文件"></a>2.项目配置桥接文件</h4><ol>
+<li>点击工程,选中<code>Build Settings</code>,子选项勾选<code>All</code></li>
+<li>在下面配置中找到(或者搜索)<code>Swift Compile - General</code></li>
+<li>配置混编桥接头文件</li>
+</ol>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/bridge-config.png" alt="bridge-config"></p>
+<p>点开图中红圈区域进行配置,如我所建的文件在工程里路径为<code>MyProject/Hybrid-Compile.h</code></p>
+<p>则配置也应是这个路径</p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/path-config.png" alt="path-config"></p>
+<p>保存后在该头文件中引用相应OC类头文件即可在Swift中调用</p>
+<h3 id="引用注意"><a href="#引用注意" class="headerlink" title="引用注意"></a>引用注意</h3><p>如果是项目内的OC文件直接引用即可</p>
+<p>如果是<code>Pod</code>引用的库中的OC文件则需要带上其<code>Pod</code>中的路径</p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/reference.png" alt="reference"></p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/reference1.png" alt="reference1"></p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/07/linux-jenkins-gradle_build_android1/" itemprop="url">
-              
-                <span itemprop="name">Linux+Jenkins+Gradle构建Android参数化自动打包(一)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-07T20:40:25+08:00"
-              content="2017-07-07" >
-          07-07
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/20/hybrid-compile_swift2oc/" itemprop="url">
-              
-                <span itemprop="name">混编:Swift调用Objective-C</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-20T16:02:11+08:00"
-              content="2017-06-20" >
-          06-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/07/linux-jenkins-gradle_build_android1/" rel="prev" title="Linux+Jenkins+Gradle构建Android参数化自动打包(一)">
+                Linux+Jenkins+Gradle构建Android参数化自动打包(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -560,6 +467,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -582,8 +493,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -638,6 +558,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建混编桥接头文件"><span class="nav-number">2.1.</span> <span class="nav-text">1.创建混编桥接头文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-项目配置桥接文件"><span class="nav-number">2.2.</span> <span class="nav-text">2.项目配置桥接文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用注意"><span class="nav-number">3.</span> <span class="nav-text">引用注意</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -776,6 +712,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
