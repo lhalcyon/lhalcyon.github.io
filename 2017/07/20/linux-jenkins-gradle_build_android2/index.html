@@ -107,7 +107,7 @@
 <meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/mail_config2.png">
 <meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/gradle_properties.png">
 <meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/app_gradle.jpg">
-<meta property="og:updated_time" content="2018-02-01T13:52:41.847Z">
+<meta property="og:updated_time" content="2018-02-02T14:52:31.904Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux+Jenkins+Gradle构建Android参数化自动打包(二)">
 <meta name="twitter:description" content="在前一篇文章中,说明了在CenterOS上进行一系列的环境搭建,本文开始说明关于项目的一系列配置">
@@ -371,7 +371,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  910
+                  913
                 </span>
               
 
@@ -426,7 +426,7 @@
 <p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/gradle_script.jpg" alt="jenkins_total"></p>
 <h4 id="蒲公英上传"><a href="#蒲公英上传" class="headerlink" title="蒲公英上传"></a>蒲公英上传</h4><p>增加构建动作,将Apk上传蒲公英</p>
 <p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/pgyer_upload.jpg" alt="jenkins_total"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -k -F &quot;file=@$&#123;WORKSPACE&#125;/source/项目根目录/app/apks/$&#123;BUILD_PREFIX&#125;_$&#123;JENKINS_TIME&#125;_$&#123;DAY_VERSION&#125;.apk&quot; -F &quot;uKey=你的ukey&quot; -F &quot;_api_key=你的apiKey&quot; -F &quot;installType=2&quot; -F &quot;password=hljj&quot; -F &quot;updateDescription=$&#123;DESCRIPTION&#125;&quot; https://www.pgyer.com/apiv1/app/upload</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -k -F &quot;file=@$&#123;WORKSPACE&#125;/source/项目根目录/app/apks/$&#123;BUILD_PREFIX&#125;_$&#123;JENKINS_TIME&#125;_$&#123;DAY_VERSION&#125;.apk&quot; -F &quot;uKey=你的ukey&quot; -F &quot;_api_key=你的apiKey&quot; -F &quot;installType=2&quot; -F &quot;password=下载密码&quot; -F &quot;updateDescription=$&#123;DESCRIPTION&#125;&quot; https://www.pgyer.com/apiv1/app/upload</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p> <code>${WORKSPACE}/source/项目根目录/app/apks/</code>为笔者自行修改的Apk输出目录,此处请根据自己的项目输入目录进行修改</p>
 <p> curl命令如果使用不了可自行百度解决</p>
