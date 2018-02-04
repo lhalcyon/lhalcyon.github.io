@@ -7,6 +7,9 @@
       <categories>
         <category>Linux</category>
       </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[IDEA+Gradle创建MyBatis+SpringMVC项目]]></title>
@@ -15,6 +18,12 @@
       <categories>
         <category>Java</category>
       </categories>
+      <tags>
+        <tag>IntelliJ</tag>
+        <tag>Spring</tag>
+        <tag>SpringMVC</tag>
+        <tag>MyBatis</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[Android Studio版本兼容Api警告]]></title>
@@ -23,6 +32,9 @@
       <categories>
         <category>Android</category>
       </categories>
+      <tags>
+        <tag>Android Studio</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[Xcode代码提示问题处理]]></title>
@@ -31,6 +43,9 @@
       <categories>
         <category>iOS</category>
       </categories>
+      <tags>
+        <tag>Xcode</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[Linux+Jenkins+Gradle构建Android参数化自动打包(二)]]></title>
@@ -39,6 +54,11 @@
       <categories>
         <category>Android</category>
       </categories>
+      <tags>
+        <tag>Jenkins</tag>
+        <tag>Android</tag>
+        <tag>Linux</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[Linux+Jenkins+Gradle构建Android参数化自动打包(一)]]></title>
@@ -47,6 +67,11 @@
       <categories>
         <category>Android</category>
       </categories>
+      <tags>
+        <tag>Jenkins</tag>
+        <tag>Android</tag>
+        <tag>Linux</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[混编:Swift调用Objective-C]]></title>
@@ -55,5 +80,9 @@
       <categories>
         <category>iOS</category>
       </categories>
+      <tags>
+        <tag>Swift</tag>
+        <tag>Xcode</tag>
+      </tags>
   </entry>
 </search>

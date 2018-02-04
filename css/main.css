@@ -1865,7 +1865,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #4fffff;
+  background: #8fff3b;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2733,7 +2733,7 @@ embed {
   animation: heartAnimate 1.33s ease-in-out infinite;
 }
 .with-love {
-  color: #ff71a8;
+  color: #e91e63;
 }
 img.img-topic {
   width: 100%;
