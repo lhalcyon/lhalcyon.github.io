@@ -1,4 +1,870 @@
-<!DOCTYPE html><html class="theme-next muse use-motion" lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#fff"><script src="/lib/pace/pace.min.js?v=1.0.2"></script><link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4"><link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff"><meta name="keywords" content="Dingding,Webhook,Pgyer,"><meta name="description" content="Webhook是一个API概念，并且变得越来越流行。我们能用事件描述的事物越多，webhook的作用范围也就越大。Webhook作为一个轻量的事件处理应用，正变得越来越有用。 准确的说webhoo是一种web回调或者http的push API，是向APP或者其他应用提供实时信息的一种方式。Webhook在数据产生时立即发送数据，也就是你能实时收到数据。这一种不同于典型的API，需要用了实时性需要足"><meta name="keywords" content="Dingding,Webhook,Pgyer"><meta property="og:type" content="article"><meta property="og:title" content="实现apk上传蒲公英后自动发送钉钉通知"><meta property="og:url" content="http://yoursite.com/2018/02/05/webhook_dingding-pgyer/index.html"><meta property="og:site_name" content="Halcyon days"><meta property="og:description" content="Webhook是一个API概念，并且变得越来越流行。我们能用事件描述的事物越多，webhook的作用范围也就越大。Webhook作为一个轻量的事件处理应用，正变得越来越有用。 准确的说webhoo是一种web回调或者http的push API，是向APP或者其他应用提供实时信息的一种方式。Webhook在数据产生时立即发送数据，也就是你能实时收到数据。这一种不同于典型的API，需要用了实时性需要足"><meta property="og:locale" content="zh-Hans"><meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fo5p9j5pi0j30bs0ckjtu.jpg"><meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1fo5h69y1fmg30m20fnnbx.gif"><meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1fo6gzkjikoj3090020wem.jpg"><meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1fo6gzmv1ouj30ic02o3yo.jpg"><meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1fo6gzpzdxtj30ib0ezq4b.jpg"><meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1fo6hhbxrdvj30id0eyjs7.jpg"><meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1fo6hs1ezmcj31220ifwgj.jpg"><meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1fo6hylvq9ij30jw0dnq3q.jpg"><meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1fo6huk9u4yj30bo05rt9a.jpg"><meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fo5p9j5pi0j30bs0ckjtu.jpg"><meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fo710z7ywvj309t070aa2.jpg"><meta property="og:updated_time" content="2018-02-06T13:05:56.871Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="实现apk上传蒲公英后自动发送钉钉通知"><meta name="twitter:description" content="Webhook是一个API概念，并且变得越来越流行。我们能用事件描述的事物越多，webhook的作用范围也就越大。Webhook作为一个轻量的事件处理应用，正变得越来越有用。 准确的说webhoo是一种web回调或者http的push API，是向APP或者其他应用提供实时信息的一种方式。Webhook在数据产生时立即发送数据，也就是你能实时收到数据。这一种不同于典型的API，需要用了实时性需要足"><meta name="twitter:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fo5p9j5pi0j30bs0ckjtu.jpg"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Muse",version:"5.1.4",sidebar:{position:"left",display:"hide",offset:12,b2t:!1,scrollpercent:!0,onmobile:!0},fancybox:!0,tabs:!0,motion:{enable:!0,async:!0,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},duoshuo:{userId:"0",author:"博主"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://yoursite.com/2018/02/05/webhook_dingding-pgyer/"><title>实现apk上传蒲公英后自动发送钉钉通知 | Halcyon days</title></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">Halcyon days</span><span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle"></p></div><div class="site-nav-toggle"> <button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br> 首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br> 归档</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br> 标签</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br> 搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i></span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"> <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/05/webhook_dingding-pgyer/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="L"><meta itemprop="description" content=""><meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="Halcyon days"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">实现apk上传蒲公英后自动发送钉钉通知</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-05T10:41:30+08:00">2018-02-05</time></span> <span class="post-category"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span> <span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Webhook/" itemprop="url" rel="index"><span itemprop="name">Webhook</span></a></span></span> <span id="/2018/02/05/webhook_dingding-pgyer/" class="leancloud_visitors" data-flag-title="实现apk上传蒲公英后自动发送钉钉通知"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span> <span class="post-meta-item-text">阅读次数&#58;</span><span class="leancloud-visitors-count"></span></span><div class="post-wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span> <span class="post-meta-item-text">字数统计&#58;</span> <span title="字数统计">1,853</span></div></div></header><div class="post-body" itemprop="articleBody"><div class="note info"><p>Webhook是一个API概念，并且变得越来越流行。我们能用事件描述的事物越多，webhook的作用范围也就越大。Webhook作为一个轻量的事件处理应用，正变得越来越有用。</p><p>准确的说webhoo是一种web回调或者http的push API，是向APP或者其他应用提供实时信息的一种方式。Webhook在数据产生时立即发送数据，也就是你能实时收到数据。这一种不同于典型的API，需要用了实时性需要足够快的轮询。这无论是对生产还是对消费者都是高效的，唯一的缺点是初始建立困难。</p><p>Webhook有时也被称为反向API，因为他提供了API规则，你需要设计要使用的API。Webhook将向你的应用发起http请求，典型的是post请求，应用程序由请求驱动。</p></div><p>在Android开发中会经常提交apk给测试人员进行测试,通常的做法是将构建完成的包上传至<a href="https://www.pgyer.com/" target="_blank" rel="noopener">蒲公英</a>,测试人员直接扫码下载并安装apk包从而进行测试.一般我们会将构建及发布过程自动化,可参考:</p><ol><li><a href="http://lhalcyon.com/2017/07/07/linux-jenkins-gradle_build_android1/" target="_blank" rel="noopener">Linux+Jenkins+Gradle构建Android参数化自动打包(一)</a></li><li><a href="http://lhalcyon.com/2017/07/20/linux-jenkins-gradle_build_android2/" target="_blank" rel="noopener">Linux+Jenkins+Gradle构建Android参数化自动打包(二)</a></li></ol><p>文章中实现了apk上传蒲公英后邮件通知,可是实际中,大家对邮件的关注远远没有对<code>IM</code>消息的关注度高,所以接下来本文将说明,实现<strong>上传apk后自动发送钉钉消息,将更新内容,apk版本号等信息通知到测试人员</strong></p><p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fo5p9j5pi0j30bs0ckjtu.jpg" alt=""></p><a id="more"></a><h4 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h4><p>首先环境搭建是<code>IntelliJ+SpringMVC+Gradle</code>构建的,如有疑问的同学可参考<a href="http://lhalcyon.com/2018/01/29/ssm_build/" target="_blank" rel="noopener">IDEA+Gradle创建MyBatis+SpringMVC项目</a>,项目中主要是对接口数据的调整及转发,实际上未用到<code>MyBatis</code>,可自行进行去除🙄.</p><h4 id="模型建立"><a href="#模型建立" class="headerlink" title="模型建立"></a>模型建立</h4><p>对照<a href="https://www.pgyer.com/doc/view/webhook_introduction" target="_blank" rel="noopener">蒲公英doc</a>、<a href="https://open-doc.dingtalk.com/docs/doc.htm?treeId=257&amp;articleId=105735&amp;docType=1" target="_blank" rel="noopener">钉钉doc</a>分别建立Java Bean.</p><p><code>PgyerMessage</code></p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"action"</span>: <span class="string">"应用更新"</span>,</span><br><span class="line">  <span class="attr">"title"</span>: <span class="string">"OooPlay"</span>,</span><br><span class="line">  <span class="attr">"link"</span>: <span class="string">"https://www.pgyer.com/oooplay_test"</span>,</span><br><span class="line">  <span class="attr">"message"</span>: <span class="string">"您的应用OooPlay有了新的版本(2.4)更新。"</span>,</span><br><span class="line">  <span class="attr">"type"</span>: <span class="string">"updateVersion"</span>,</span><br><span class="line">  <span class="attr">"os_version"</span>: <span class="string">"2.4"</span>,</span><br><span class="line">  <span class="attr">"build_version"</span>: <span class="string">"139"</span>,</span><br><span class="line">  <span class="attr">"created"</span>: <span class="string">"2015-10-09 11:25:16"</span>,</span><br><span class="line">  <span class="attr">"updated"</span>: <span class="string">"2015-10-09 11:25:16"</span>,</span><br><span class="line">  <span class="attr">"timestamp"</span>: <span class="number">1444361118</span>,</span><br><span class="line">  <span class="attr">"appsize"</span>: <span class="string">"2238036"</span>,</span><br><span class="line">  <span class="attr">"device_type"</span>: 'iOS',</span><br><span class="line">  <span class="attr">"notes"</span>: <span class="string">"修复了一些小弱智的小bug"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PgyerMessage</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String action;</span><br><span class="line">    <span class="keyword">public</span> String title;</span><br><span class="line">    <span class="keyword">public</span> String link;</span><br><span class="line">    <span class="keyword">public</span> String message;</span><br><span class="line">    <span class="keyword">public</span> String type;</span><br><span class="line">    <span class="keyword">public</span> String os_version;</span><br><span class="line">    <span class="keyword">public</span> String build_version;</span><br><span class="line">    <span class="keyword">public</span> String created;</span><br><span class="line">    <span class="keyword">public</span> String updated;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> timestamp;</span><br><span class="line">    <span class="keyword">public</span> String appsize;</span><br><span class="line">    <span class="keyword">public</span> String device_type;</span><br><span class="line">    <span class="keyword">public</span> String notes;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"PgyerMessage&#123;"</span> +</span><br><span class="line">                <span class="string">"action='"</span> + action + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", title='"</span> + title + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", link='"</span> + link + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", message='"</span> + message + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", type='"</span> + type + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", os_version='"</span> + os_version + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", build_version='"</span> + build_version + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", created='"</span> + created + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", updated='"</span> + updated + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", timestamp="</span> + timestamp +</span><br><span class="line">                <span class="string">", appsize='"</span> + appsize + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", device_type='"</span> + device_type + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", notes='"</span> + notes + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>此处有个小技巧,<code>IDEA IntelliJ</code>有个好用的插件<code>GsonFormat</code>可一键将<code>Json</code>字符串转换为<code>Java Model</code></p><p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fo5h69y1fmg30m20fnnbx.gif" alt=""></p><p>钉钉消息则分为几种类型,具体举例可参考<a href="https://open-doc.dingtalk.com/docs/doc.htm?treeId=257&amp;articleId=105735&amp;docType=1" target="_blank" rel="noopener">钉钉doc</a></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_LINK = <span class="string">"link"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_MARKDOWN = <span class="string">"markdown"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_TEXT = <span class="string">"text"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_ACTIONCARD = <span class="string">"actionCard"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_FEEDCARD = <span class="string">"feedCard"</span>;</span><br></pre></td></tr></table></figure><p>此处我们选择<code>markdown</code>类型.为了便于拓展,此处将消息抽取了个基类<code>BaseDingMessage</code>.</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseDingMessage</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_LINK = <span class="string">"link"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_MARKDOWN = <span class="string">"markdown"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_TEXT = <span class="string">"text"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_ACTIONCARD = <span class="string">"actionCard"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_FEEDCARD = <span class="string">"feedCard"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String msgtype;</span><br><span class="line">  </span><br><span class="line">  	<span class="keyword">public</span> AtBean at;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">AtBean</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">boolean</span> isAtAll;</span><br><span class="line">        <span class="keyword">public</span> List&lt;String&gt; atMobiles;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MarkdownMessage</span>  <span class="keyword">extends</span> <span class="title">BaseDingMessage</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> MarkdownBean markdown;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MarkdownBean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> String title;</span><br><span class="line">        <span class="keyword">public</span> String text;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>首先在<code>build.gradle</code>中导入依赖</p><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">group:</span> <span class="string">'com.alibaba'</span>, <span class="string">name:</span> <span class="string">'fastjson'</span>, <span class="string">version:</span> <span class="string">'1.2.45'</span></span><br><span class="line">compile <span class="string">group:</span> <span class="string">'com.squareup.okhttp3'</span>, <span class="string">name:</span> <span class="string">'okhttp'</span>, <span class="string">version:</span> <span class="string">'3.9.0'</span></span><br></pre></td></tr></table></figure><p><code>fastjson</code>是用力啊转化<code>json</code>,<code>okhttp</code>用来网络请求</p><p><code>spring-mvc.xml</code>加入json配置</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:mvc</span>=<span class="string">"http://www.springframework.org/schema/mvc"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">       http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">       http://www.springframework.org/schema/context</span></span></span><br><span class="line"><span class="tag"><span class="string">       http://www.springframework.org/schema/context/spring-context.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">       http://www.springframework.org/schema/mvc</span></span></span><br><span class="line"><span class="tag"><span class="string">       http://www.springframework.org/schema/mvc/spring-mvc.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 自动扫描控制器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.lhalcyon.webhook.controller"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 视图渲染 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"internalResourceViewResolver"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"prefix"</span> <span class="attr">value</span>=<span class="string">"/WEB-INF/views/"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"suffix"</span> <span class="attr">value</span>=<span class="string">".jsp"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 控制器映射器和控制器适配器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:annotation-driven</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mvc:message-converters</span> <span class="attr">register-defaults</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"supportedMediaTypes"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">value</span>&gt;</span>text/html;charset=UTF-8<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">value</span>&gt;</span>application/json<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">value</span>&gt;</span>application/xml;charset=UTF-8<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">mvc:message-converters</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mvc:annotation-driven</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 静态资源映射器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:resources</span> <span class="attr">mapping</span>=<span class="string">"/statics/**"</span> <span class="attr">location</span>=<span class="string">"/WEB-INF/statics/"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure><p>消息发送服务<code>DingServiceImpl.java</code></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Service</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DingServiceImpl</span> <span class="keyword">implements</span> <span class="title">DingService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = Logger.getLogger(DingServiceImpl.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(BaseDingMessage message,String url)</span> </span>&#123;</span><br><span class="line">        MediaType jsonType = MediaType.parse(<span class="string">"application/json; charset=utf-8"</span>);</span><br><span class="line">        okhttp3.RequestBody body = okhttp3.RequestBody.create(jsonType, JSON.toJSONString(message));</span><br><span class="line">        <span class="keyword">final</span> Request request = <span class="keyword">new</span> Request.Builder()</span><br><span class="line">                .url(url)</span><br><span class="line">                .post(body)</span><br><span class="line">                .build();</span><br><span class="line">        OkHttpClient client = OkhttpProvider.get();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            client.newCall(request).execute();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>蒲公英请求控制器<code>PgyerController.java</code></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/pgyer"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PgyerController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    DingService dingService;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = Logger.getLogger(PgyerController.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/update"</span>,method = RequestMethod.POST)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> BaseDingMessage <span class="title">apkUpdate</span><span class="params">(@RequestBody PgyerMessage pgyerMessage)</span></span>&#123;</span><br><span class="line">        BaseDingMessage dingMessage = WebhookConverter.pgyer2Ding(pgyerMessage);</span><br><span class="line">        dingService.send(dingMessage, Urls.DING_TEST);</span><br><span class="line">        logger.info(dingMessage);</span><br><span class="line">        <span class="keyword">return</span> dingMessage;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>其中<code>Urls.DING_TEST</code>为钉钉机器人的会话token地址,后面会说明如何创建/获取</p><p>消息转换器<code>WebhookConverter.java</code></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebhookConverter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = Logger.getLogger(WebhookConverter.class);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MarkdownMessage <span class="title">pgyer2Ding</span><span class="params">(PgyerMessage pgyerMessage)</span></span>&#123;</span><br><span class="line">        MarkdownMessage message = <span class="keyword">new</span> MarkdownMessage();</span><br><span class="line">        message.msgtype = BaseDingMessage.TYPE_MARKDOWN;</span><br><span class="line">        message.markdown = <span class="keyword">new</span> MarkdownMessage.MarkdownBean();</span><br><span class="line">        message.markdown.title = pgyerMessage.device_type + <span class="string">"蒲公英更新"</span>;</span><br><span class="line">        StringBuilder builder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        builder.append(<span class="string">"#### "</span>).append(pgyerMessage.device_type).append(<span class="string">"测试包已更新! \n\n"</span>)</span><br><span class="line">        .append(<span class="string">"###### version: "</span>).append(pgyerMessage.os_version).append(<span class="string">" | build "</span>).append(pgyerMessage.build_version).append(<span class="string">"\n\n"</span>)</span><br><span class="line">        .append(<span class="string">"更新内容:\n"</span>).append(<span class="string">"&gt; "</span>).append(pgyerMessage.notes).append(<span class="string">"\n\n"</span>)</span><br><span class="line">        .append(<span class="string">"![qr_code_test](图片地址)\n\n"</span>)</span><br><span class="line">        .append(<span class="string">"[下载地址](https://www.pgyer.com/你的apk地址) 密码:你的密码\n"</span>).append(<span class="string">" @18810100000 @18810100001 @18818100002 "</span>);</span><br><span class="line"></span><br><span class="line">        message.markdown.text = builder.toString();</span><br><span class="line">        message.at = <span class="keyword">new</span> BaseDingMessage.AtBean();</span><br><span class="line">        message.at.isAtAll = <span class="keyword">false</span>;</span><br><span class="line">        message.at.atMobiles = Arrays.asList(<span class="string">"18818100000"</span>,<span class="string">"18818100001"</span>,<span class="string">"18818100002"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> message;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>以上需自行修改内容.</p><p>然后创建钉钉机器人.创建四连</p><p><strong>1</strong></p><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fo6gzkjikoj3090020wem.jpg" alt=""></p><p><strong>2</strong></p><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fo6gzmv1ouj30ic02o3yo.jpg" alt=""></p><p><strong>3</strong></p><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fo6gzpzdxtj30ib0ezq4b.jpg" alt=""></p><p><strong>4</strong></p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1fo6hhbxrdvj30id0eyjs7.jpg" alt=""></p><p>点此复制钉钉机器人会话token,建立<code>Urls.java</code>.</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Urls</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 提测群机器人token</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String DING_TEST = <span class="string">"钉钉token"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>此处的<code>Ding_Test</code>即为上面复制的地址</p><p>至此,代码主要实现类已经完成,接下来需要去配置蒲公英<code>webhook</code></p><h4 id="配置webhook"><a href="#配置webhook" class="headerlink" title="配置webhook"></a>配置webhook</h4><p>打开<a href="https://www.pgyer.com/" target="_blank" rel="noopener">蒲公英</a>应用设置</p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fo6hs1ezmcj31220ifwgj.jpg" alt=""></p><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fo6hylvq9ij30jw0dnq3q.jpg" alt=""></p><p>创建webhook,写入<code>PgyerController</code>的更新请求地址,如果配置与本文的相同,地址则为</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://你的地址:端口/webhook-1.0-SNAPSHOT/pgyer/update</span><br></pre></td></tr></table></figure><p>其中<code>webhook-1.0-SNAPSHOT</code>为war包在tomcat解压后的名称</p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1fo6huk9u4yj30bo05rt9a.jpg" alt=""></p><p>done! 之后只要上传成功后,即有钉钉消息通知并@测试人员了!</p><p>让我们再看下打包后的消息通知!</p><p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fo5p9j5pi0j30bs0ckjtu.jpg" alt=""></p><p>类似的,代码<code>push</code>,<code>merge</code>也可以做成webhook消息.</p><p><code>Github</code>、<code>Gitlab</code>既有成熟的对接机器人.而笔者使用的<a href="https://coding.net/" target="_blank" rel="noopener">Coding</a>是没有与钉钉做对接的,此时可自定义机器人实现,有兴趣的同学可参考上面的教程自行实现.</p><p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fo710z7ywvj309t070aa2.jpg" alt=""></p></div><footer class="post-footer"><div class="post-tags"> <a href="/tags/Dingding/" rel="tag"># Dingding</a> <a href="/tags/Webhook/" rel="tag"># Webhook</a> <a href="/tags/Pgyer/" rel="tag"># Pgyer</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2018/02/01/update_glibc_issue/" rel="next" title="Linux升级Glibc2.14中文乱码"><i class="fa fa-chevron-left"></i> Linux升级Glibc2.14中文乱码</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"></div></div></footer></div></article><div class="post-spread"></div></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div id="sidebar-dimmer"></div><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap"> 站点概览</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460" alt="L"><p class="site-author-name" itemprop="name">L</p><p class="site-description motion-element" itemprop="description">know thyself.</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/archives/"><span class="site-state-item-count">8</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"> <span class="site-state-item-count">5</span> <span class="site-state-item-name">分类</span></div><div class="site-state-item site-state-tags"> <a href="/tags/index.html"><span class="site-state-item-count">13</span> <span class="site-state-item-name">标签</span></a></div></nav></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模型建立"><span class="nav-number">2.</span> <span class="nav-text">模型建立</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置webhook"><span class="nav-number">4.</span> <span class="nav-text">配置webhook</span></a></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span><span class="with-love" id="heart"><i class="fa fa-heart"></i></span> <span class="author" itemprop="copyrightHolder">L</span></div><div class="footer-custom">Goodbye,halcyon days..</div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i> <span id="scrollpercent"><span>0</span>%</span></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/lib/three/three.min.js"></script><script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><script type="text/javascript">
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="Dingding,Webhook,Pgyer," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Webhook是一个API概念，并且变得越来越流行。我们能用事件描述的事物越多，webhook的作用范围也就越大。Webhook作为一个轻量的事件处理应用，正变得越来越有用。 准确的说webhoo是一种web回调或者http的push API，是向APP或者其他应用提供实时信息的一种方式。Webhook在数据产生时立即发送数据，也就是你能实时收到数据。这一种不同于典型的API，需要用了实时性需要足">
+<meta name="keywords" content="Dingding,Webhook,Pgyer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实现apk上传蒲公英后自动发送钉钉通知">
+<meta property="og:url" content="http://yoursite.com/2018/02/05/webhook_dingding-pgyer/index.html">
+<meta property="og:site_name" content="Halcyon days">
+<meta property="og:description" content="Webhook是一个API概念，并且变得越来越流行。我们能用事件描述的事物越多，webhook的作用范围也就越大。Webhook作为一个轻量的事件处理应用，正变得越来越有用。 准确的说webhoo是一种web回调或者http的push API，是向APP或者其他应用提供实时信息的一种方式。Webhook在数据产生时立即发送数据，也就是你能实时收到数据。这一种不同于典型的API，需要用了实时性需要足">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fo5p9j5pi0j30bs0ckjtu.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1fo5h69y1fmg30m20fnnbx.gif">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1fo6gzkjikoj3090020wem.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1fo6gzmv1ouj30ic02o3yo.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1fo6gzpzdxtj30ib0ezq4b.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1fo6hhbxrdvj30id0eyjs7.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1fo6hs1ezmcj31220ifwgj.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1fo6hylvq9ij30jw0dnq3q.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1fo6huk9u4yj30bo05rt9a.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fo5p9j5pi0j30bs0ckjtu.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fo710z7ywvj309t070aa2.jpg">
+<meta property="og:updated_time" content="2018-02-06T13:05:56.871Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="实现apk上传蒲公英后自动发送钉钉通知">
+<meta name="twitter:description" content="Webhook是一个API概念，并且变得越来越流行。我们能用事件描述的事物越多，webhook的作用范围也就越大。Webhook作为一个轻量的事件处理应用，正变得越来越有用。 准确的说webhoo是一种web回调或者http的push API，是向APP或者其他应用提供实时信息的一种方式。Webhook在数据产生时立即发送数据，也就是你能实时收到数据。这一种不同于典型的API，需要用了实时性需要足">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fo5p9j5pi0j30bs0ckjtu.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/05/webhook_dingding-pgyer/"/>
+
+
+
+
+
+  <title>实现apk上传蒲公英后自动发送钉钉通知 | Halcyon days</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Halcyon days</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/05/webhook_dingding-pgyer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">实现apk上传蒲公英后自动发送钉钉通知</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-05T10:41:30+08:00">
+                2018-02-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Webhook/" itemprop="url" rel="index">
+                    <span itemprop="name">Webhook</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/02/05/webhook_dingding-pgyer/" class="leancloud_visitors" data-flag-title="实现apk上传蒲公英后自动发送钉钉通知">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,853
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="note info"><p>Webhook是一个API概念，并且变得越来越流行。我们能用事件描述的事物越多，webhook的作用范围也就越大。Webhook作为一个轻量的事件处理应用，正变得越来越有用。</p>
+<p>准确的说webhoo是一种web回调或者http的push API，是向APP或者其他应用提供实时信息的一种方式。Webhook在数据产生时立即发送数据，也就是你能实时收到数据。这一种不同于典型的API，需要用了实时性需要足够快的轮询。这无论是对生产还是对消费者都是高效的，唯一的缺点是初始建立困难。</p>
+<p>Webhook有时也被称为反向API，因为他提供了API规则，你需要设计要使用的API。Webhook将向你的应用发起http请求，典型的是post请求，应用程序由请求驱动。</p></div>
+<p>在Android开发中会经常提交apk给测试人员进行测试,通常的做法是将构建完成的包上传至<a href="https://www.pgyer.com/" target="_blank" rel="noopener">蒲公英</a>,测试人员直接扫码下载并安装apk包从而进行测试.一般我们会将构建及发布过程自动化,可参考:</p>
+<ol>
+<li><a href="http://lhalcyon.com/2017/07/07/linux-jenkins-gradle_build_android1/" target="_blank" rel="noopener">Linux+Jenkins+Gradle构建Android参数化自动打包(一)</a></li>
+<li><a href="http://lhalcyon.com/2017/07/20/linux-jenkins-gradle_build_android2/" target="_blank" rel="noopener">Linux+Jenkins+Gradle构建Android参数化自动打包(二)</a></li>
+</ol>
+<p>文章中实现了apk上传蒲公英后邮件通知,可是实际中,大家对邮件的关注远远没有对<code>IM</code>消息的关注度高,所以接下来本文将说明,实现<strong>上传apk后自动发送钉钉消息,将更新内容,apk版本号等信息通知到测试人员</strong></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fo5p9j5pi0j30bs0ckjtu.jpg" alt=""></p>
+<a id="more"></a>
+<h4 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h4><p>首先环境搭建是<code>IntelliJ+SpringMVC+Gradle</code>构建的,如有疑问的同学可参考<a href="http://lhalcyon.com/2018/01/29/ssm_build/" target="_blank" rel="noopener">IDEA+Gradle创建MyBatis+SpringMVC项目</a>,项目中主要是对接口数据的调整及转发,实际上未用到<code>MyBatis</code>,可自行进行去除🙄.</p>
+<h4 id="模型建立"><a href="#模型建立" class="headerlink" title="模型建立"></a>模型建立</h4><p>对照<a href="https://www.pgyer.com/doc/view/webhook_introduction" target="_blank" rel="noopener">蒲公英doc</a>、<a href="https://open-doc.dingtalk.com/docs/doc.htm?treeId=257&amp;articleId=105735&amp;docType=1" target="_blank" rel="noopener">钉钉doc</a>分别建立Java Bean.</p>
+<p><code>PgyerMessage</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"action"</span>: <span class="string">"应用更新"</span>,</span><br><span class="line">  <span class="attr">"title"</span>: <span class="string">"OooPlay"</span>,</span><br><span class="line">  <span class="attr">"link"</span>: <span class="string">"https://www.pgyer.com/oooplay_test"</span>,</span><br><span class="line">  <span class="attr">"message"</span>: <span class="string">"您的应用OooPlay有了新的版本(2.4)更新。"</span>,</span><br><span class="line">  <span class="attr">"type"</span>: <span class="string">"updateVersion"</span>,</span><br><span class="line">  <span class="attr">"os_version"</span>: <span class="string">"2.4"</span>,</span><br><span class="line">  <span class="attr">"build_version"</span>: <span class="string">"139"</span>,</span><br><span class="line">  <span class="attr">"created"</span>: <span class="string">"2015-10-09 11:25:16"</span>,</span><br><span class="line">  <span class="attr">"updated"</span>: <span class="string">"2015-10-09 11:25:16"</span>,</span><br><span class="line">  <span class="attr">"timestamp"</span>: <span class="number">1444361118</span>,</span><br><span class="line">  <span class="attr">"appsize"</span>: <span class="string">"2238036"</span>,</span><br><span class="line">  <span class="attr">"device_type"</span>: 'iOS',</span><br><span class="line">  <span class="attr">"notes"</span>: <span class="string">"修复了一些小弱智的小bug"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PgyerMessage</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String action;</span><br><span class="line">    <span class="keyword">public</span> String title;</span><br><span class="line">    <span class="keyword">public</span> String link;</span><br><span class="line">    <span class="keyword">public</span> String message;</span><br><span class="line">    <span class="keyword">public</span> String type;</span><br><span class="line">    <span class="keyword">public</span> String os_version;</span><br><span class="line">    <span class="keyword">public</span> String build_version;</span><br><span class="line">    <span class="keyword">public</span> String created;</span><br><span class="line">    <span class="keyword">public</span> String updated;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> timestamp;</span><br><span class="line">    <span class="keyword">public</span> String appsize;</span><br><span class="line">    <span class="keyword">public</span> String device_type;</span><br><span class="line">    <span class="keyword">public</span> String notes;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"PgyerMessage&#123;"</span> +</span><br><span class="line">                <span class="string">"action='"</span> + action + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", title='"</span> + title + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", link='"</span> + link + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", message='"</span> + message + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", type='"</span> + type + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", os_version='"</span> + os_version + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", build_version='"</span> + build_version + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", created='"</span> + created + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", updated='"</span> + updated + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", timestamp="</span> + timestamp +</span><br><span class="line">                <span class="string">", appsize='"</span> + appsize + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", device_type='"</span> + device_type + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", notes='"</span> + notes + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此处有个小技巧,<code>IDEA IntelliJ</code>有个好用的插件<code>GsonFormat</code>可一键将<code>Json</code>字符串转换为<code>Java Model</code></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fo5h69y1fmg30m20fnnbx.gif" alt=""></p>
+<p>钉钉消息则分为几种类型,具体举例可参考<a href="https://open-doc.dingtalk.com/docs/doc.htm?treeId=257&amp;articleId=105735&amp;docType=1" target="_blank" rel="noopener">钉钉doc</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_LINK = <span class="string">"link"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_MARKDOWN = <span class="string">"markdown"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_TEXT = <span class="string">"text"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_ACTIONCARD = <span class="string">"actionCard"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_FEEDCARD = <span class="string">"feedCard"</span>;</span><br></pre></td></tr></table></figure>
+<p>此处我们选择<code>markdown</code>类型.为了便于拓展,此处将消息抽取了个基类<code>BaseDingMessage</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseDingMessage</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_LINK = <span class="string">"link"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_MARKDOWN = <span class="string">"markdown"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_TEXT = <span class="string">"text"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_ACTIONCARD = <span class="string">"actionCard"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TYPE_FEEDCARD = <span class="string">"feedCard"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String msgtype;</span><br><span class="line">  </span><br><span class="line">  	<span class="keyword">public</span> AtBean at;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">AtBean</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">boolean</span> isAtAll;</span><br><span class="line">        <span class="keyword">public</span> List&lt;String&gt; atMobiles;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MarkdownMessage</span>  <span class="keyword">extends</span> <span class="title">BaseDingMessage</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> MarkdownBean markdown;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MarkdownBean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> String title;</span><br><span class="line">        <span class="keyword">public</span> String text;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>首先在<code>build.gradle</code>中导入依赖</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">group:</span> <span class="string">'com.alibaba'</span>, <span class="string">name:</span> <span class="string">'fastjson'</span>, <span class="string">version:</span> <span class="string">'1.2.45'</span></span><br><span class="line">compile <span class="string">group:</span> <span class="string">'com.squareup.okhttp3'</span>, <span class="string">name:</span> <span class="string">'okhttp'</span>, <span class="string">version:</span> <span class="string">'3.9.0'</span></span><br></pre></td></tr></table></figure>
+<p><code>fastjson</code>是用力啊转化<code>json</code>,<code>okhttp</code>用来网络请求</p>
+<p><code>spring-mvc.xml</code>加入json配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:mvc</span>=<span class="string">"http://www.springframework.org/schema/mvc"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">       http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">       http://www.springframework.org/schema/context</span></span></span><br><span class="line"><span class="tag"><span class="string">       http://www.springframework.org/schema/context/spring-context.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">       http://www.springframework.org/schema/mvc</span></span></span><br><span class="line"><span class="tag"><span class="string">       http://www.springframework.org/schema/mvc/spring-mvc.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 自动扫描控制器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.lhalcyon.webhook.controller"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 视图渲染 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"internalResourceViewResolver"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"prefix"</span> <span class="attr">value</span>=<span class="string">"/WEB-INF/views/"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"suffix"</span> <span class="attr">value</span>=<span class="string">".jsp"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 控制器映射器和控制器适配器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:annotation-driven</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mvc:message-converters</span> <span class="attr">register-defaults</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"supportedMediaTypes"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">value</span>&gt;</span>text/html;charset=UTF-8<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">value</span>&gt;</span>application/json<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">value</span>&gt;</span>application/xml;charset=UTF-8<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">mvc:message-converters</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mvc:annotation-driven</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 静态资源映射器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:resources</span> <span class="attr">mapping</span>=<span class="string">"/statics/**"</span> <span class="attr">location</span>=<span class="string">"/WEB-INF/statics/"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>消息发送服务<code>DingServiceImpl.java</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Service</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DingServiceImpl</span> <span class="keyword">implements</span> <span class="title">DingService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = Logger.getLogger(DingServiceImpl.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(BaseDingMessage message,String url)</span> </span>&#123;</span><br><span class="line">        MediaType jsonType = MediaType.parse(<span class="string">"application/json; charset=utf-8"</span>);</span><br><span class="line">        okhttp3.RequestBody body = okhttp3.RequestBody.create(jsonType, JSON.toJSONString(message));</span><br><span class="line">        <span class="keyword">final</span> Request request = <span class="keyword">new</span> Request.Builder()</span><br><span class="line">                .url(url)</span><br><span class="line">                .post(body)</span><br><span class="line">                .build();</span><br><span class="line">        OkHttpClient client = OkhttpProvider.get();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            client.newCall(request).execute();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>蒲公英请求控制器<code>PgyerController.java</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/pgyer"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PgyerController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    DingService dingService;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = Logger.getLogger(PgyerController.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/update"</span>,method = RequestMethod.POST)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> BaseDingMessage <span class="title">apkUpdate</span><span class="params">(@RequestBody PgyerMessage pgyerMessage)</span></span>&#123;</span><br><span class="line">        BaseDingMessage dingMessage = WebhookConverter.pgyer2Ding(pgyerMessage);</span><br><span class="line">        dingService.send(dingMessage, Urls.DING_TEST);</span><br><span class="line">        logger.info(dingMessage);</span><br><span class="line">        <span class="keyword">return</span> dingMessage;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中<code>Urls.DING_TEST</code>为钉钉机器人的会话token地址,后面会说明如何创建/获取</p>
+<p>消息转换器<code>WebhookConverter.java</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebhookConverter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = Logger.getLogger(WebhookConverter.class);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MarkdownMessage <span class="title">pgyer2Ding</span><span class="params">(PgyerMessage pgyerMessage)</span></span>&#123;</span><br><span class="line">        MarkdownMessage message = <span class="keyword">new</span> MarkdownMessage();</span><br><span class="line">        message.msgtype = BaseDingMessage.TYPE_MARKDOWN;</span><br><span class="line">        message.markdown = <span class="keyword">new</span> MarkdownMessage.MarkdownBean();</span><br><span class="line">        message.markdown.title = pgyerMessage.device_type + <span class="string">"蒲公英更新"</span>;</span><br><span class="line">        StringBuilder builder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        builder.append(<span class="string">"#### "</span>).append(pgyerMessage.device_type).append(<span class="string">"测试包已更新! \n\n"</span>)</span><br><span class="line">        .append(<span class="string">"###### version: "</span>).append(pgyerMessage.os_version).append(<span class="string">" | build "</span>).append(pgyerMessage.build_version).append(<span class="string">"\n\n"</span>)</span><br><span class="line">        .append(<span class="string">"更新内容:\n"</span>).append(<span class="string">"&gt; "</span>).append(pgyerMessage.notes).append(<span class="string">"\n\n"</span>)</span><br><span class="line">        .append(<span class="string">"![qr_code_test](图片地址)\n\n"</span>)</span><br><span class="line">        .append(<span class="string">"[下载地址](https://www.pgyer.com/你的apk地址) 密码:你的密码\n"</span>).append(<span class="string">" @18810100000 @18810100001 @18818100002 "</span>);</span><br><span class="line"></span><br><span class="line">        message.markdown.text = builder.toString();</span><br><span class="line">        message.at = <span class="keyword">new</span> BaseDingMessage.AtBean();</span><br><span class="line">        message.at.isAtAll = <span class="keyword">false</span>;</span><br><span class="line">        message.at.atMobiles = Arrays.asList(<span class="string">"18818100000"</span>,<span class="string">"18818100001"</span>,<span class="string">"18818100002"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> message;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上需自行修改内容.</p>
+<p>然后创建钉钉机器人.创建四连</p>
+<p><strong>1</strong></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fo6gzkjikoj3090020wem.jpg" alt=""></p>
+<p><strong>2</strong></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fo6gzmv1ouj30ic02o3yo.jpg" alt=""></p>
+<p><strong>3</strong></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fo6gzpzdxtj30ib0ezq4b.jpg" alt=""></p>
+<p><strong>4</strong></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1fo6hhbxrdvj30id0eyjs7.jpg" alt=""></p>
+<p>点此复制钉钉机器人会话token,建立<code>Urls.java</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Urls</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 提测群机器人token</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String DING_TEST = <span class="string">"钉钉token"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此处的<code>Ding_Test</code>即为上面复制的地址</p>
+<p>至此,代码主要实现类已经完成,接下来需要去配置蒲公英<code>webhook</code></p>
+<h4 id="配置webhook"><a href="#配置webhook" class="headerlink" title="配置webhook"></a>配置webhook</h4><p>打开<a href="https://www.pgyer.com/" target="_blank" rel="noopener">蒲公英</a>应用设置</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fo6hs1ezmcj31220ifwgj.jpg" alt=""></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fo6hylvq9ij30jw0dnq3q.jpg" alt=""></p>
+<p>创建webhook,写入<code>PgyerController</code>的更新请求地址,如果配置与本文的相同,地址则为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://你的地址:端口/webhook-1.0-SNAPSHOT/pgyer/update</span><br></pre></td></tr></table></figure>
+<p>其中<code>webhook-1.0-SNAPSHOT</code>为war包在tomcat解压后的名称</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1fo6huk9u4yj30bo05rt9a.jpg" alt=""></p>
+<p>done!  之后只要上传成功后,即有钉钉消息通知并@测试人员了! </p>
+<p>让我们再看下打包后的消息通知!</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fo5p9j5pi0j30bs0ckjtu.jpg" alt=""></p>
+<p>类似的,代码<code>push</code>,<code>merge</code>也可以做成webhook消息.</p>
+<p><code>Github</code>、<code>Gitlab</code>既有成熟的对接机器人.而笔者使用的<a href="https://coding.net/" target="_blank" rel="noopener">Coding</a>是没有与钉钉做对接的,此时可自定义机器人实现,有兴趣的同学可参考上面的教程自行实现.</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fo710z7ywvj309t070aa2.jpg" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Dingding/" rel="tag"># Dingding</a>
+          
+            <a href="/tags/Webhook/" rel="tag"># Webhook</a>
+          
+            <a href="/tags/Pgyer/" rel="tag"># Pgyer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/01/update_glibc_issue/" rel="next" title="Linux升级Glibc2.14中文乱码">
+                <i class="fa fa-chevron-left"></i> Linux升级Glibc2.14中文乱码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460"
+                alt="L" />
+            
+              <p class="site-author-name" itemprop="name">L</p>
+              <p class="site-description motion-element" itemprop="description">know thyself.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模型建立"><span class="nav-number">2.</span> <span class="nav-text">模型建立</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置webhook"><span class="nav-number">4.</span> <span class="nav-text">配置webhook</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">L</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Goodbye,halcyon days..</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
     // Popup Window;
     var isfetched = false;
     var isXml = true;
@@ -313,7 +1179,155 @@
         onPopupClose();
       }
     });
-  </script><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script><script>AV.initialize("UbniSKfBsoNe7s8pbumwYrJX-gzGzoHsz","PwtF7EaCdn3QisFXC9XsMo9T")</script><script>function showTime(e){var t=new AV.Query(e),n=[],o=$(".leancloud_visitors");o.each(function(){n.push($(this).attr("id").trim())}),t.containedIn("url",n),t.find().done(function(e){var t=".leancloud-visitors-count";if(0!==e.length){for(var i=0;i<e.length;i++){var s=e[i],r=s.get("url"),l=s.get("time"),c=document.getElementById(r);$(c).find(t).text(l)}for(i=0;i<n.length;i++){r=n[i],c=document.getElementById(r);var u=$(c).find(t);""==u.text()&&u.text(0)}}else o.find(t).text(0)}).fail(function(e,t){console.log("Error: "+t.code+" "+t.message)})}function addCount(e){var t=$(".leancloud_visitors"),n=t.attr("id").trim(),o=t.attr("data-flag-title").trim(),i=new AV.Query(e);i.equalTo("url",n),i.find({success:function(t){if(t.length>0){var i=t[0];i.fetchWhenSave(!0),i.increment("time"),i.save(null,{success:function(e){$(document.getElementById(n)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to save Visitor num, with error message: "+t.message)}})}else{var s=new e,r=new AV.ACL;r.setPublicReadAccess(!0),r.setPublicWriteAccess(!0),s.setACL(r),s.set("title",o),s.set("url",n),s.set("time",1),s.save(null,{success:function(e){$(document.getElementById(n)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to create")}})}},error:function(e){console.log("Error:"+e.code+" "+e.message)}})}$(function(){var e=AV.Object.extend("Counter");1==$(".leancloud_visitors").length?addCount(e):$(".post-title-link").length>1&&showTime(e)})</script><div id="hexo-helper-live2d"><canvas id="live2dcanvas" width="150" height="300"></canvas></div><style>#live2dcanvas{position:fixed;width:150px;height:300px;opacity:.7;right:0;z-index:999;pointer-events:none;bottom:-20px}</style><script type="text/javascript" src="/live2d/device.min.js"></script><script type="text/javascript">
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("UbniSKfBsoNe7s8pbumwYrJX-gzGzoHsz", "PwtF7EaCdn3QisFXC9XsMo9T");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
 const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
 (function(){
   if((typeof(device) != 'undefined') && (device.mobile())){
@@ -323,4 +1337,7 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
     if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
   loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/wanko.model.json", 0.5);});
 })();
-</script></body></html>
+</script>
+
+</body>
+</html>
