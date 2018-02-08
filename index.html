@@ -75,11 +75,13 @@
 
 
 
-  <meta name="keywords" content="halcyon" />
+  <meta name="keywords" content="halcyon,Hexo,Android,iOS,Java" />
 
 
 
 
+
+  <link rel="alternate" href="/atom.xml" title="Halcyon days" type="application/atom+xml" />
 
 
 
@@ -89,7 +91,7 @@
 <meta name="description" content="know thyself.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Halcyon days">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://lhalcyon.com/index.html">
 <meta property="og:site_name" content="Halcyon days">
 <meta property="og:description" content="know thyself.">
 <meta property="og:locale" content="zh-Hans">
@@ -125,7 +127,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://lhalcyon.com/"/>
 
 
 
@@ -293,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/05/webhook_dingding-pgyer/">
+    <link itemprop="mainEntityOfPage" href="http://lhalcyon.com/webhook_dingding-pgyer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
@@ -312,7 +314,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/02/05/webhook_dingding-pgyer/" itemprop="url">实现apk上传蒲公英后自动发送钉钉通知</a></h1>
+                <a class="post-title-link" href="/webhook_dingding-pgyer/" itemprop="url">实现apk上传蒲公英后自动发送钉钉通知</a></h1>
         
 
         <div class="post-meta">
@@ -364,7 +366,7 @@
 
           
           
-             <span id="/2018/02/05/webhook_dingding-pgyer/" class="leancloud_visitors" data-flag-title="实现apk上传蒲公英后自动发送钉钉通知">
+             <span id="/webhook_dingding-pgyer/" class="leancloud_visitors" data-flag-title="实现apk上传蒲公英后自动发送钉钉通知">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -420,8 +422,8 @@
 <p>Webhook有时也被称为反向API，因为他提供了API规则，你需要设计要使用的API。Webhook将向你的应用发起http请求，典型的是post请求，应用程序由请求驱动。</p></div>
 <p>在Android开发中会经常提交apk给测试人员进行测试,通常的做法是将构建完成的包上传至<a href="https://www.pgyer.com/" target="_blank" rel="noopener">蒲公英</a>,测试人员直接扫码下载并安装apk包从而进行测试.一般我们会将构建及发布过程自动化,可参考:</p>
 <ol>
-<li><a href="http://lhalcyon.com/2017/07/07/linux-jenkins-gradle_build_android1/" target="_blank" rel="noopener">Linux+Jenkins+Gradle构建Android参数化自动打包(一)</a></li>
-<li><a href="http://lhalcyon.com/2017/07/20/linux-jenkins-gradle_build_android2/" target="_blank" rel="noopener">Linux+Jenkins+Gradle构建Android参数化自动打包(二)</a></li>
+<li><a href="http://lhalcyon.com/linux-jenkins-gradle_build_android1/">Linux+Jenkins+Gradle构建Android参数化自动打包(一)</a></li>
+<li><a href="http://lhalcyon.com/linux-jenkins-gradle_build_android2/">Linux+Jenkins+Gradle构建Android参数化自动打包(二)</a></li>
 </ol>
 <p>文章中实现了apk上传蒲公英后邮件通知,可是实际中,大家对邮件的关注远远没有对<code>IM</code>消息的关注度高,所以接下来本文将说明,实现<strong>上传apk后自动发送钉钉消息,将更新内容,apk版本号等信息通知到测试人员</strong></p>
 <p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fo5p9j5pi0j30bs0ckjtu.jpg" alt=""></p>
@@ -430,7 +432,7 @@
 
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/02/05/webhook_dingding-pgyer/#more" rel="contents">
+            <a class="btn" href="/webhook_dingding-pgyer/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -481,7 +483,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/01/update_glibc_issue/">
+    <link itemprop="mainEntityOfPage" href="http://lhalcyon.com/update_glibc_issue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
@@ -500,7 +502,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/02/01/update_glibc_issue/" itemprop="url">Linux升级Glibc2.14中文乱码</a></h1>
+                <a class="post-title-link" href="/update_glibc_issue/" itemprop="url">Linux升级Glibc2.14中文乱码</a></h1>
         
 
         <div class="post-meta">
@@ -552,7 +554,7 @@
 
           
           
-             <span id="/2018/02/01/update_glibc_issue/" class="leancloud_visitors" data-flag-title="Linux升级Glibc2.14中文乱码">
+             <span id="/update_glibc_issue/" class="leancloud_visitors" data-flag-title="Linux升级Glibc2.14中文乱码">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -613,7 +615,7 @@
 
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/02/01/update_glibc_issue/#more" rel="contents">
+            <a class="btn" href="/update_glibc_issue/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -664,7 +666,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/29/ssm_build/">
+    <link itemprop="mainEntityOfPage" href="http://lhalcyon.com/ssm_build/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
@@ -683,7 +685,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/29/ssm_build/" itemprop="url">IDEA+Gradle创建MyBatis+SpringMVC项目</a></h1>
+                <a class="post-title-link" href="/ssm_build/" itemprop="url">IDEA+Gradle创建MyBatis+SpringMVC项目</a></h1>
         
 
         <div class="post-meta">
@@ -735,7 +737,7 @@
 
           
           
-             <span id="/2018/01/29/ssm_build/" class="leancloud_visitors" data-flag-title="IDEA+Gradle创建MyBatis+SpringMVC项目">
+             <span id="/ssm_build/" class="leancloud_visitors" data-flag-title="IDEA+Gradle创建MyBatis+SpringMVC项目">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -793,7 +795,7 @@
 
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/01/29/ssm_build/#more" rel="contents">
+            <a class="btn" href="/ssm_build/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -844,7 +846,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/25/as_warning/">
+    <link itemprop="mainEntityOfPage" href="http://lhalcyon.com/as_warning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
@@ -863,7 +865,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/09/25/as_warning/" itemprop="url">Android Studio版本兼容Api警告</a></h1>
+                <a class="post-title-link" href="/as_warning/" itemprop="url">Android Studio版本兼容Api警告</a></h1>
         
 
         <div class="post-meta">
@@ -915,7 +917,7 @@
 
           
           
-             <span id="/2017/09/25/as_warning/" class="leancloud_visitors" data-flag-title="Android Studio版本兼容Api警告">
+             <span id="/as_warning/" class="leancloud_visitors" data-flag-title="Android Studio版本兼容Api警告">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1020,7 +1022,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/15/xcode-idiot/">
+    <link itemprop="mainEntityOfPage" href="http://lhalcyon.com/xcode-idiot/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
@@ -1039,7 +1041,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/15/xcode-idiot/" itemprop="url">Xcode代码提示问题处理</a></h1>
+                <a class="post-title-link" href="/xcode-idiot/" itemprop="url">Xcode代码提示问题处理</a></h1>
         
 
         <div class="post-meta">
@@ -1091,7 +1093,7 @@
 
           
           
-             <span id="/2017/08/15/xcode-idiot/" class="leancloud_visitors" data-flag-title="Xcode代码提示问题处理">
+             <span id="/xcode-idiot/" class="leancloud_visitors" data-flag-title="Xcode代码提示问题处理">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1200,7 +1202,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/20/linux-jenkins-gradle_build_android2/">
+    <link itemprop="mainEntityOfPage" href="http://lhalcyon.com/linux-jenkins-gradle_build_android2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
@@ -1219,7 +1221,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/20/linux-jenkins-gradle_build_android2/" itemprop="url">Linux+Jenkins+Gradle构建Android参数化自动打包(二)</a></h1>
+                <a class="post-title-link" href="/linux-jenkins-gradle_build_android2/" itemprop="url">Linux+Jenkins+Gradle构建Android参数化自动打包(二)</a></h1>
         
 
         <div class="post-meta">
@@ -1271,7 +1273,7 @@
 
           
           
-             <span id="/2017/07/20/linux-jenkins-gradle_build_android2/" class="leancloud_visitors" data-flag-title="Linux+Jenkins+Gradle构建Android参数化自动打包(二)">
+             <span id="/linux-jenkins-gradle_build_android2/" class="leancloud_visitors" data-flag-title="Linux+Jenkins+Gradle构建Android参数化自动打包(二)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1322,7 +1324,7 @@
 
       
         
-          <p>在前一篇文章中,说明了在CenterOS上进行一系列的环境搭建,本文开始说明关于项目的一系列配置</p>
+          <p>在<a href="http://lhalcyon.com/linux-jenkins-gradle_build_android1/">前一篇文章</a>中,说明了在CenterOS上进行一系列的环境搭建,本文开始说明关于项目的一系列配置</p>
 
         
           <div class="out-img-topic">
@@ -1332,7 +1334,7 @@
 
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/20/linux-jenkins-gradle_build_android2/#more" rel="contents">
+            <a class="btn" href="/linux-jenkins-gradle_build_android2/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1383,7 +1385,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/07/linux-jenkins-gradle_build_android1/">
+    <link itemprop="mainEntityOfPage" href="http://lhalcyon.com/linux-jenkins-gradle_build_android1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
@@ -1402,7 +1404,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/07/linux-jenkins-gradle_build_android1/" itemprop="url">Linux+Jenkins+Gradle构建Android参数化自动打包(一)</a></h1>
+                <a class="post-title-link" href="/linux-jenkins-gradle_build_android1/" itemprop="url">Linux+Jenkins+Gradle构建Android参数化自动打包(一)</a></h1>
         
 
         <div class="post-meta">
@@ -1454,7 +1456,7 @@
 
           
           
-             <span id="/2017/07/07/linux-jenkins-gradle_build_android1/" class="leancloud_visitors" data-flag-title="Linux+Jenkins+Gradle构建Android参数化自动打包(一)">
+             <span id="/linux-jenkins-gradle_build_android1/" class="leancloud_visitors" data-flag-title="Linux+Jenkins+Gradle构建Android参数化自动打包(一)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1517,7 +1519,7 @@
 
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/07/linux-jenkins-gradle_build_android1/#more" rel="contents">
+            <a class="btn" href="/linux-jenkins-gradle_build_android1/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1568,7 +1570,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/20/hybrid-compile_swift2oc/">
+    <link itemprop="mainEntityOfPage" href="http://lhalcyon.com/hybrid-compile_swift2oc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
@@ -1587,7 +1589,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/06/20/hybrid-compile_swift2oc/" itemprop="url">混编:Swift调用Objective-C</a></h1>
+                <a class="post-title-link" href="/hybrid-compile_swift2oc/" itemprop="url">混编:Swift调用Objective-C</a></h1>
         
 
         <div class="post-meta">
@@ -1639,7 +1641,7 @@
 
           
           
-             <span id="/2017/06/20/hybrid-compile_swift2oc/" class="leancloud_visitors" data-flag-title="混编:Swift调用Objective-C">
+             <span id="/hybrid-compile_swift2oc/" class="leancloud_visitors" data-flag-title="混编:Swift调用Objective-C">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1829,7 +1831,36 @@
           </nav>
 
           
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lhalcyon" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:longhai@lhalcyon.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/56a18660816dfa005a7e58df" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-archive"></i>掘金</a>
+                  </span>
+                
+            </div>
           
 
           

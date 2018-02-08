@@ -75,35 +75,46 @@
 
 
 
-  <meta name="keywords" content="Swift,Xcode," />
+  <meta name="keywords" content="Jenkins,Android,Linux," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Halcyon days" type="application/atom+xml" />
 
 
 
 
 
 
-
-
-
-
-<meta name="description" content="环境 Xcode 8.3.3 Swift3.+  步骤1.创建混编桥接头文件 名称随便取,最好能和普通header文件做区别 2.项目配置桥接文件 点击工程,选中Build Settings,子选项勾选All 在下面配置中找到(或者搜索)Swift Compile - General 配置混编桥接头文件   点开图中红圈区域进行配置,如我所建的文件在工程里路径为MyProject/Hybrid-C">
-<meta name="keywords" content="Swift,Xcode">
+<meta name="description" content="在前一篇文章中,说明了在CenterOS上进行一系列的环境搭建,本文开始说明关于项目的一系列配置">
+<meta name="keywords" content="Jenkins,Android,Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="混编:Swift调用Objective-C">
-<meta property="og:url" content="http://yoursite.com/2017/06/20/hybrid-compile_swift2oc/index.html">
+<meta property="og:title" content="Linux+Jenkins+Gradle构建Android参数化自动打包(二)">
+<meta property="og:url" content="http://lhalcyon.com/linux-jenkins-gradle_build_android2/index.html">
 <meta property="og:site_name" content="Halcyon days">
-<meta property="og:description" content="环境 Xcode 8.3.3 Swift3.+  步骤1.创建混编桥接头文件 名称随便取,最好能和普通header文件做区别 2.项目配置桥接文件 点击工程,选中Build Settings,子选项勾选All 在下面配置中找到(或者搜索)Swift Compile - General 配置混编桥接头文件   点开图中红圈区域进行配置,如我所建的文件在工程里路径为MyProject/Hybrid-C">
+<meta property="og:description" content="在前一篇文章中,说明了在CenterOS上进行一系列的环境搭建,本文开始说明关于项目的一系列配置">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/hybrid-compile.png">
-<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/bridge-config.png">
-<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/path-config.png">
-<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/reference.png">
-<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/reference1.png">
-<meta property="og:updated_time" content="2018-02-04T08:01:52.836Z">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/project_config_1.png">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/param_env.jpg">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/param_branch.jpg">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/param_email.jpg">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/param_jenkins_time.jpg">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/gradle_script2.png">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/git_account.jpg">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/gradle_script.jpg">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/pgyer_upload.jpg">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/pgyer_api.png">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/mail_config1.jpg">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/mail_config2.png">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/gradle_properties.png">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/app_gradle.jpg">
+<meta property="og:updated_time" content="2018-02-08T13:43:56.045Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="混编:Swift调用Objective-C">
-<meta name="twitter:description" content="环境 Xcode 8.3.3 Swift3.+  步骤1.创建混编桥接头文件 名称随便取,最好能和普通header文件做区别 2.项目配置桥接文件 点击工程,选中Build Settings,子选项勾选All 在下面配置中找到(或者搜索)Swift Compile - General 配置混编桥接头文件   点开图中红圈区域进行配置,如我所建的文件在工程里路径为MyProject/Hybrid-C">
-<meta name="twitter:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/hybrid-compile.png">
+<meta name="twitter:title" content="Linux+Jenkins+Gradle构建Android参数化自动打包(二)">
+<meta name="twitter:description" content="在前一篇文章中,说明了在CenterOS上进行一系列的环境搭建,本文开始说明关于项目的一系列配置">
+<meta name="twitter:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/project_config_1.png">
 
 
 
@@ -133,13 +144,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/06/20/hybrid-compile_swift2oc/"/>
+  <link rel="canonical" href="http://lhalcyon.com/linux-jenkins-gradle_build_android2/"/>
 
 
 
 
 
-  <title>混编:Swift调用Objective-C | Halcyon days</title>
+  <title>Linux+Jenkins+Gradle构建Android参数化自动打包(二) | Halcyon days</title>
   
 
 
@@ -300,7 +311,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/20/hybrid-compile_swift2oc/">
+    <link itemprop="mainEntityOfPage" href="http://lhalcyon.com/linux-jenkins-gradle_build_android2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
@@ -317,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">混编:Swift调用Objective-C</h1>
+          <h1 class="post-title" itemprop="name headline">Linux+Jenkins+Gradle构建Android参数化自动打包(二)</h1>
         
 
         <div class="post-meta">
@@ -329,8 +340,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-20T16:02:11+08:00">
-                2017-06-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-20T21:45:30+08:00">
+                2017-07-20
               </time>
             
 
@@ -352,8 +363,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -369,7 +380,7 @@
 
           
           
-             <span id="/2017/06/20/hybrid-compile_swift2oc/" class="leancloud_visitors" data-flag-title="混编:Swift调用Objective-C">
+             <span id="/linux-jenkins-gradle_build_android2/" class="leancloud_visitors" data-flag-title="Linux+Jenkins+Gradle构建Android参数化自动打包(二)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -394,7 +405,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  192
+                  913
                 </span>
               
 
@@ -419,26 +430,63 @@
       
 
       
-        <h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><ul>
-<li>Xcode 8.3.3</li>
-<li>Swift3.+</li>
-</ul>
-<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="1-创建混编桥接头文件"><a href="#1-创建混编桥接头文件" class="headerlink" title="1.创建混编桥接头文件"></a>1.创建混编桥接头文件</h4><p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/hybrid-compile.png" alt="hybrid-compile"></p>
-<p>名称随便取,最好能和普通header文件做区别</p>
-<h4 id="2-项目配置桥接文件"><a href="#2-项目配置桥接文件" class="headerlink" title="2.项目配置桥接文件"></a>2.项目配置桥接文件</h4><ol>
-<li>点击工程,选中<code>Build Settings</code>,子选项勾选<code>All</code></li>
-<li>在下面配置中找到(或者搜索)<code>Swift Compile - General</code></li>
-<li>配置混编桥接头文件</li>
-</ol>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/bridge-config.png" alt="bridge-config"></p>
-<p>点开图中红圈区域进行配置,如我所建的文件在工程里路径为<code>MyProject/Hybrid-Compile.h</code></p>
-<p>则配置也应是这个路径</p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/path-config.png" alt="path-config"></p>
-<p>保存后在该头文件中引用相应OC类头文件即可在Swift中调用</p>
-<h3 id="引用注意"><a href="#引用注意" class="headerlink" title="引用注意"></a>引用注意</h3><p>如果是项目内的OC文件直接引用即可</p>
-<p>如果是<code>Pod</code>引用的库中的OC文件则需要带上其<code>Pod</code>中的路径</p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/reference.png" alt="reference"></p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/reference1.png" alt="reference1"></p>
+        <p>在<a href="http://lhalcyon.com/linux-jenkins-gradle_build_android1/">前一篇文章</a>中,说明了在CenterOS上进行一系列的环境搭建,本文开始说明关于项目的一系列配置</p>
+<a id="more"></a>
+<h3 id="Jenkins项目配置"><a href="#Jenkins项目配置" class="headerlink" title="Jenkins项目配置"></a>Jenkins项目配置</h3><p>首先创建一个项目,将构建保持的天数和个数进行限制</p>
+<blockquote>
+<p>此处感谢后台同事提示,因为Android SDK NDK 就特别占空间了,如果构建缓存不进行限制,则很快服务器空间就会不足🤥</p>
+</blockquote>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/project_config_1.png" alt="jenkins_total"></p>
+<h4 id="参数构建配置"><a href="#参数构建配置" class="headerlink" title="参数构建配置"></a>参数构建配置</h4><p><strong>打包环境</strong></p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/param_env.jpg" alt="jenkins_total"></p>
+<p><strong>分支指定</strong></p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/param_branch.jpg" alt="jenkins_branch"></p>
+<p><strong>email自定义接收者</strong></p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/param_email.jpg" alt="jenkins_email"></p>
+<p><strong>打包时间戳</strong></p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/param_jenkins_time.jpg" alt="jenkins_total"></p>
+<p>因为笔者的公司对打包的Apk名以及测试版本号时间戳显示的要求,因此需要使用动态参数</p>
+<blockquote>
+<p>还有其他参数均与以上类似,可自行配置</p>
+</blockquote>
+<p><strong>!!! 记住尤为重要的是这些参数都是Jenkins上配置的Gradle属性,得传递到App的Gradle中</strong></p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/gradle_script2.png" alt="jenkins_email"></p>
+<p>这里勾选<code>Pass all job parameters as Project properties</code></p>
+<h4 id="源码管理"><a href="#源码管理" class="headerlink" title="源码管理"></a>源码管理</h4><p>在<code>源码管理处配置Git账号</code></p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/git_account.jpg" alt="jenkins_total"></p>
+<p>这里的<code>*/${BRANCH}</code>对应参数配置时的<code>BRANCH</code>.为什么这里做成选择型参数呢,是因为分支名是未知的,做成填写的话,可能压根拉不到指定分支的代码🤐</p>
+<h4 id="Gradle构建脚本"><a href="#Gradle构建脚本" class="headerlink" title="Gradle构建脚本"></a>Gradle构建脚本</h4><p>增加构建动作</p>
+<p>这里<code>${WORKSPACE}</code>指的是Git拉下的根目录.途中马赛克位置则为项目根目录</p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/gradle_script.jpg" alt="jenkins_total"></p>
+<h4 id="蒲公英上传"><a href="#蒲公英上传" class="headerlink" title="蒲公英上传"></a>蒲公英上传</h4><p>增加构建动作,将Apk上传蒲公英</p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/pgyer_upload.jpg" alt="jenkins_total"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -k -F &quot;file=@$&#123;WORKSPACE&#125;/source/项目根目录/app/apks/$&#123;BUILD_PREFIX&#125;_$&#123;JENKINS_TIME&#125;_$&#123;DAY_VERSION&#125;.apk&quot; -F &quot;uKey=你的ukey&quot; -F &quot;_api_key=你的apiKey&quot; -F &quot;installType=2&quot; -F &quot;password=下载密码&quot; -F &quot;updateDescription=$&#123;DESCRIPTION&#125;&quot; https://www.pgyer.com/apiv1/app/upload</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> <code>${WORKSPACE}/source/项目根目录/app/apks/</code>为笔者自行修改的Apk输出目录,此处请根据自己的项目输入目录进行修改</p>
+<p> curl命令如果使用不了可自行百度解决</p>
+</blockquote>
+<p>以下为蒲公英的上传Api,可以自行调整参数</p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/pgyer_api.png" alt="jenkins_total"></p>
+<h4 id="邮件通知"><a href="#邮件通知" class="headerlink" title="邮件通知"></a>邮件通知</h4><p>首先还是进入Jenkins-&gt;系统设置</p>
+<p>在<code>Jenkins Location</code>中进行配置</p>
+<p>Jenkins URL:<code>http://10.50.0.16:8777/jenkins/</code></p>
+<p>系统管理员邮件地址: <code>Android参数化构建&lt;aaa@163.com&gt;</code></p>
+<blockquote>
+<p>此处<code>Android参数化构建</code>就为邮件中的发送人名称</p>
+</blockquote>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/mail_config1.jpg" alt="jenkins_total"></p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/mail_config2.png" alt="jenkins_total"></p>
+<blockquote>
+<p>系统设置中的默认收件人最好不要配置为自己,因为如果配置后,自己就永远在收件人的前端,后面想发送给领导时,便不大好. 邮件的内容可自定义html内容,二维码直接线下生成蒲公英的地址然后贴在邮件内即可</p>
+</blockquote>
+<h3 id="App本地Gradle配置"><a href="#App本地Gradle配置" class="headerlink" title="App本地Gradle配置"></a>App本地Gradle配置</h3><p>首先在<code>gradle.properties</code>文件中进行参数化构建在非Jenkins写入情况时的缺省值配置</p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/gradle_properties.png" alt="jenkins_total"></p>
+<p>在未使用Jenkins构建的情况下应用会读本地的这些变量值</p>
+<p>然后在<code>app</code>module下的<code>build.gradle</code>中进行配置写入的值配置</p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_171024/app_gradle.jpg" alt="jenkins_total"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">//修改生成的apk名字及输出目录</span><br><span class="line">applicationVariants.all &#123; variant -&gt;</span><br><span class="line">    variant.outputs.each &#123; output -&gt;</span><br><span class="line">        def newName</span><br><span class="line">        def oldFile = output.outputFile</span><br><span class="line">        def outDirectory = oldFile.parent</span><br><span class="line">        def buildPrefix</span><br><span class="line">        def showVersion</span><br><span class="line">        if (variant.buildType.name == &apos;debug&apos;) &#123;</span><br><span class="line">            buildPrefix = BUILD_PREFIX</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            buildPrefix = BUILD_PREFIX_RELEASE</span><br><span class="line">        &#125;</span><br><span class="line">        def jenkinsTime = JENKINS_TIME</span><br><span class="line">        if (variant.buildType.name == &apos;debug&apos;) &#123;</span><br><span class="line">            showVersion = buildPrefix + &apos;_&apos; + jenkinsTime + &apos;_&apos; + DAY_VERSION</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            showVersion = APP_VERSION</span><br><span class="line">        &#125;</span><br><span class="line">        resValue(&quot;string&quot;, &apos;fund_app_version&apos;, showVersion)</span><br><span class="line">        def tempFile = file(&quot;build.gradle&quot;)</span><br><span class="line">        outDirectory = tempFile.parent + &apos;/apks&apos;</span><br><span class="line">        if (IS_JENKINS) &#123;</span><br><span class="line">            newName = buildPrefix + &apos;_&apos; + jenkinsTime + &apos;_&apos; + DAY_VERSION + &apos;.apk&apos;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line"></span><br><span class="line">            newName = &apos;android-v&apos; +</span><br><span class="line">                    APP_VERSION + &apos;-&apos; + variant.productFlavors[0].name + &apos;-&apos; + variant.buildType.name + &apos;.apk&apos;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        output.outputFile = new File(outDirectory, newName)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>系统默认的输入路径是在<code>build</code>文件夹中,层级比较深.此处笔者将apk的输出路径进行了修改并且对apk的输出名称进行了调整</p>
+<p>至此,Jenkins参数自动化构建已经完成!😀</p>
 
       
     </div>
@@ -456,9 +504,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Swift/" rel="tag"># Swift</a>
+            <a href="/tags/Jenkins/" rel="tag"># Jenkins</a>
           
-            <a href="/tags/Xcode/" rel="tag"># Xcode</a>
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
           
         </div>
       
@@ -471,14 +521,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/linux-jenkins-gradle_build_android1/" rel="next" title="Linux+Jenkins+Gradle构建Android参数化自动打包(一)">
+                <i class="fa fa-chevron-left"></i> Linux+Jenkins+Gradle构建Android参数化自动打包(一)
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/07/linux-jenkins-gradle_build_android1/" rel="prev" title="Linux+Jenkins+Gradle构建Android参数化自动打包(一)">
-                Linux+Jenkins+Gradle构建Android参数化自动打包(一) <i class="fa fa-chevron-right"></i>
+              <a href="/xcode-idiot/" rel="prev" title="Xcode代码提示问题处理">
+                Xcode代码提示问题处理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -593,7 +647,36 @@
           </nav>
 
           
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lhalcyon" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:longhai@lhalcyon.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/56a18660816dfa005a7e58df" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-archive"></i>掘金</a>
+                  </span>
+                
+            </div>
           
 
           
@@ -617,7 +700,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建混编桥接头文件"><span class="nav-number">2.1.</span> <span class="nav-text">1.创建混编桥接头文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-项目配置桥接文件"><span class="nav-number">2.2.</span> <span class="nav-text">2.项目配置桥接文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用注意"><span class="nav-number">3.</span> <span class="nav-text">引用注意</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Jenkins项目配置"><span class="nav-number">1.</span> <span class="nav-text">Jenkins项目配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参数构建配置"><span class="nav-number">1.1.</span> <span class="nav-text">参数构建配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#源码管理"><span class="nav-number">1.2.</span> <span class="nav-text">源码管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradle构建脚本"><span class="nav-number">1.3.</span> <span class="nav-text">Gradle构建脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#蒲公英上传"><span class="nav-number">1.4.</span> <span class="nav-text">蒲公英上传</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#邮件通知"><span class="nav-number">1.5.</span> <span class="nav-text">邮件通知</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#App本地Gradle配置"><span class="nav-number">2.</span> <span class="nav-text">App本地Gradle配置</span></a></li></ol></div>
             
 
           </div>

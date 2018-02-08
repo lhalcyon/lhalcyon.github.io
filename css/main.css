@@ -1865,7 +1865,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #abf905;
+  background: #ff8182;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2787,6 +2787,13 @@ code {
   height: 2px;
   background: #f5f5f5;
   border-radius: 1px;
+}
+.posts-expand .post-eof {
+  background-color: rgba(255,255,255,0);
+}
+.posts-expand .post-body img {
+  border: none;
+  padding: 0px;
 }
 @-moz-keyframes heartAnimate {
   0%, 100% {

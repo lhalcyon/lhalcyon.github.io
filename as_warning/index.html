@@ -75,29 +75,33 @@
 
 
 
-  <meta name="keywords" content="Xcode," />
+  <meta name="keywords" content="Android Studio," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Halcyon days" type="application/atom+xml" />
 
 
 
 
 
 
-
-
-
-
-<meta name="description" content="最近在写Swift.对于笔者这种被JetBrains的几大IDE工具给惯坏的开发者,Xcode的代码提示真是无力吐槽,先不论智能提示度,就连基本的提示也经常出不来.这里就简单总结下iOS同事传授的几招解决办法 1.Clean Project最直接的办法就是清空项目. 可视化按钮入口再哪请自行查找,笔者一般是用Command+Shift+K进行清空,此方法一般有效,缺点是会重新编译项目,比较慢 2.">
-<meta name="keywords" content="Xcode">
+<meta name="description" content="Android Studio版本兼容Api警告最近在开发中,组内的小伙伴在开发中使用了高版本SDK25的Api,但是我们的项目最低兼容14,因此测试在5.1上的手机直接就崩溃了,问其在开发中没有看到警告吗,回复说确实没看到.后来查究一下,他的工具上确实没有显示.本文简述下如何手动去调整兼容Api的提示等级,避免在开发中用到高版本的Api却不自察. 首先win电脑是打开Android Studio的">
+<meta name="keywords" content="Android Studio">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Xcode代码提示问题处理">
-<meta property="og:url" content="http://yoursite.com/2017/08/15/xcode-idiot/index.html">
+<meta property="og:title" content="Android Studio版本兼容Api警告">
+<meta property="og:url" content="http://lhalcyon.com/as_warning/index.html">
 <meta property="og:site_name" content="Halcyon days">
-<meta property="og:description" content="最近在写Swift.对于笔者这种被JetBrains的几大IDE工具给惯坏的开发者,Xcode的代码提示真是无力吐槽,先不论智能提示度,就连基本的提示也经常出不来.这里就简单总结下iOS同事传授的几招解决办法 1.Clean Project最直接的办法就是清空项目. 可视化按钮入口再哪请自行查找,笔者一般是用Command+Shift+K进行清空,此方法一般有效,缺点是会重新编译项目,比较慢 2.">
+<meta property="og:description" content="Android Studio版本兼容Api警告最近在开发中,组内的小伙伴在开发中使用了高版本SDK25的Api,但是我们的项目最低兼容14,因此测试在5.1上的手机直接就崩溃了,问其在开发中没有看到警告吗,回复说确实没看到.后来查究一下,他的工具上确实没有显示.本文简述下如何手动去调整兼容Api的提示等级,避免在开发中用到高版本的Api却不自察. 首先win电脑是打开Android Studio的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-04T08:02:27.836Z">
+<meta property="og:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170925/as_inspection_api_compatible.png">
+<meta property="og:updated_time" content="2018-02-04T08:02:13.101Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xcode代码提示问题处理">
-<meta name="twitter:description" content="最近在写Swift.对于笔者这种被JetBrains的几大IDE工具给惯坏的开发者,Xcode的代码提示真是无力吐槽,先不论智能提示度,就连基本的提示也经常出不来.这里就简单总结下iOS同事传授的几招解决办法 1.Clean Project最直接的办法就是清空项目. 可视化按钮入口再哪请自行查找,笔者一般是用Command+Shift+K进行清空,此方法一般有效,缺点是会重新编译项目,比较慢 2.">
+<meta name="twitter:title" content="Android Studio版本兼容Api警告">
+<meta name="twitter:description" content="Android Studio版本兼容Api警告最近在开发中,组内的小伙伴在开发中使用了高版本SDK25的Api,但是我们的项目最低兼容14,因此测试在5.1上的手机直接就崩溃了,问其在开发中没有看到警告吗,回复说确实没看到.后来查究一下,他的工具上确实没有显示.本文简述下如何手动去调整兼容Api的提示等级,避免在开发中用到高版本的Api却不自察. 首先win电脑是打开Android Studio的">
+<meta name="twitter:image" content="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170925/as_inspection_api_compatible.png">
 
 
 
@@ -127,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/08/15/xcode-idiot/"/>
+  <link rel="canonical" href="http://lhalcyon.com/as_warning/"/>
 
 
 
 
 
-  <title>Xcode代码提示问题处理 | Halcyon days</title>
+  <title>Android Studio版本兼容Api警告 | Halcyon days</title>
   
 
 
@@ -294,7 +298,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/15/xcode-idiot/">
+    <link itemprop="mainEntityOfPage" href="http://lhalcyon.com/as_warning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
@@ -311,7 +315,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Xcode代码提示问题处理</h1>
+          <h1 class="post-title" itemprop="name headline">Android Studio版本兼容Api警告</h1>
         
 
         <div class="post-meta">
@@ -323,8 +327,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-15T13:32:45+08:00">
-                2017-08-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-25T10:10:12+08:00">
+                2017-09-25
               </time>
             
 
@@ -346,8 +350,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -363,7 +367,7 @@
 
           
           
-             <span id="/2017/08/15/xcode-idiot/" class="leancloud_visitors" data-flag-title="Xcode代码提示问题处理">
+             <span id="/as_warning/" class="leancloud_visitors" data-flag-title="Android Studio版本兼容Api警告">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -388,7 +392,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  447
+                  209
                 </span>
               
 
@@ -413,15 +417,11 @@
       
 
       
-        <div class="note info"><p>最近在写<code>Swift</code>.对于笔者这种被<code>JetBrains</code>的几大IDE工具给惯坏的开发者,Xcode的代码提示真是无力吐槽,先不论智能提示度,就连基本的提示也经常出不来.这里就简单总结下iOS同事传授的几招解决办法</p></div>
-<h3 id="1-Clean-Project"><a href="#1-Clean-Project" class="headerlink" title="1.Clean Project"></a>1.Clean Project</h3><p>最直接的办法就是清空项目.</p>
-<p>可视化按钮入口再哪请自行查找,笔者一般是用<code>Command+Shift+K</code>进行清空,此方法一般有效,缺点是会重新编译项目,比较慢</p>
-<h3 id="2-清空Xcode缓存"><a href="#2-清空Xcode缓存" class="headerlink" title="2.清空Xcode缓存"></a>2.清空Xcode缓存</h3><p>前往Xcode的缓存目录,清空项目编译缓存.</p>
-<p>具体操作为右键Finder<code>前往文件夹</code>文件夹路径为<code>/用户/ceyx/资源库/Developer/Xcode/DerivedData</code>  其中<code>ceyx</code> 替换为自己的用户名,删除目录下所有文件,然后重新打开Xcode,编译.</p>
-<p><strong>此方法比1更慢,往往也更有效</strong></p>
-<h3 id="3-终极大招"><a href="#3-终极大招" class="headerlink" title="3.终极大招"></a>3.终极大招</h3><p>如若上述两种方法还无效,只能使用绝招了…重启Xcode,还不行就重启电脑… 笔者黔驴技穷了,只能充当下网吧老板传授下终极大招.👻</p>
-<p>题外话,对于JetBrains出品的appcode还未尝试过,不知对于Xcode项目兼容到何程度,是否支持Cocoapod等,有时间会去体验下,希望至少在代码提示上能更友善些😀</p>
-<p>笔者去体验了下Appcode,其代码提示和快捷键如Jetbrains其他产品一样非常智能,但是代码中偶有飘红,却可以成功运行,比较干扰编码.尤为尴尬的一点是,Appcode不支持storyboard,即在项目内点开storyboard文件就直接跳转xcode了😥. 如真的被Xcode逼疯的童鞋可以考虑下用AppCode编码,用Xcode操作storyboard</p>
+        <h2 id="Android-Studio版本兼容Api警告"><a href="#Android-Studio版本兼容Api警告" class="headerlink" title="Android Studio版本兼容Api警告"></a>Android Studio版本兼容Api警告</h2><div class="note info"><p>最近在开发中,组内的小伙伴在开发中使用了高版本SDK25的Api,但是我们的项目最低兼容14,因此测试在5.1上的手机直接就崩溃了,问其在开发中没有看到警告吗,回复说确实没看到.后来查究一下,他的工具上确实没有显示.本文简述下如何手动去调整兼容Api的提示等级,避免在开发中用到高版本的Api却不自察.</p></div>
+<p>首先win电脑是打开<code>Android Studio</code>的 <code>Setting</code>  ,mac是打开<code>Android Studio</code>的 <code>Preferences</code></p>
+<p>选择<code>Editor</code>中的<code>Inspections</code> 对<code>Calling new methods on older versions</code>进行勾选并且配置为<code>Error</code>级别</p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170925/as_inspection_api_compatible.png" alt="api_compatible"></p>
+<p>如此简单即可搞定.如遇到其他警告,错误代码没提示也可类似进行操作配置.</p>
 
       
     </div>
@@ -439,7 +439,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Xcode/" rel="tag"># Xcode</a>
+            <a href="/tags/Android-Studio/" rel="tag"># Android Studio</a>
           
         </div>
       
@@ -452,8 +452,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/20/linux-jenkins-gradle_build_android2/" rel="next" title="Linux+Jenkins+Gradle构建Android参数化自动打包(二)">
-                <i class="fa fa-chevron-left"></i> Linux+Jenkins+Gradle构建Android参数化自动打包(二)
+              <a href="/xcode-idiot/" rel="next" title="Xcode代码提示问题处理">
+                <i class="fa fa-chevron-left"></i> Xcode代码提示问题处理
               </a>
             
           </div>
@@ -462,8 +462,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/09/25/as_warning/" rel="prev" title="Android Studio版本兼容Api警告">
-                Android Studio版本兼容Api警告 <i class="fa fa-chevron-right"></i>
+              <a href="/ssm_build/" rel="prev" title="IDEA+Gradle创建MyBatis+SpringMVC项目">
+                IDEA+Gradle创建MyBatis+SpringMVC项目 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -578,7 +578,36 @@
           </nav>
 
           
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lhalcyon" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:longhai@lhalcyon.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/56a18660816dfa005a7e58df" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-archive"></i>掘金</a>
+                  </span>
+                
+            </div>
           
 
           
@@ -602,7 +631,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Clean-Project"><span class="nav-number">1.</span> <span class="nav-text">1.Clean Project</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-清空Xcode缓存"><span class="nav-number">2.</span> <span class="nav-text">2.清空Xcode缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-终极大招"><span class="nav-number">3.</span> <span class="nav-text">3.终极大招</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-Studio版本兼容Api警告"><span class="nav-number">1.</span> <span class="nav-text">Android Studio版本兼容Api警告</span></a></li></ol></div>
             
 
           </div>

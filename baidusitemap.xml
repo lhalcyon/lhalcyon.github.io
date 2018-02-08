@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>http://lhalcyon.com/linux-jenkins-gradle_build_android2/</loc>
+    <lastmod>2018-02-08T13:43:56.045Z</lastmod>
+    <data>
+        <display>
+        <title>Linux+Jenkins+Gradle构建Android参数化自动打包(二)</title>
+        <pubTime>2017-07-20T13:45:30.000Z</pubTime>
+        
+        <tag>Jenkins</tag>
+         
+        <tag>Android</tag>
+         
+        <tag>Linux</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://lhalcyon.com/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://lhalcyon.com/webhook_dingding-pgyer/</loc>
+    <lastmod>2018-02-08T13:42:23.909Z</lastmod>
+    <data>
+        <display>
+        <title>实现apk上传蒲公英后自动发送钉钉通知</title>
+        <pubTime>2018-02-05T02:41:30.000Z</pubTime>
+        
+        <tag>Dingding</tag>
+         
+        <tag>Webhook</tag>
+         
+        <tag>Pgyer</tag>
+         
+         
+           
+             
+              <breadCrumb title="Webhook" url="http://lhalcyon.com/categories/Webhook/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
+    <loc>http://lhalcyon.com/linux-jenkins-gradle_build_android1/</loc>
+    <lastmod>2018-02-06T12:50:41.115Z</lastmod>
+    <data>
+        <display>
+        <title>Linux+Jenkins+Gradle构建Android参数化自动打包(一)</title>
+        <pubTime>2017-07-07T12:40:25.000Z</pubTime>
+        
+        <tag>Jenkins</tag>
+         
+        <tag>Android</tag>
+         
+        <tag>Linux</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://lhalcyon.com/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://lhalcyon.com/update_glibc_issue/</loc>
+    <lastmod>2018-02-04T08:03:16.352Z</lastmod>
+    <data>
+        <display>
+        <title>Linux升级Glibc2.14中文乱码</title>
+        <pubTime>2018-02-01T02:28:00.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="http://lhalcyon.com/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://lhalcyon.com/ssm_build/</loc>
+    <lastmod>2018-02-04T08:03:00.288Z</lastmod>
+    <data>
+        <display>
+        <title>IDEA+Gradle创建MyBatis+SpringMVC项目</title>
+        <pubTime>2018-01-29T01:58:20.000Z</pubTime>
+        
+        <tag>IntelliJ</tag>
+         
+        <tag>Spring</tag>
+         
+        <tag>SpringMVC</tag>
+         
+        <tag>MyBatis</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://lhalcyon.com/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://lhalcyon.com/xcode-idiot/</loc>
+    <lastmod>2018-02-04T08:02:27.836Z</lastmod>
+    <data>
+        <display>
+        <title>Xcode代码提示问题处理</title>
+        <pubTime>2017-08-15T05:32:45.000Z</pubTime>
+        
+        <tag>Xcode</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="http://lhalcyon.com/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://lhalcyon.com/as_warning/</loc>
+    <lastmod>2018-02-04T08:02:13.101Z</lastmod>
+    <data>
+        <display>
+        <title>Android Studio版本兼容Api警告</title>
+        <pubTime>2017-09-25T02:10:12.000Z</pubTime>
+        
+        <tag>Android Studio</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://lhalcyon.com/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://lhalcyon.com/hybrid-compile_swift2oc/</loc>
+    <lastmod>2018-02-04T08:01:52.836Z</lastmod>
+    <data>
+        <display>
+        <title>混编:Swift调用Objective-C</title>
+        <pubTime>2017-06-20T08:02:11.000Z</pubTime>
+        
+        <tag>Swift</tag>
+         
+        <tag>Xcode</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="http://lhalcyon.com/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+</urlset>

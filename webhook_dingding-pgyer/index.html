@@ -81,6 +81,8 @@
 
 
 
+  <link rel="alternate" href="/atom.xml" title="Halcyon days" type="application/atom+xml" />
+
 
 
 
@@ -90,7 +92,7 @@
 <meta name="keywords" content="Dingding,Webhook,Pgyer">
 <meta property="og:type" content="article">
 <meta property="og:title" content="实现apk上传蒲公英后自动发送钉钉通知">
-<meta property="og:url" content="http://yoursite.com/2018/02/05/webhook_dingding-pgyer/index.html">
+<meta property="og:url" content="http://lhalcyon.com/webhook_dingding-pgyer/index.html">
 <meta property="og:site_name" content="Halcyon days">
 <meta property="og:description" content="Webhook是一个API概念，并且变得越来越流行。我们能用事件描述的事物越多，webhook的作用范围也就越大。Webhook作为一个轻量的事件处理应用，正变得越来越有用。 准确的说webhoo是一种web回调或者http的push API，是向APP或者其他应用提供实时信息的一种方式。Webhook在数据产生时立即发送数据，也就是你能实时收到数据。这一种不同于典型的API，需要用了实时性需要足">
 <meta property="og:locale" content="zh-Hans">
@@ -105,7 +107,7 @@
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1fo6huk9u4yj30bo05rt9a.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fo5p9j5pi0j30bs0ckjtu.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fo710z7ywvj309t070aa2.jpg">
-<meta property="og:updated_time" content="2018-02-06T13:05:56.871Z">
+<meta property="og:updated_time" content="2018-02-08T13:42:23.909Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="实现apk上传蒲公英后自动发送钉钉通知">
 <meta name="twitter:description" content="Webhook是一个API概念，并且变得越来越流行。我们能用事件描述的事物越多，webhook的作用范围也就越大。Webhook作为一个轻量的事件处理应用，正变得越来越有用。 准确的说webhoo是一种web回调或者http的push API，是向APP或者其他应用提供实时信息的一种方式。Webhook在数据产生时立即发送数据，也就是你能实时收到数据。这一种不同于典型的API，需要用了实时性需要足">
@@ -139,7 +141,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/05/webhook_dingding-pgyer/"/>
+  <link rel="canonical" href="http://lhalcyon.com/webhook_dingding-pgyer/"/>
 
 
 
@@ -306,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/05/webhook_dingding-pgyer/">
+    <link itemprop="mainEntityOfPage" href="http://lhalcyon.com/webhook_dingding-pgyer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
@@ -375,7 +377,7 @@
 
           
           
-             <span id="/2018/02/05/webhook_dingding-pgyer/" class="leancloud_visitors" data-flag-title="实现apk上传蒲公英后自动发送钉钉通知">
+             <span id="/webhook_dingding-pgyer/" class="leancloud_visitors" data-flag-title="实现apk上传蒲公英后自动发送钉钉通知">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -430,13 +432,13 @@
 <p>Webhook有时也被称为反向API，因为他提供了API规则，你需要设计要使用的API。Webhook将向你的应用发起http请求，典型的是post请求，应用程序由请求驱动。</p></div>
 <p>在Android开发中会经常提交apk给测试人员进行测试,通常的做法是将构建完成的包上传至<a href="https://www.pgyer.com/" target="_blank" rel="noopener">蒲公英</a>,测试人员直接扫码下载并安装apk包从而进行测试.一般我们会将构建及发布过程自动化,可参考:</p>
 <ol>
-<li><a href="http://lhalcyon.com/2017/07/07/linux-jenkins-gradle_build_android1/" target="_blank" rel="noopener">Linux+Jenkins+Gradle构建Android参数化自动打包(一)</a></li>
-<li><a href="http://lhalcyon.com/2017/07/20/linux-jenkins-gradle_build_android2/" target="_blank" rel="noopener">Linux+Jenkins+Gradle构建Android参数化自动打包(二)</a></li>
+<li><a href="http://lhalcyon.com/linux-jenkins-gradle_build_android1/">Linux+Jenkins+Gradle构建Android参数化自动打包(一)</a></li>
+<li><a href="http://lhalcyon.com/linux-jenkins-gradle_build_android2/">Linux+Jenkins+Gradle构建Android参数化自动打包(二)</a></li>
 </ol>
 <p>文章中实现了apk上传蒲公英后邮件通知,可是实际中,大家对邮件的关注远远没有对<code>IM</code>消息的关注度高,所以接下来本文将说明,实现<strong>上传apk后自动发送钉钉消息,将更新内容,apk版本号等信息通知到测试人员</strong></p>
 <p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fo5p9j5pi0j30bs0ckjtu.jpg" alt=""></p>
 <a id="more"></a>
-<h4 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h4><p>首先环境搭建是<code>IntelliJ+SpringMVC+Gradle</code>构建的,如有疑问的同学可参考<a href="http://lhalcyon.com/2018/01/29/ssm_build/" target="_blank" rel="noopener">IDEA+Gradle创建MyBatis+SpringMVC项目</a>,项目中主要是对接口数据的调整及转发,实际上未用到<code>MyBatis</code>,可自行进行去除🙄.</p>
+<h4 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h4><p>首先环境搭建是<code>IntelliJ+SpringMVC+Gradle</code>构建的,如有疑问的同学可参考<a href="http://lhalcyon.com/ssm_build/">IDEA+Gradle创建MyBatis+SpringMVC项目</a>,项目中主要是对接口数据的调整及转发,实际上未用到<code>MyBatis</code>,可自行进行去除🙄.</p>
 <h4 id="模型建立"><a href="#模型建立" class="headerlink" title="模型建立"></a>模型建立</h4><p>对照<a href="https://www.pgyer.com/doc/view/webhook_introduction" target="_blank" rel="noopener">蒲公英doc</a>、<a href="https://open-doc.dingtalk.com/docs/doc.htm?treeId=257&amp;articleId=105735&amp;docType=1" target="_blank" rel="noopener">钉钉doc</a>分别建立Java Bean.</p>
 <p><code>PgyerMessage</code></p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"action"</span>: <span class="string">"应用更新"</span>,</span><br><span class="line">  <span class="attr">"title"</span>: <span class="string">"OooPlay"</span>,</span><br><span class="line">  <span class="attr">"link"</span>: <span class="string">"https://www.pgyer.com/oooplay_test"</span>,</span><br><span class="line">  <span class="attr">"message"</span>: <span class="string">"您的应用OooPlay有了新的版本(2.4)更新。"</span>,</span><br><span class="line">  <span class="attr">"type"</span>: <span class="string">"updateVersion"</span>,</span><br><span class="line">  <span class="attr">"os_version"</span>: <span class="string">"2.4"</span>,</span><br><span class="line">  <span class="attr">"build_version"</span>: <span class="string">"139"</span>,</span><br><span class="line">  <span class="attr">"created"</span>: <span class="string">"2015-10-09 11:25:16"</span>,</span><br><span class="line">  <span class="attr">"updated"</span>: <span class="string">"2015-10-09 11:25:16"</span>,</span><br><span class="line">  <span class="attr">"timestamp"</span>: <span class="number">1444361118</span>,</span><br><span class="line">  <span class="attr">"appsize"</span>: <span class="string">"2238036"</span>,</span><br><span class="line">  <span class="attr">"device_type"</span>: 'iOS',</span><br><span class="line">  <span class="attr">"notes"</span>: <span class="string">"修复了一些小弱智的小bug"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -521,7 +523,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/01/update_glibc_issue/" rel="next" title="Linux升级Glibc2.14中文乱码">
+              <a href="/update_glibc_issue/" rel="next" title="Linux升级Glibc2.14中文乱码">
                 <i class="fa fa-chevron-left"></i> Linux升级Glibc2.14中文乱码
               </a>
             
@@ -643,7 +645,36 @@
           </nav>
 
           
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lhalcyon" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:longhai@lhalcyon.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/56a18660816dfa005a7e58df" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-archive"></i>掘金</a>
+                  </span>
+                
+            </div>
           
 
           
