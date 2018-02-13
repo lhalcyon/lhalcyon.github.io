@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://lhalcyon.com/linux-jenkins-gradle_build_android2/</loc>
+    <loc>http://lhalcyon.com/categories/index.html</loc>
     
-    <lastmod>2018-02-08T13:43:56.045Z</lastmod>
+    <lastmod>2018-02-13T10:24:35.550Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://lhalcyon.com/webhook_dingding-pgyer/</loc>
     
-    <lastmod>2018-02-08T13:42:23.909Z</lastmod>
+    <lastmod>2018-02-13T10:12:09.924Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://lhalcyon.com/linux-jenkins-gradle_build_android2/</loc>
+    
+    <lastmod>2018-02-08T13:43:56.045Z</lastmod>
     
   </url>
   
