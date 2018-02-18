@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://lhalcyon.com/hexo_ssl_netlify/</loc>
+    
+    <lastmod>2018-02-18T13:08:10.308Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://lhalcyon.com/springmvc-websocket_im/</loc>
+    
+    <lastmod>2018-02-15T09:06:03.428Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://lhalcyon.com/categories/index.html</loc>
     
     <lastmod>2018-02-13T10:40:09.294Z</lastmod>

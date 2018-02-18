@@ -304,10 +304,10 @@
         
           <div class="tag-cloud">
             <div class="tag-cloud-title">
-                目前共计 13 个标签
+                目前共计 18 个标签
             </div>
             <div class="tag-cloud-tags">
-              <a href="/tags/Android/" style="font-size: 21px; color: #6f6f6f">Android</a> <a href="/tags/Android-Studio/" style="font-size: 12px; color: #ccc">Android Studio</a> <a href="/tags/Dingding/" style="font-size: 12px; color: #ccc">Dingding</a> <a href="/tags/IntelliJ/" style="font-size: 12px; color: #ccc">IntelliJ</a> <a href="/tags/Jenkins/" style="font-size: 21px; color: #6f6f6f">Jenkins</a> <a href="/tags/Linux/" style="font-size: 30px; color: #111">Linux</a> <a href="/tags/MyBatis/" style="font-size: 12px; color: #ccc">MyBatis</a> <a href="/tags/Pgyer/" style="font-size: 12px; color: #ccc">Pgyer</a> <a href="/tags/Spring/" style="font-size: 12px; color: #ccc">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 12px; color: #ccc">SpringMVC</a> <a href="/tags/Swift/" style="font-size: 12px; color: #ccc">Swift</a> <a href="/tags/Webhook/" style="font-size: 12px; color: #ccc">Webhook</a> <a href="/tags/Xcode/" style="font-size: 21px; color: #6f6f6f">Xcode</a>
+              <a href="/tags/Android/" style="font-size: 21px; color: #6f6f6f">Android</a> <a href="/tags/Android-Studio/" style="font-size: 12px; color: #ccc">Android Studio</a> <a href="/tags/Dingding/" style="font-size: 12px; color: #ccc">Dingding</a> <a href="/tags/GitHub-Pages/" style="font-size: 12px; color: #ccc">GitHub Pages</a> <a href="/tags/Hexo/" style="font-size: 12px; color: #ccc">Hexo</a> <a href="/tags/IM/" style="font-size: 12px; color: #ccc">IM</a> <a href="/tags/IntelliJ/" style="font-size: 12px; color: #ccc">IntelliJ</a> <a href="/tags/Jenkins/" style="font-size: 21px; color: #6f6f6f">Jenkins</a> <a href="/tags/Linux/" style="font-size: 30px; color: #111">Linux</a> <a href="/tags/MyBatis/" style="font-size: 12px; color: #ccc">MyBatis</a> <a href="/tags/Pgyer/" style="font-size: 12px; color: #ccc">Pgyer</a> <a href="/tags/SSL/" style="font-size: 12px; color: #ccc">SSL</a> <a href="/tags/Spring/" style="font-size: 12px; color: #ccc">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 21px; color: #6f6f6f">SpringMVC</a> <a href="/tags/Swift/" style="font-size: 12px; color: #ccc">Swift</a> <a href="/tags/WebSocket/" style="font-size: 12px; color: #ccc">WebSocket</a> <a href="/tags/Webhook/" style="font-size: 12px; color: #ccc">Webhook</a> <a href="/tags/Xcode/" style="font-size: 21px; color: #6f6f6f">Xcode</a>
             </div>
           </div>
         
@@ -373,7 +373,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -384,7 +384,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -395,7 +395,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1098,35 +1098,5 @@
 
 
 
-
-  
-<div id="hexo-helper-live2d">
-  <canvas id="live2dcanvas" width="150" height="300"></canvas>
-</div>
-<style>
-  #live2dcanvas{
-    position: fixed;
-    width: 150px;
-    height: 300px;
-    opacity:0.7;
-    right: 0px;
-    z-index: 999;
-    pointer-events: none;
-    bottom: -20px;
-  }
-</style>
-<script type="text/javascript" src="/live2d/device.min.js"></script>
-<script type="text/javascript">
-const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
-(function(){
-  if((typeof(device) != 'undefined') && (device.mobile())){
-    document.getElementById("live2dcanvas").style.width = '105px';
-    document.getElementById("live2dcanvas").style.height = '210px';
-  }else
-    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
-  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/wanko.model.json", 0.5);});
-})();
-</script>
-
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"scale":0.8,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":1,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-24},"mobile":{"show":true,"scale":0.7},"react":{"opacityDefault":0.7,"opacityOnHover":0.2}});</script></body>
 </html>
