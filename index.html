@@ -297,6 +297,193 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lhalcyon.com/idea-gradle_war/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/idea-gradle_war/" itemprop="url">IntelliJ+Gradle自定义war包名称</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-22T00:00:00+08:00">
+                2018-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/idea-gradle_war/" class="leancloud_visitors" data-flag-title="IntelliJ+Gradle自定义war包名称">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  223
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近在帮朋友开发小程序的 Java 后端,项目采用 Gradle 构建,使用IntelliJ开发. 开发中经常需要发包到外网上,方便前端联调,而IntelliJ默认构建的 war 包名称为<code>项目名-版本号</code>,使得每次上传war包至服务器tomcat时还得手动重命名,发布次数多了,就显得很麻烦.这里先水一篇,简短说明下 <strong>IntelliJ中Gradle构建如何自定义war包名称</strong>.</p>
+<p>首先打开 Project Settings</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fopikcl9olj30mc01o3ys.jpg" alt=""></p>
+<p>选择 Artifacts</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fopiml70qkj31kw190qa2.jpg" alt=""></p>
+<p>前两个 <code>Gradle:xxx</code>  是创建Gradle项目并添加tomcat后,自动生成的.我们这里点击 + 新增</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fopiqgxj6ej31bg0hy0z2.jpg" alt=""></p>
+<p>选择 <code>Web Application: Archive</code>    -&gt;    <code>Empty</code></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fopj7lkx3cj31bu0e0tbt.jpg" alt=""></p>
+<p>修改war包名称及输出路径</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fopjt8ggu0j31c00midjh.jpg" alt=""></p>
+<p>添加war包内容,同样选择 Artifact</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fopk3yib95j30qg0qoabp.jpg" alt=""></p>
+<p>选择 Gradle: xxx (exploded) </p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fopk8hw84uj30h40aygmy.jpg" alt=""></p>
+<p>之后打包只能选择 Build -&gt; Build Artifacts 然后选择自定义的build, 然后在输出目录下即可找到war包</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://lhalcyon.com/hexo_ssl_netlify/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1927,200 +2114,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lhalcyon.com/hybrid-compile_swift2oc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/hybrid-compile_swift2oc/" itemprop="url">混编:Swift调用Objective-C</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-20T16:02:11+08:00">
-                2017-06-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/hybrid-compile_swift2oc/" class="leancloud_visitors" data-flag-title="混编:Swift调用Objective-C">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  192
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><ul>
-<li>Xcode 8.3.3</li>
-<li>Swift3.+</li>
-</ul>
-<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="1-创建混编桥接头文件"><a href="#1-创建混编桥接头文件" class="headerlink" title="1.创建混编桥接头文件"></a>1.创建混编桥接头文件</h4><p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/hybrid-compile.png" alt="hybrid-compile"></p>
-<p>名称随便取,最好能和普通header文件做区别</p>
-<h4 id="2-项目配置桥接文件"><a href="#2-项目配置桥接文件" class="headerlink" title="2.项目配置桥接文件"></a>2.项目配置桥接文件</h4><ol>
-<li>点击工程,选中<code>Build Settings</code>,子选项勾选<code>All</code></li>
-<li>在下面配置中找到(或者搜索)<code>Swift Compile - General</code></li>
-<li>配置混编桥接头文件</li>
-</ol>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/bridge-config.png" alt="bridge-config"></p>
-<p>点开图中红圈区域进行配置,如我所建的文件在工程里路径为<code>MyProject/Hybrid-Compile.h</code></p>
-<p>则配置也应是这个路径</p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/path-config.png" alt="path-config"></p>
-<p>保存后在该头文件中引用相应OC类头文件即可在Swift中调用</p>
-<h3 id="引用注意"><a href="#引用注意" class="headerlink" title="引用注意"></a>引用注意</h3><p>如果是项目内的OC文件直接引用即可</p>
-<p>如果是<code>Pod</code>引用的库中的OC文件则需要带上其<code>Pod</code>中的路径</p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/reference.png" alt="reference"></p>
-<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/reference1.png" alt="reference1"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -2170,7 +2170,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2192,7 +2192,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2274,7 +2274,7 @@
 
 
 
-  <div class="footer-custom">Goodbye,halcyon days..</div>
+  <div class="footer-custom">Goodbye , halcyon days.</div>
 
 
         

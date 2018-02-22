@@ -93,7 +93,7 @@
 <meta name="description" content="know thyself.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Halcyon days">
-<meta property="og:url" content="http://lhalcyon.com/tags/Hexo/index.html">
+<meta property="og:url" content="http://lhalcyon.com/page/2/index.html">
 <meta property="og:site_name" content="Halcyon days">
 <meta property="og:description" content="know thyself.">
 <meta property="og:locale" content="zh-Hans">
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://lhalcyon.com/tags/Hexo/"/>
+  <link rel="canonical" href="http://lhalcyon.com/page/2/"/>
 
 
 
 
 
-  <title>标签: Hexo | Halcyon days</title>
+  <title>Halcyon days</title>
   
 
 
@@ -154,7 +154,8 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -281,55 +282,206 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  
-  
-  
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Hexo<small>标签</small>
-        </h1>
-      </div>
-
+  <section id="posts" class="posts-expand">
+    
       
-        
+
+  
+
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lhalcyon.com/hybrid-compile_swift2oc/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/hexo_ssl_netlify/" itemprop="url">
-              
-                <span itemprop="name">Hexo绑定自定义Https域名</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/hybrid-compile_swift2oc/" itemprop="url">混编:Swift调用Objective-C</a></h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-18T00:00:00+08:00"
-              content="2018-02-18" >
-          02-18
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-20T16:02:11+08:00">
+                2017-06-20
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/hybrid-compile_swift2oc/" class="leancloud_visitors" data-flag-title="混编:Swift调用Objective-C">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  192
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    </div>
+      
 
+      
+        
+          
+            <h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><ul>
+<li>Xcode 8.3.3</li>
+<li>Swift3.+</li>
+</ul>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="1-创建混编桥接头文件"><a href="#1-创建混编桥接头文件" class="headerlink" title="1.创建混编桥接头文件"></a>1.创建混编桥接头文件</h4><p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/hybrid-compile.png" alt="hybrid-compile"></p>
+<p>名称随便取,最好能和普通header文件做区别</p>
+<h4 id="2-项目配置桥接文件"><a href="#2-项目配置桥接文件" class="headerlink" title="2.项目配置桥接文件"></a>2.项目配置桥接文件</h4><ol>
+<li>点击工程,选中<code>Build Settings</code>,子选项勾选<code>All</code></li>
+<li>在下面配置中找到(或者搜索)<code>Swift Compile - General</code></li>
+<li>配置混编桥接头文件</li>
+</ol>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/bridge-config.png" alt="bridge-config"></p>
+<p>点开图中红圈区域进行配置,如我所建的文件在工程里路径为<code>MyProject/Hybrid-Compile.h</code></p>
+<p>则配置也应是这个路径</p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/path-config.png" alt="path-config"></p>
+<p>保存后在该头文件中引用相应OC类头文件即可在Swift中调用</p>
+<h3 id="引用注意"><a href="#引用注意" class="headerlink" title="引用注意"></a>引用注意</h3><p>如果是项目内的OC文件直接引用即可</p>
+<p>如果是<code>Pod</code>引用的库中的OC文件则需要带上其<code>Pod</code>中的路径</p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/reference.png" alt="reference"></p>
+<p><img src="https://github.com/lhalcyon/RefImageRepo/raw/master/Hexo_170620/reference1.png" alt="reference1"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
   </div>
   
   
   
+  </article>
+
+
+    
+  </section>
 
   
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>

@@ -77,7 +77,7 @@
 
 
 
-  <meta name="keywords" content="halcyon,Hexo,Android,iOS,Java" />
+  <meta name="keywords" content="IntelliJ,war,Gradle," />
 
 
 
@@ -90,16 +90,26 @@
 
 
 
-<meta name="description" content="know thyself.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Halcyon days">
-<meta property="og:url" content="http://lhalcyon.com/tags/Hexo/index.html">
+<meta name="description" content="最近在帮朋友开发小程序的 Java 后端,项目采用 Gradle 构建,使用IntelliJ开发. 开发中经常需要发包到外网上,方便前端联调,而IntelliJ默认构建的 war 包名称为项目名-版本号,使得每次上传war包至服务器tomcat时还得手动重命名,发布次数多了,就显得很麻烦.这里先水一篇,简短说明下 IntelliJ中Gradle构建如何自定义war包名称. 首先打开 Project">
+<meta name="keywords" content="IntelliJ,war,Gradle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IntelliJ+Gradle自定义war包名称">
+<meta property="og:url" content="http://lhalcyon.com/idea-gradle_war/index.html">
 <meta property="og:site_name" content="Halcyon days">
-<meta property="og:description" content="know thyself.">
+<meta property="og:description" content="最近在帮朋友开发小程序的 Java 后端,项目采用 Gradle 构建,使用IntelliJ开发. 开发中经常需要发包到外网上,方便前端联调,而IntelliJ默认构建的 war 包名称为项目名-版本号,使得每次上传war包至服务器tomcat时还得手动重命名,发布次数多了,就显得很麻烦.这里先水一篇,简短说明下 IntelliJ中Gradle构建如何自定义war包名称. 首先打开 Project">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fopikcl9olj30mc01o3ys.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fopiml70qkj31kw190qa2.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fopiqgxj6ej31bg0hy0z2.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fopj7lkx3cj31bu0e0tbt.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1fopjt8ggu0j31c00midjh.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1fopk3yib95j30qg0qoabp.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fopk8hw84uj30h40aygmy.jpg">
+<meta property="og:updated_time" content="2018-02-22T13:49:26.410Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Halcyon days">
-<meta name="twitter:description" content="know thyself.">
+<meta name="twitter:title" content="IntelliJ+Gradle自定义war包名称">
+<meta name="twitter:description" content="最近在帮朋友开发小程序的 Java 后端,项目采用 Gradle 构建,使用IntelliJ开发. 开发中经常需要发包到外网上,方便前端联调,而IntelliJ默认构建的 war 包名称为项目名-版本号,使得每次上传war包至服务器tomcat时还得手动重命名,发布次数多了,就显得很麻烦.这里先水一篇,简短说明下 IntelliJ中Gradle构建如何自定义war包名称. 首先打开 Project">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fopikcl9olj30mc01o3ys.jpg">
 
 
 
@@ -129,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="http://lhalcyon.com/tags/Hexo/"/>
+  <link rel="canonical" href="http://lhalcyon.com/idea-gradle_war/"/>
 
 
 
 
 
-  <title>标签: Hexo | Halcyon days</title>
+  <title>IntelliJ+Gradle自定义war包名称 | Halcyon days</title>
   
 
 
@@ -154,7 +164,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -282,54 +292,218 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Hexo<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lhalcyon.com/idea-gradle_war/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/hexo_ssl_netlify/" itemprop="url">
-              
-                <span itemprop="name">Hexo绑定自定义Https域名</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">IntelliJ+Gradle自定义war包名称</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-18T00:00:00+08:00"
-              content="2018-02-18" >
-          02-18
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-22T00:00:00+08:00">
+                2018-02-22
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/idea-gradle_war/" class="leancloud_visitors" data-flag-title="IntelliJ+Gradle自定义war包名称">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  223
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在帮朋友开发小程序的 Java 后端,项目采用 Gradle 构建,使用IntelliJ开发. 开发中经常需要发包到外网上,方便前端联调,而IntelliJ默认构建的 war 包名称为<code>项目名-版本号</code>,使得每次上传war包至服务器tomcat时还得手动重命名,发布次数多了,就显得很麻烦.这里先水一篇,简短说明下 <strong>IntelliJ中Gradle构建如何自定义war包名称</strong>.</p>
+<p>首先打开 Project Settings</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fopikcl9olj30mc01o3ys.jpg" alt=""></p>
+<p>选择 Artifacts</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fopiml70qkj31kw190qa2.jpg" alt=""></p>
+<p>前两个 <code>Gradle:xxx</code>  是创建Gradle项目并添加tomcat后,自动生成的.我们这里点击 + 新增</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fopiqgxj6ej31bg0hy0z2.jpg" alt=""></p>
+<p>选择 <code>Web Application: Archive</code>    -&gt;    <code>Empty</code></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fopj7lkx3cj31bu0e0tbt.jpg" alt=""></p>
+<p>修改war包名称及输出路径</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fopjt8ggu0j31c00midjh.jpg" alt=""></p>
+<p>添加war包内容,同样选择 Artifact</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fopk3yib95j30qg0qoabp.jpg" alt=""></p>
+<p>选择 Gradle: xxx (exploded) </p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fopk8hw84uj30h40aygmy.jpg" alt=""></p>
+<p>之后打包只能选择 Build -&gt; Build Artifacts 然后选择自定义的build, 然后在输出目录下即可找到war包</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/IntelliJ/" rel="tag"># IntelliJ</a>
+          
+            <a href="/tags/war/" rel="tag"># war</a>
+          
+            <a href="/tags/Gradle/" rel="tag"># Gradle</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/hexo_ssl_netlify/" rel="next" title="Hexo绑定自定义Https域名">
+                <i class="fa fa-chevron-left"></i> Hexo绑定自定义Https域名
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -337,6 +511,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -597,6 +775,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
