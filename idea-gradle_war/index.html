@@ -90,13 +90,13 @@
 
 
 
-<meta name="description" content="最近在帮朋友开发小程序的 Java 后端,项目采用 Gradle 构建,使用IntelliJ开发. 开发中经常需要发包到外网上,方便前端联调,而IntelliJ默认构建的 war 包名称为项目名-版本号,使得每次上传war包至服务器tomcat时还得手动重命名,发布次数多了,就显得很麻烦.这里先水一篇,简短说明下 IntelliJ中Gradle构建如何自定义war包名称. 首先打开 Project">
+<meta name="description" content="最近在帮朋友开发小程序的 Java 后端,项目采用 Gradle 构建,使用IntelliJ开发. 开发中经常需要发包到外网上,方便前端联调,而IntelliJ默认构建的 war 包名称为项目名-版本号,使得每次上传war包至服务器tomcat时还得手动重命名,发布次数多了,就显得很繁琐.这里就水一篇,简短说明下 IntelliJ中Gradle构建如何自定义war包名称. 首先打开 Project">
 <meta name="keywords" content="IntelliJ,war,Gradle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IntelliJ+Gradle自定义war包名称">
-<meta property="og:url" content="http://lhalcyon.com/idea-gradle_war/index.html">
+<meta property="og:url" content="https://lhalcyon.com/idea-gradle_war/index.html">
 <meta property="og:site_name" content="Halcyon days">
-<meta property="og:description" content="最近在帮朋友开发小程序的 Java 后端,项目采用 Gradle 构建,使用IntelliJ开发. 开发中经常需要发包到外网上,方便前端联调,而IntelliJ默认构建的 war 包名称为项目名-版本号,使得每次上传war包至服务器tomcat时还得手动重命名,发布次数多了,就显得很麻烦.这里先水一篇,简短说明下 IntelliJ中Gradle构建如何自定义war包名称. 首先打开 Project">
+<meta property="og:description" content="最近在帮朋友开发小程序的 Java 后端,项目采用 Gradle 构建,使用IntelliJ开发. 开发中经常需要发包到外网上,方便前端联调,而IntelliJ默认构建的 war 包名称为项目名-版本号,使得每次上传war包至服务器tomcat时还得手动重命名,发布次数多了,就显得很繁琐.这里就水一篇,简短说明下 IntelliJ中Gradle构建如何自定义war包名称. 首先打开 Project">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fopikcl9olj30mc01o3ys.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fopiml70qkj31kw190qa2.jpg">
@@ -105,10 +105,10 @@
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1fopjt8ggu0j31c00midjh.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1fopk3yib95j30qg0qoabp.jpg">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fopk8hw84uj30h40aygmy.jpg">
-<meta property="og:updated_time" content="2018-02-22T13:49:26.410Z">
+<meta property="og:updated_time" content="2018-02-23T14:51:22.258Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IntelliJ+Gradle自定义war包名称">
-<meta name="twitter:description" content="最近在帮朋友开发小程序的 Java 后端,项目采用 Gradle 构建,使用IntelliJ开发. 开发中经常需要发包到外网上,方便前端联调,而IntelliJ默认构建的 war 包名称为项目名-版本号,使得每次上传war包至服务器tomcat时还得手动重命名,发布次数多了,就显得很麻烦.这里先水一篇,简短说明下 IntelliJ中Gradle构建如何自定义war包名称. 首先打开 Project">
+<meta name="twitter:description" content="最近在帮朋友开发小程序的 Java 后端,项目采用 Gradle 构建,使用IntelliJ开发. 开发中经常需要发包到外网上,方便前端联调,而IntelliJ默认构建的 war 包名称为项目名-版本号,使得每次上传war包至服务器tomcat时还得手动重命名,发布次数多了,就显得很繁琐.这里就水一篇,简短说明下 IntelliJ中Gradle构建如何自定义war包名称. 首先打开 Project">
 <meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fopikcl9olj30mc01o3ys.jpg">
 
 
@@ -139,7 +139,7 @@
 
 
 
-  <link rel="canonical" href="http://lhalcyon.com/idea-gradle_war/"/>
+  <link rel="canonical" href="https://lhalcyon.com/idea-gradle_war/"/>
 
 
 
@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lhalcyon.com/idea-gradle_war/">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/idea-gradle_war/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
@@ -425,7 +425,7 @@
       
 
       
-        <p>最近在帮朋友开发小程序的 Java 后端,项目采用 Gradle 构建,使用IntelliJ开发. 开发中经常需要发包到外网上,方便前端联调,而IntelliJ默认构建的 war 包名称为<code>项目名-版本号</code>,使得每次上传war包至服务器tomcat时还得手动重命名,发布次数多了,就显得很麻烦.这里先水一篇,简短说明下 <strong>IntelliJ中Gradle构建如何自定义war包名称</strong>.</p>
+        <p>最近在帮朋友开发小程序的 Java 后端,项目采用 Gradle 构建,使用IntelliJ开发. 开发中经常需要发包到外网上,方便前端联调,而IntelliJ默认构建的 war 包名称为<code>项目名-版本号</code>,使得每次上传war包至服务器tomcat时还得手动重命名,发布次数多了,就显得很繁琐.这里就水一篇,简短说明下 <strong>IntelliJ中Gradle构建如何自定义war包名称</strong>.</p>
 <p>首先打开 Project Settings</p>
 <p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fopikcl9olj30mc01o3ys.jpg" alt=""></p>
 <p>选择 Artifacts</p>
@@ -484,6 +484,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/flutter-basic-env/" rel="prev" title="Flutter基础-(1)环境搭建及demo运行">
+                Flutter基础-(1)环境搭建及demo运行 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -557,7 +561,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -568,7 +572,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -579,7 +583,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -661,7 +665,7 @@
 
 
 
-  <div class="footer-custom">Goodbye , halcyon days.</div>
+  <div class="footer-custom">Goodbye , halcyon days .</div>
 
 
         
