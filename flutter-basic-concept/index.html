@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="Flutter," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Halcyon days" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="在 上一篇文章 中,我们讲解了 Flutter 开发环境搭建 , 以及运行了官方demo简单体验了下 Flutter app . 此篇我们将开始对一些 Flutter app 中的一些概念做一些讲解 , 一些基本的操作做一些示例 , 主要是参考官网的教程 Write Your First Flutter App  若你对面向对象编程熟悉,以及对基本编程概念如变量、循环、条件了解 , 则适合阅读本篇">
+<meta name="keywords" content="Flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter基础-(2)基本概念及首个应用">
+<meta property="og:url" content="https://lhalcyon.com/flutter-basic-concept/index.html">
+<meta property="og:site_name" content="Halcyon days">
+<meta property="og:description" content="在 上一篇文章 中,我们讲解了 Flutter 开发环境搭建 , 以及运行了官方demo简单体验了下 Flutter app . 此篇我们将开始对一些 Flutter app 中的一些概念做一些讲解 , 一些基本的操作做一些示例 , 主要是参考官网的教程 Write Your First Flutter App  若你对面向对象编程熟悉,以及对基本编程概念如变量、循环、条件了解 , 则适合阅读本篇">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1fp6eb8abo5g306e0dw1kx.gif">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fp6is372okj309q0j5wf4.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fp6udcnhf3j309q0j4q44.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fp82yfuodij309q0j40u5.jpg">
+<meta property="og:updated_time" content="2018-03-11T14:01:54.471Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flutter基础-(2)基本概念及首个应用">
+<meta name="twitter:description" content="在 上一篇文章 中,我们讲解了 Flutter 开发环境搭建 , 以及运行了官方demo简单体验了下 Flutter app . 此篇我们将开始对一些 Flutter app 中的一些概念做一些讲解 , 一些基本的操作做一些示例 , 主要是参考官网的教程 Write Your First Flutter App  若你对面向对象编程熟悉,以及对基本编程概念如变量、循环、条件了解 , 则适合阅读本篇">
+<meta name="twitter:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1fp6eb8abo5g306e0dw1kx.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lhalcyon.com/flutter-basic-concept/"/>
+
+
+
+
+
+  <title>Flutter基础-(2)基本概念及首个应用 | Halcyon days</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Halcyon days</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/flutter-basic-concept/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Flutter基础-(2)基本概念及首个应用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-08T00:00:00+08:00">
+                2018-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Flutter/" itemprop="url" rel="index">
+                    <span itemprop="name">Flutter</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/flutter-basic-concept/" class="leancloud_visitors" data-flag-title="Flutter基础-(2)基本概念及首个应用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,121
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在 <a href="https://lhalcyon.com/flutter-basic-env">上一篇文章</a> 中,我们讲解了 Flutter 开发环境搭建 , 以及运行了官方demo简单体验了下 Flutter app .</p>
+<p>此篇我们将开始对一些 Flutter app 中的一些概念做一些讲解 , 一些基本的操作做一些示例 , 主要是参考官网的教程 <a href="https://flutter.io/get-started/codelab/" target="_blank" rel="noopener">Write Your First Flutter App</a> </p>
+<div class="note info"><p>若你对面向对象编程熟悉,以及对基本编程概念如变量、循环、条件了解 , 则适合阅读本篇教程 . 不必需要拥有 Dart 或移动编程经验.</p>
+<p>为了更好的阅读体验 , 请点击 <a href="https://lhalcyon.com/flutter-basic-concept/">阅读原文</a>   :)</p></div>
+<a id="more"></a>
+<ul>
+<li>步骤 1 : <a href="#step1">创建及启动 Flutter app</a></li>
+<li>步骤 2 : <a href="#step2">使用一个外部的程序包</a></li>
+<li>步骤 3 : <a href="#step3">增加一个 Stateful Widget</a></li>
+<li>步骤 4 : <a href="#step4">创建一个无限滚动的 ListView</a></li>
+<li>步骤 5 : <a href="#step5">增加交互</a></li>
+<li>步骤 6 : <a href="#step6">跳转到新页面</a></li>
+<li>步骤 7 : <a href="#step7">通过主题改变UI</a></li>
+<li><a href="#done">完成!</a></li>
+</ul>
+<h3 id="我们将创建什么"><a href="#我们将创建什么" class="headerlink" title="我们将创建什么"></a>我们将创建什么</h3><p>我们将实现一个简单的移动应用 , 它会生成创业公司的名称 . 用户可以选择和反选名称 , 保存最好的那些 . 代码一次生成 10 个名称 . 当用户滑动时 , 新一批的名称就会生成 . 用户可以点击导航栏右上的按钮进入一个只展示喜好的名称的列表新页面.</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fp6eb8abo5g306e0dw1kx.gif" alt=""></p>
+<div class="note default"><p><strong>我们将学到:</strong></p>
+<ul>
+<li>Flutter app 的基本结构</li>
+<li>使用额外的包去拓展功能</li>
+<li>使用热部署来快速开发</li>
+<li>如何去实现一个stateful 小部件</li>
+<li>如何创建一个无线滑动,懒加载的列表</li>
+<li>如何跳转去下一个界面</li>
+<li>如果通过主题去修改app外观</li>
+</ul></div>
+<p><span id="step1"></span></p>
+<h3 id="步骤-1-创建及启动-Flutter-app"><a href="#步骤-1-创建及启动-Flutter-app" class="headerlink" title="步骤 1 : 创建及启动 Flutter app"></a>步骤 1 : 创建及启动 Flutter app</h3><p>这里创建一个简单的 flutter app</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">flutter create flutter_first_app</span><br><span class="line"><span class="built_in">cd</span> flutter_first_app</span><br><span class="line">flutter run</span><br></pre></td></tr></table></figure>
+<p>如有疑问 , 可参考 <a href="https://lhalcyon.com/flutter-basic-env/">前一篇文章</a> 指引</p>
+<p>简单地 , 我们先将 <code>lib/main.dart</code>中的代码全部删除 , 替换为以下代码 , 其主要就是在屏幕中间展示 ‘Hello World’</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(<span class="keyword">new</span> MyApp());</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MaterialApp(</span><br><span class="line">      title: <span class="string">'Welcome to Flutter'</span>,</span><br><span class="line">      home: <span class="keyword">new</span> Scaffold(</span><br><span class="line">        appBar: <span class="keyword">new</span> AppBar(</span><br><span class="line">          title: <span class="keyword">new</span> Text(<span class="string">'Welcome to Flutter'</span>),</span><br><span class="line">        ),</span><br><span class="line">        body: <span class="keyword">new</span> Center(</span><br><span class="line">          child: <span class="keyword">new</span> Text(<span class="string">'Hello World'</span>),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重新运行得到结果</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fp6is372okj309q0j5wf4.jpg" alt=""></p>
+<h4 id="发现"><a href="#发现" class="headerlink" title="发现"></a>发现</h4><ul>
+<li>这个例子创建了个 Material Design 风格的app . <a href="https://material.io/guidelines/" target="_blank" rel="noopener">Material</a> 是一种在移动端及web上标准的视觉设计语言 . Flutter 提供了丰富的 Material 风格小部件</li>
+<li>main 方法使用了一个大箭头<code>=&gt;</code>写法 , 一行代码功能或方法的缩写</li>
+<li>app 继承 StatefulWidget 使得其自身也是个widget . 在 Flutter 里 , <strong>大多数元素都是 widget</strong> , 包括排列(alignment)、 内边距(padding)、布局(layout) .</li>
+<li>Material 库 中的脚手架小部件 (Scaffold widget) , 提供了一个默认的导航栏、 标题、 主旨属性在屏幕中维持了部件树🌲.部件子树可以是很复杂的.</li>
+<li>一个小部件的主要工作就是提供 <code>build()</code>方法 , 它是用来表明如何展示其他低层级的widget.</li>
+<li>这个示例的部件树由 包含一个 Text 子部件 的Center Widget 组成  . 这个 Center Widget 将其子部件树排列在屏幕中间 . </li>
+</ul>
+<p><span id="step2"></span></p>
+<h3 id="步骤-2-使用一个外部的程序包"><a href="#步骤-2-使用一个外部的程序包" class="headerlink" title="步骤 2 : 使用一个外部的程序包"></a>步骤 2 : 使用一个外部的程序包</h3><p>在这个步骤里 , 我们将开始使用一个开源程序包 <strong>english_words</strong> , 它包含了较多的常用的英文单词还有一些工具方法 .</p>
+<p>我们可以在 <a href="https://pub.dartlang.org/flutter/" target="_blank" rel="noopener">pub.dartlang.org</a>找到 <a href="https://pub.dartlang.org/packages/english_words" target="_blank" rel="noopener">english_words</a> 及 其他开源程序包</p>
+<p><strong>1.</strong> pubspec 文件负责管理 Flutter 应用的资源. 在 <strong>pubspec.yaml</strong> 文件中,添加 <strong>english_words</strong>(3.1.0或更高版本)到依赖里.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">dependencies:</span></span><br><span class="line"><span class="attr">  flutter:</span></span><br><span class="line"><span class="attr">    sdk:</span> <span class="string">flutter</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  cupertino_icons:</span> <span class="string">^0.1.0</span></span><br><span class="line"><span class="attr">  english_words:</span> <span class="string">^3.1.0</span></span><br></pre></td></tr></table></figure>
+<p><strong>2. </strong>当我们在IDEA 视图中 , 修改yaml文件后 , 可点击右上方的 <strong>Packages get</strong> 使之生效.它会拉取我们才添加的依赖包, 控制台中打印</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">flutter packages get</span><br><span class="line">Running <span class="string">"flutter packages get"</span> <span class="keyword">in</span> flutter_first_app...</span><br><span class="line">Process finished with <span class="built_in">exit</span> code 0</span><br></pre></td></tr></table></figure>
+<p><strong>3. </strong> 在 <strong>lib/main.dart</strong>文件中,添加 import 语句 , 导入依赖相关类</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:english_words/english_words.dart'</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>4. </strong> 用开源库生成文本代替原来的 ‘Hello World’</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:english_words/english_words.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(<span class="keyword">new</span> MyApp());</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">final</span> wordPair = <span class="keyword">new</span> WordPair.random();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MaterialApp(</span><br><span class="line">      title: <span class="string">'Welcome to Flutter'</span>,</span><br><span class="line">      home: <span class="keyword">new</span> Scaffold(</span><br><span class="line">        appBar: <span class="keyword">new</span> AppBar(</span><br><span class="line">          title: <span class="keyword">new</span> Text(<span class="string">'Welcome to Flutter'</span>),</span><br><span class="line">        ),</span><br><span class="line">        body: <span class="keyword">new</span> Center(</span><br><span class="line">          <span class="comment">//child: new Text('Hello World'), // Replace the highlighted text...</span></span><br><span class="line">          child: <span class="keyword">new</span> Text(wordPair.asPascalCase),  <span class="comment">// With this highlighted text.</span></span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>5. </strong>若app正在运行, 可以通过点击⚡️按钮进行热部署. 每次点击或者保存时 , 会生成新的一个随机单词. 这是因为单词是在 <code>build(...)</code> 方法中生成, 它会在每次 MaterialApp 需要渲染或触发平台检视时执行.</p>
+<p><span id="step3"></span></p>
+<h3 id="步骤-3-增加一个-Stateful-Widget"><a href="#步骤-3-增加一个-Stateful-Widget" class="headerlink" title="步骤 3 : 增加一个 Stateful Widget"></a>步骤 3 : 增加一个 Stateful Widget</h3><p>Stateless widgets 是不可变的 , 意味着其属性是不可改变的 - 所有值均为final .</p>
+<p>Stateful widgets 维持着生命周期中可变的状态 . 实现一个 stateful widget 需要至少两个类: 一个 State 类 和 一个创建State示例的 StatefulWidget .  StatefulWidget本身是不可变的 , 但是 State 类在widget生成周期中一直存留 . </p>
+<p>在这个步骤里 , 我们将添加一个 stateful widget - RandomWords , 它创建自己的 State 类 - RandomWordsState . state 类将为widget最终维持建议的和喜好的单词.</p>
+<p><strong>1. </strong> 添加 stateful RandomWords 到 main.dart </p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWords</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  createState() =&gt; <span class="keyword">new</span> RandomWordsState();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>2. </strong> 添加 RandomWordsState . 大部分app的代码会在这个类中 , 将维持着 RandomWords 部件的状态 . 这个类将会保存生成的词对 , 它们随着用户滑动页面无线增加 . 然后喜好的词对 , 用户通过点击列表的心形按钮进行添加或移除 .</p>
+<p>我们一步一步来创建这个类</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>3. </strong> 在添加 state 类后 , IDE会提示错误, 需要我们取实现未实现的方法 . </p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">final</span> wordPair = <span class="keyword">new</span> WordPair.random();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Text(wordPair.asPascalCase);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>4. </strong> 移除单词生成代码 , </p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MaterialApp(</span><br><span class="line">      title: <span class="string">'Welcome to Flutter'</span>,</span><br><span class="line">      home: <span class="keyword">new</span> Scaffold(</span><br><span class="line">        appBar: <span class="keyword">new</span> AppBar(</span><br><span class="line">          title: <span class="keyword">new</span> Text(<span class="string">'Welcome to Flutter'</span>),</span><br><span class="line">        ),</span><br><span class="line">        body: <span class="keyword">new</span> Center(</span><br><span class="line">          child: <span class="keyword">new</span> RandomWords(),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span id="step4"></span></p>
+<h3 id="步骤-4-创建一个无限滚动的-ListView"><a href="#步骤-4-创建一个无限滚动的-ListView" class="headerlink" title="步骤 4 : 创建一个无限滚动的 ListView"></a>步骤 4 : 创建一个无限滚动的 ListView</h3><p>这个步骤里, 我们将扩充 RandomWordsState 类 来生成和展示单词对的列表. 当用户滑动页面, ListView widget 展示的列表将会无限增加. ListView 的 <code>builder</code> 工厂构造器允许我们视需懒加载创建列表视图</p>
+<p> <strong>1. </strong>在 RandomWordsState 类中添加成员变量 <code>_suggestions</code> 列表用来保存推荐的单词对.在 Dart 语言中 , 以 <code>_</code>下划线开头的变量/方法为私有访问权限.</p>
+<p>同样的 , 添加 <code>biggerFont</code> 变量用来使字体大小更大</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> _suggestions = &lt;WordPair&gt;[];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">final</span> _biggerFont = <span class="keyword">const</span> TextStyle(fontSize: <span class="number">18.0</span>);</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>2 ~ 3. </strong>添加 <code>_buildSuggestions()</code>方法到 RandomWordsState 类中. 此方法负责构建 ListView 和展示建议的单词对. </p>
+<p>ListView 类提供了一个 builder 属性 , <code>itemBuilder</code> 一个工厂构建者和指定匿名函数的回调功能.两个参数被传递给函数- <code>BuildContext</code> 还有行迭代器 <code>i</code> . 迭代器从 <code>0</code> 开始且每次方法调用递增.</p>
+<p>添加 <code>_buildRow</code> 方法</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Widget _buildSuggestions() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ListView.builder(</span><br><span class="line">        <span class="comment">// padding 16</span></span><br><span class="line">        padding: <span class="keyword">const</span> EdgeInsets.all(<span class="number">16.0</span>),</span><br><span class="line">        <span class="comment">// 每一对单词对调用一次itemBuilder 回调 ,然后放置一个推荐的单词对在行内</span></span><br><span class="line">        <span class="comment">// 偶数行 , 函数增加个内容行显示单词对,</span></span><br><span class="line">        <span class="comment">// 奇数行 , 函数添加一条分割线小部件 (Divider Widget)去显示分割条目</span></span><br><span class="line"></span><br><span class="line">        itemBuilder: (context, i) &#123;</span><br><span class="line">          <span class="keyword">if</span> (i.isOdd) <span class="keyword">return</span> <span class="keyword">new</span> Divider();</span><br><span class="line"></span><br><span class="line">          <span class="comment">// index 为 i/2 的余整数</span></span><br><span class="line">          <span class="keyword">final</span> index = i ~/ <span class="number">2</span>;</span><br><span class="line">          <span class="keyword">if</span> (index &gt;= _suggestions.length) &#123;</span><br><span class="line">            <span class="comment">// ...生成10个词对,添加到list</span></span><br><span class="line">            _suggestions.addAll(generateWordPairs().take(<span class="number">10</span>));</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">return</span> _buildRow(_suggestions[index]);</span><br><span class="line">        &#125;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>4. </strong>更新 RandomWordsState 的 build 方法 , 使用 <code>_buildSuggestions</code> ,不再直接使用调用单词生产库.</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Scaffold (</span><br><span class="line">      appBar: <span class="keyword">new</span> AppBar(</span><br><span class="line">        title: <span class="keyword">new</span> Text(<span class="string">'Startup Name Generator'</span>),</span><br><span class="line">      ),</span><br><span class="line">    body: _buildSuggestions(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>5. </strong>更新 MyApp 的 build 方法 . 从 MyApp 中移除 Scaffold 和 AppBar 实例. 这些将会被 RandomWordsState 管理 ,这样将更容易地在下个步骤页面跳转时去改变导航栏上的名称.</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MaterialApp(</span><br><span class="line">      title: <span class="string">'Startup Name Generator'</span>,</span><br><span class="line">      home: <span class="keyword">new</span> RandomWords(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fp6udcnhf3j309q0j4q44.jpg" alt=""></p>
+<p><span id="step5"></span></p>
+<h3 id="步骤-5-增加交互"><a href="#步骤-5-增加交互" class="headerlink" title="步骤 5 : 增加交互"></a>步骤 5 : 增加交互</h3><p>这个步骤中 , 我们将增加可点击的心形图标到每一行 . 当用户点击列表条目时 , 触发其 “favorite” 状态 ,状态改变会将对应单词对添加到保存的集合或从中移除</p>
+<p><strong>1. </strong> 添加 <code>_saved</code> 集合到 RandomWordsState 里 . 集合存储用户喜好的单词对 , 更倾向于用 Set 是因为 Set 中不允许有重复的条目</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> _suggestions = &lt;WordPair&gt;[];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">final</span> _saved = <span class="keyword">new</span> <span class="built_in">Set</span>&lt;WordPair&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">final</span> _biggerFont = <span class="keyword">const</span> TextStyle(fontSize: <span class="number">18.0</span>);</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>2. </strong>在 <code>_buildRow</code> 函数里 , 添加 <code>alreadySaved</code> 变量来检查确保单词对还未被添加到喜好的集合中.</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Widget _buildRow(WordPair pair) &#123;</span><br><span class="line">  <span class="keyword">final</span> alreadySaved = _saved.contains(pair);</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>3 ~ 4. </strong>还是在<code>_buildRow</code> 里 , 添加心形图标 . 重启应用 , 我们可以看到心形已被添加 , 只是暂时没有交互事件</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Widget _buildRow(WordPair pair) &#123;</span><br><span class="line">  <span class="keyword">final</span> alreadySaved = _saved.contains(pair);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> ListTile(</span><br><span class="line">    title: <span class="keyword">new</span> Text(</span><br><span class="line">      pair.asPascalCase,</span><br><span class="line">      style: _biggerFont,</span><br><span class="line">    ),</span><br><span class="line">    trailing: <span class="keyword">new</span> Icon(</span><br><span class="line">      alreadySaved ? Icons.favorite : Icons.favorite_border,</span><br><span class="line">      color: alreadySaved ? Colors.red : <span class="keyword">null</span>,</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>5. </strong>在<code>_buildRow</code> 中设置心形可点击. 如果一个单词条目被添加到喜欢的集合时, 再次单击它就能从喜欢的集合中移除 . 当心形被点击 , 函数会调用 <code>setState()</code>去通知框架状态被改变了.</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Widget _buildRow(WordPair pair) &#123;</span><br><span class="line">  <span class="keyword">final</span> alreadySaved = _saved.contains(pair);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> ListTile(</span><br><span class="line">    title: <span class="keyword">new</span> Text(</span><br><span class="line">      pair.asPascalCase,</span><br><span class="line">      style: _biggerFont,</span><br><span class="line">    ),</span><br><span class="line">    trailing: <span class="keyword">new</span> Icon(</span><br><span class="line">      alreadySaved ? Icons.favorite : Icons.favorite_border,</span><br><span class="line">      color: alreadySaved ? Colors.red : <span class="keyword">null</span>,</span><br><span class="line">    ),</span><br><span class="line">    onTap: () &#123;</span><br><span class="line">      setState(() &#123;</span><br><span class="line">        <span class="keyword">if</span> (alreadySaved) &#123;</span><br><span class="line">          _saved.remove(pair);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          _saved.add(pair);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="note info"><p>在 Flutter react式的框架中 , 调用 setState() 会为 State 对象触发 build() 方法 , 最后更新到UI上.</p></div>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fp82yfuodij309q0j40u5.jpg" alt=""></p>
+<p><span id="step6"></span></p>
+<h3 id="步骤-6-跳转到新页面"><a href="#步骤-6-跳转到新页面" class="headerlink" title="步骤 6 : 跳转到新页面"></a>步骤 6 : 跳转到新页面</h3><p>在这个步骤里 , 我们将添加一个页面 (在Flutter里叫 route ) 展示喜好的推荐词对 . 我们将学到如何从主页面导航到新页面 .</p>
+<p>在 Flutter 中 , Navigator 管理着一个包含app页面的栈 . 推送一个页面进入 Navigator 的栈中, 则会更新显示这个页面 .  从 Navigator栈中推出一个页面 , 则会显示上一个页面 .</p>
+<p><strong>1 ~ 3. </strong> 在 RandomWordsState 的 build 方法中给 AppBar 添加一个列表图标 . 当用户点击图标 , 一个包含喜好列表的页面会被推送呈现 .</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Scaffold(</span><br><span class="line">      appBar: <span class="keyword">new</span> AppBar(</span><br><span class="line">        title: <span class="keyword">new</span> Text(<span class="string">'Startup Name Generator'</span>),</span><br><span class="line">        actions: &lt;Widget&gt;[</span><br><span class="line">          <span class="keyword">new</span> IconButton(icon: <span class="keyword">new</span> Icon(Icons.list), onPressed: _pushSaved),</span><br><span class="line">        ],</span><br><span class="line">      ),</span><br><span class="line">      body: _buildSuggestions(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在 RandomWordsState 中添加 <code>_pushSaved</code>方法</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">void</span> _pushSaved() &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>4 ~ 6. </strong> 添加 MaterialPageRoute 及它的 builder . 添加代码生成 ListTile 行 . ListTile 的<code>divideTiles()</code> 方法在每一条条目间增加水平距离 . <code>divided</code> 变量保存着最终的行 , 通过函数 <code>toList()</code> 转换为列表</p>
+<p>builder 属性返回一个 Scaffold , 包含了新页面的导航栏 ,名为 “Saved Suggestion” .新页面的内容部分由 ListView包含 ListTiles 行组成 , 每一行由一个 divider 分隔 .</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> _pushSaved() &#123;</span><br><span class="line">  Navigator.of(context).push(</span><br><span class="line">    <span class="keyword">new</span> MaterialPageRoute(</span><br><span class="line">      builder: (context) &#123;</span><br><span class="line">        <span class="keyword">final</span> tiles = _saved.map(</span><br><span class="line">          (pair) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ListTile(</span><br><span class="line">              title: <span class="keyword">new</span> Text(</span><br><span class="line">                pair.asPascalCase,</span><br><span class="line">                style: _biggerFont,</span><br><span class="line">              ),</span><br><span class="line">            );</span><br><span class="line">          &#125;,</span><br><span class="line">        );</span><br><span class="line">        <span class="keyword">final</span> divided = ListTile</span><br><span class="line">          .divideTiles(</span><br><span class="line">            context: context,</span><br><span class="line">            tiles: tiles,</span><br><span class="line">          )</span><br><span class="line">          .toList();</span><br><span class="line">      &#125;,</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span id="step7"></span></p>
+<p>###步骤 7 : 通过主题改变UI</p>
+<p>在这个最终步骤中, 我们将改变app的主题 . </p>
+<p><strong>1. </strong>我们可以简单地通过配置 ThemeData 类 改变app的主题 . 当前app是默认主题, 我们将改变主色为紫色</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MaterialApp(</span><br><span class="line">      title: <span class="string">'Startup Name Generator'</span>,</span><br><span class="line">      home: <span class="keyword">new</span> RandomWords(),</span><br><span class="line">      theme: <span class="keyword">new</span> ThemeData(</span><br><span class="line">        primaryColor: Colors.purple</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span id="done"></span></p>
+<h3 id="完成"><a href="#完成" class="headerlink" title="完成!"></a>完成!</h3><p>至此 , 我们第一个 app 已经完成 . 功能相对来说较简单 , 但是大体上让我们对开发 Flutter app 有了一定了解. 之后我们将延续官网的教程 , 开始较全面地了解构建UI相关的部分.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Flutter/" rel="tag"># Flutter</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/flutter-basic-env/" rel="next" title="Flutter基础-(1)环境搭建及demo运行">
+                <i class="fa fa-chevron-left"></i> Flutter基础-(1)环境搭建及demo运行
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460"
+                alt="L" />
+            
+              <p class="site-author-name" itemprop="name">L</p>
+              <p class="site-description motion-element" itemprop="description">know thyself.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lhalcyon" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:longhai@lhalcyon.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/56a18660816dfa005a7e58df" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-archive"></i>掘金</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#我们将创建什么"><span class="nav-number">1.</span> <span class="nav-text">我们将创建什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤-1-创建及启动-Flutter-app"><span class="nav-number">2.</span> <span class="nav-text">步骤 1 : 创建及启动 Flutter app</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#发现"><span class="nav-number">2.1.</span> <span class="nav-text">发现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤-2-使用一个外部的程序包"><span class="nav-number">3.</span> <span class="nav-text">步骤 2 : 使用一个外部的程序包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤-3-增加一个-Stateful-Widget"><span class="nav-number">4.</span> <span class="nav-text">步骤 3 : 增加一个 Stateful Widget</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤-4-创建一个无限滚动的-ListView"><span class="nav-number">5.</span> <span class="nav-text">步骤 4 : 创建一个无限滚动的 ListView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤-5-增加交互"><span class="nav-number">6.</span> <span class="nav-text">步骤 5 : 增加交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤-6-跳转到新页面"><span class="nav-number">7.</span> <span class="nav-text">步骤 6 : 跳转到新页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完成"><span class="nav-number">8.</span> <span class="nav-text">完成!</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">L</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Goodbye , halcyon days .</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("UbniSKfBsoNe7s8pbumwYrJX-gzGzoHsz", "PwtF7EaCdn3QisFXC9XsMo9T");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"scale":0.8,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":1,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-24},"mobile":{"show":false,"scale":0.3},"react":{"opacityDefault":0.7,"opacityOnHover":0.2}});</script></body>
+</html>
