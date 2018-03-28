@@ -297,6 +297,198 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/flutter-widget-text/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/flutter-widget-text/" itemprop="url">Flutter基础-(3)Widget之文本Text</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-27T00:00:00+08:00">
+                2018-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Flutter/" itemprop="url" rel="index">
+                    <span itemprop="name">Flutter</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/flutter-widget-text/" class="leancloud_visitors" data-flag-title="Flutter基础-(3)Widget之文本Text">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  803
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>本来打算第三篇文章来讲解 Flutter 单子布局widget , 奈何 <strong>18种单子布局widget</strong> 内容颇多,加之年后有了新项目要开发 , 使得文章产出周期被拉长 :(  .  这里先来篇简单的关于Text的文章 , 下次更新将会发出 Flutter系列的目录及布局widget的文章.</p>
+</blockquote>
+<h4 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h4><p><a href="https://docs.flutter.io/flutter/widgets/Text-class.html" target="_blank" rel="noopener">Text</a>  文本是app里常见的控件 , 用以显示一串单一样式的文本 . 该字符串可跨越多行 , 或根据布局约束显示在同一行中</p>
+<p>最简单的可以直接用这样的代码来展示文本 , 类似 Android 里的 TextView , iOS 里的 UILabel .</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Text(<span class="string">'简单的文本'</span>)</span><br></pre></td></tr></table></figure>
+<p>代码未指定样式 , 此时将使用最近的 DefaultTextStyle 样式 . 若给定样式中 TextStyle.inherit 属性为true , 给定样式则将与最近的 DefaultTextStyle 样式合并 . </p>
+<blockquote>
+<p>类似 Android 里 , style.xml 主题样式 AppTheme 中定义了文本样式 , 并且将其设置为 Application 的主题样式 , 那么新建一个 TextView 就会默认使用 AppTheme中定义的文本样式 , 而当给这个 TextView 设置样式时,此样式就会和主题样式进行合并 </p>
+</blockquote>
+<p>当 TextStyle.inherit 属性设置为 false 时 , 文本样式会恢复到默认状态: 白色, 10像素 , sans-serif 字体</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> TextStyle _inheritBigFont = <span class="keyword">new</span> TextStyle(inherit: <span class="keyword">true</span>, fontSize: <span class="number">24.0</span>);</span><br><span class="line"><span class="keyword">final</span> TextStyle _notInheritBigFont = <span class="keyword">new</span> TextStyle(inherit: <span class="keyword">false</span>, fontSize: <span class="number">24.0</span>);</span><br><span class="line">...</span><br><span class="line"><span class="keyword">new</span> Text(<span class="string">'inherit true'</span>, style: widget._inheritBigFont)</span><br><span class="line"><span class="keyword">new</span> Text(<span class="string">'inherit false'</span>, style: widget._notInheritBigFont)</span><br></pre></td></tr></table></figure>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fpst9zllwxj306u0dfaaj.jpg" alt=""></p>
+<p>文本样式鸟瞰</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1fpstut8a0uj305k084mzc.jpg" alt=""></p>
+<h4 id="RichText"><a href="#RichText" class="headerlink" title="RichText"></a>RichText</h4><p>要显示多样式的文本 , 需要使用富文本 <a href="https://docs.flutter.io/flutter/widgets/RichText-class.html" target="_blank" rel="noopener">RichText</a></p>
+<p>在开发中 , 有一些常见的应用场景需要用到富文本 .  比如在很多 app 注册 ,开户界面会有一个同意协议的模块 , </p>
+<p><em>我已阅读并同意《xxx协议》</em> , 协议名称通常高亮显示并且可以点击打开协议页面 .</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/gestures.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DemoText</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> TextStyle _protocolFont = <span class="keyword">new</span> TextStyle(fontSize: <span class="number">16.0</span>);</span><br><span class="line">  <span class="keyword">final</span> TextStyle _inheritBigFont =</span><br><span class="line">      <span class="keyword">new</span> TextStyle(inherit: <span class="keyword">true</span>, fontSize: <span class="number">24.0</span>);</span><br><span class="line">  <span class="keyword">final</span> TextStyle _notInheritBigFont =</span><br><span class="line">      <span class="keyword">new</span> TextStyle(inherit: <span class="keyword">false</span>, fontSize: <span class="number">24.0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  DemoTextState createState() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> DemoTextState();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DemoTextState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">DemoText</span>&gt; </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Scaffold(</span><br><span class="line">        appBar: <span class="keyword">new</span> AppBar(</span><br><span class="line">          title: <span class="keyword">const</span> Text(<span class="string">'Text Demo'</span>),</span><br><span class="line">        ),</span><br><span class="line">        body: <span class="keyword">new</span> Builder(builder: builderBody));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Widget builderBody(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">final</span> TapGestureRecognizer recognizer = <span class="keyword">new</span> TapGestureRecognizer();</span><br><span class="line">    recognizer.onTap = () &#123;</span><br><span class="line">      Scaffold.of(context).showSnackBar(<span class="keyword">new</span> SnackBar(</span><br><span class="line">            content: <span class="keyword">new</span> Text(<span class="string">'协议被点击!'</span>),</span><br><span class="line">          ));</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> Divider divider = <span class="keyword">new</span> Divider(color: Colors.white, height: <span class="number">2.0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Container(</span><br><span class="line">        color: Colors.grey,</span><br><span class="line">        alignment: Alignment.center,</span><br><span class="line">        child: <span class="keyword">new</span> Column(</span><br><span class="line">          children: &lt;Widget&gt;[</span><br><span class="line">            <span class="keyword">new</span> Text(<span class="string">'inherit true'</span>, style: widget._inheritBigFont),</span><br><span class="line">            <span class="keyword">new</span> Text(<span class="string">'inherit false'</span>, style: widget._notInheritBigFont),</span><br><span class="line">            divider,</span><br><span class="line">            <span class="keyword">new</span> Text(</span><br><span class="line">              <span class="string">'龙骑士囧雪诺JohnSnow'</span>,</span><br><span class="line">              style: <span class="keyword">new</span> TextStyle(</span><br><span class="line">                  color: Colors.blue,</span><br><span class="line">                  fontSize: <span class="number">24.0</span>,</span><br><span class="line">                  fontStyle: FontStyle.italic,</span><br><span class="line">                  letterSpacing: <span class="number">2.0</span>,</span><br><span class="line">                  decoration: TextDecoration.underline),</span><br><span class="line">            ),</span><br><span class="line">            divider,</span><br><span class="line">            <span class="keyword">new</span> RichText(</span><br><span class="line">              text: <span class="keyword">new</span> TextSpan(</span><br><span class="line">                text: <span class="string">'我已阅读'</span>,</span><br><span class="line">                style: widget._protocolFont,</span><br><span class="line">                children: &lt;TextSpan&gt;[</span><br><span class="line">                  <span class="keyword">new</span> TextSpan(</span><br><span class="line">                      text: <span class="string">'《从flutter入门到放弃》'</span>,</span><br><span class="line">                      style: <span class="keyword">new</span> TextStyle(color: Colors.redAccent),</span><br><span class="line">                      recognizer: recognizer),</span><br><span class="line">                ],</span><br><span class="line">              ),</span><br><span class="line">            ),</span><br><span class="line">          ],</span><br><span class="line">        ));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fpsu9h19ckj306u0dft9h.jpg" alt=""></p>
+<p>TapGestureRecognizer 是手势识别者 , 后面讲到手势时再具体说明 . 这里我们先知道它可以用来给富文本某一段添加点击事件 .  这里我们点击协议后 , 会弹出一个SnackBar提示协议被点击了 . </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/flutter-basic-concept/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -393,7 +585,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,126
+                  3,618
                 </span>
               
 
@@ -420,8 +612,8 @@
       
         
           <p>在 <a href="https://lhalcyon.com/flutter-basic-env">上一篇文章</a> 中,我们讲解了 Flutter 开发环境搭建 , 以及运行了官方demo简单体验了下 Flutter app .</p>
-<p>此篇我们将开始对一些 Flutter app 中的一些概念做一些讲解 , 一些基本的操作做一些示例 , 主要是参考官网的教程 <a href="https://flutter.io/get-started/codelab/" target="_blank" rel="noopener">Write Your First Flutter App</a> </p>
-<div class="note info"><p>若你对面向对象编程熟悉,以及对基本编程概念如变量、循环、条件了解 , 则适合阅读本篇教程 . 不必需要拥有 Dart 或移动编程经验.</p>
+<p>此篇我们将开始对一些 Flutter app 中的一些基本概念进行讲解 , 一些基本的操作做一些示例 , 主要是参考官网的教程 <a href="https://flutter.io/get-started/codelab/" target="_blank" rel="noopener">Write Your First Flutter App</a> </p>
+<div class="note info"><p>若你对面向对象编程熟悉,以及对基本编程概念如变量、循环、条件了解 , 则适合阅读本篇文章 . 不必需要拥有 Dart 或移动编程经验.</p>
 <p>为了更好的阅读体验 , 请点击 <a href="https://lhalcyon.com/flutter-basic-concept/">阅读原文</a>   :)</p></div>
 
         
@@ -575,7 +767,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,655
+                  2,742
                 </span>
               
 
@@ -601,14 +793,14 @@
 
       
         
-          <p><a href="https://flutter.io/" target="_blank" rel="noopener">Flutter</a> 是一款谷歌的用以同时在 iOS 和 Android 上制作高质量原生界面的移动应用UI框架.目前谷歌是已发布了 Flutter Beta 版,同时也提供了多个 Sample Project 供学习. Flutter 主要有着<strong>快速开发</strong>、<strong>有表现力及灵活的UI</strong>、<strong>原生表现</strong>等特点.</p>
+          <p><a href="https://flutter.io/" target="_blank" rel="noopener">Flutter</a> 是一款谷歌用以同时在 iOS 和 Android 上制作高质量原生界面的移动应用UI框架.目前谷歌是已发布了 Flutter Beta 版,同时也提供了多个 Sample Project 供学习. Flutter 主要有着<strong>快速开发</strong>、<strong>有表现力及灵活的UI</strong>、<strong>原生表现</strong>等特点.</p>
 <p><strong>快速开发</strong></p>
 <p>极速热部署就能使app构建生效,使用大量可深度自定义化的小部件 (Widgets) 供快速开发原生界面.</p>
 <p><strong>有表现力及灵活的UI</strong></p>
 <p>快速地将特性集中在客户端用户体验上.分层体系结构允许深度定制,最终呈现快速渲染以及有表现力和灵活的设计</p>
 <p><strong>原生表现</strong></p>
 <p>Flutter的小部件包含了所有关键的平台差异,如滚动、导航、图标和字体,以在iOS和Android上提供完整的原生表现</p>
-<div class="note info"><p>类似于 Fackbook 的 React Native , 我们可用 Flutter 开发一套代码,应用于 Android 以及 iOS 平台上.不仅如此, Flutter 还可应用于谷歌将推出的新系统 <a href="https://baike.baidu.com/item/Fuchsia/19900570?fr=aladdin" target="_blank" rel="noopener">Fuchsia</a> . 可以看出 , Flutter 确有统一移动端的趋势 , 身为移动 Developer 当然要有所了解. 接下来我们将开始 <strong>搭建开发环境 , 并且运行官方的 demo </strong></p>
+<div class="note info"><p>类似于 Fackbook 的 React Native , 我们可用 Flutter 开发一套代码,应用于 Android 以及 iOS 平台上.不仅如此, Flutter 还可应用于谷歌将推出的新系统 <a href="https://baike.baidu.com/item/Fuchsia/19900570?fr=aladdin" target="_blank" rel="noopener">Fuchsia</a> . 可以看出 , Flutter 确有统一移动端的能力 , 身为移动开发者 , 当然要有所了解. so , 接下来我们将开始 <strong>搭建开发环境 , 并且运行官方的 demo </strong></p>
 <p>为了更好的阅读体验, 请点击<a href="https://lhalcyon.com/flutter-basic-env">阅读原文</a> :)</p></div>
 
         
@@ -1935,186 +2127,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/xcode-idiot/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/xcode-idiot/" itemprop="url">Xcode代码提示问题处理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-15T13:32:45+08:00">
-                2017-08-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/xcode-idiot/" class="leancloud_visitors" data-flag-title="Xcode代码提示问题处理">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  447
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <div class="note info"><p>最近在写<code>Swift</code>.对于笔者这种被<code>JetBrains</code>的几大IDE工具给惯坏的开发者,Xcode的代码提示真是无力吐槽,先不论智能提示度,就连基本的提示也经常出不来.这里就简单总结下iOS同事传授的几招解决办法</p></div>
-<h3 id="1-Clean-Project"><a href="#1-Clean-Project" class="headerlink" title="1.Clean Project"></a>1.Clean Project</h3><p>最直接的办法就是清空项目.</p>
-<p>可视化按钮入口再哪请自行查找,笔者一般是用<code>Command+Shift+K</code>进行清空,此方法一般有效,缺点是会重新编译项目,比较慢</p>
-<h3 id="2-清空Xcode缓存"><a href="#2-清空Xcode缓存" class="headerlink" title="2.清空Xcode缓存"></a>2.清空Xcode缓存</h3><p>前往Xcode的缓存目录,清空项目编译缓存.</p>
-<p>具体操作为右键Finder<code>前往文件夹</code>文件夹路径为<code>/用户/ceyx/资源库/Developer/Xcode/DerivedData</code>  其中<code>ceyx</code> 替换为自己的用户名,删除目录下所有文件,然后重新打开Xcode,编译.</p>
-<p><strong>此方法比1更慢,往往也更有效</strong></p>
-<h3 id="3-终极大招"><a href="#3-终极大招" class="headerlink" title="3.终极大招"></a>3.终极大招</h3><p>如若上述两种方法还无效,只能使用绝招了…重启Xcode,还不行就重启电脑… 笔者黔驴技穷了,只能充当下网吧老板传授下终极大招.👻</p>
-<p>题外话,对于JetBrains出品的appcode还未尝试过,不知对于Xcode项目兼容到何程度,是否支持Cocoapod等,有时间会去体验下,希望至少在代码提示上能更友善些😀</p>
-<p>笔者去体验了下Appcode,其代码提示和快捷键如Jetbrains其他产品一样非常智能,但是代码中偶有飘红,却可以成功运行,比较干扰编码.尤为尴尬的一点是,Appcode不支持storyboard,即在项目内点开storyboard文件就直接跳转xcode了😥. 如真的被Xcode逼疯的童鞋可以考虑下用AppCode编码,用Xcode操作storyboard</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2171,7 +2183,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

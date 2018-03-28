@@ -297,6 +297,186 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/xcode-idiot/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/xcode-idiot/" itemprop="url">Xcode代码提示问题处理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-15T13:32:45+08:00">
+                2017-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/xcode-idiot/" class="leancloud_visitors" data-flag-title="Xcode代码提示问题处理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  447
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <div class="note info"><p>最近在写<code>Swift</code>.对于笔者这种被<code>JetBrains</code>的几大IDE工具给惯坏的开发者,Xcode的代码提示真是无力吐槽,先不论智能提示度,就连基本的提示也经常出不来.这里就简单总结下iOS同事传授的几招解决办法</p></div>
+<h3 id="1-Clean-Project"><a href="#1-Clean-Project" class="headerlink" title="1.Clean Project"></a>1.Clean Project</h3><p>最直接的办法就是清空项目.</p>
+<p>可视化按钮入口再哪请自行查找,笔者一般是用<code>Command+Shift+K</code>进行清空,此方法一般有效,缺点是会重新编译项目,比较慢</p>
+<h3 id="2-清空Xcode缓存"><a href="#2-清空Xcode缓存" class="headerlink" title="2.清空Xcode缓存"></a>2.清空Xcode缓存</h3><p>前往Xcode的缓存目录,清空项目编译缓存.</p>
+<p>具体操作为右键Finder<code>前往文件夹</code>文件夹路径为<code>/用户/ceyx/资源库/Developer/Xcode/DerivedData</code>  其中<code>ceyx</code> 替换为自己的用户名,删除目录下所有文件,然后重新打开Xcode,编译.</p>
+<p><strong>此方法比1更慢,往往也更有效</strong></p>
+<h3 id="3-终极大招"><a href="#3-终极大招" class="headerlink" title="3.终极大招"></a>3.终极大招</h3><p>如若上述两种方法还无效,只能使用绝招了…重启Xcode,还不行就重启电脑… 笔者黔驴技穷了,只能充当下网吧老板传授下终极大招.👻</p>
+<p>题外话,对于JetBrains出品的appcode还未尝试过,不知对于Xcode项目兼容到何程度,是否支持Cocoapod等,有时间会去体验下,希望至少在代码提示上能更友善些😀</p>
+<p>笔者去体验了下Appcode,其代码提示和快捷键如Jetbrains其他产品一样非常智能,但是代码中偶有飘红,却可以成功运行,比较干扰编码.尤为尴尬的一点是,Appcode不支持storyboard,即在项目内点开storyboard文件就直接跳转xcode了😥. 如真的被Xcode逼疯的童鞋可以考虑下用AppCode编码,用Xcode操作storyboard</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/linux-jenkins-gradle_build_android2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -899,7 +1079,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://lhalcyon.com/flutter-widget-text/</loc>
+    
+    <lastmod>2018-03-28T13:35:33.049Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://lhalcyon.com/flutter-basic-concept/</loc>
     
-    <lastmod>2018-03-11T14:26:30.849Z</lastmod>
+    <lastmod>2018-03-21T13:26:34.411Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://lhalcyon.com/flutter-basic-env/</loc>
     
-    <lastmod>2018-03-09T11:05:44.853Z</lastmod>
+    <lastmod>2018-03-21T13:09:54.952Z</lastmod>
     
   </url>
   
