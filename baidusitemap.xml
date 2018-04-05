@@ -5,11 +5,31 @@
     
   <url>
     <loc>https://lhalcyon.com/flutter-widget-text/</loc>
-    <lastmod>2018-03-28T13:35:33.049Z</lastmod>
+    <lastmod>2018-04-05T04:24:56.535Z</lastmod>
     <data>
         <display>
-        <title>Flutter基础-(3)Widget之文本Text</title>
+        <title>Flutter基础-(3)Widget-文本Text</title>
         <pubTime>2018-03-26T16:00:00.000Z</pubTime>
+        
+        <tag>Flutter</tag>
+         
+         
+           
+             
+              <breadCrumb title="Flutter" url="https://lhalcyon.com/categories/Flutter/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://lhalcyon.com/flutter-widget-image/</loc>
+    <lastmod>2018-04-05T04:24:16.882Z</lastmod>
+    <data>
+        <display>
+        <title>Flutter基础-(4)widget-图片Image</title>
+        <pubTime>2018-03-29T16:00:00.000Z</pubTime>
         
         <tag>Flutter</tag>
          

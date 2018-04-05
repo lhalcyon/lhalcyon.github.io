@@ -77,7 +77,7 @@
 
 
 
-  <meta name="keywords" content="halcyon,Hexo,Android,iOS,Java" />
+  <meta name="keywords" content="Flutter," />
 
 
 
@@ -90,16 +90,26 @@
 
 
 
-<meta name="description" content="know thyself.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Halcyon days">
-<meta property="og:url" content="https://lhalcyon.com/tags/Xcode/index.html">
+<meta name="description" content="本篇将讲解图片加载及特定平台图片处理. 为了更好的阅读体验 , 请点击 阅读原文 概览Image 是用来展示图片的 widget.  系统提供着不同方式去构造 Image :  new Image, 从 ImageProvider 获取图片 new Image.asset , 从 AssetBundle 获取图片 new Image.network , 从网络获取图片 new Image.file">
+<meta name="keywords" content="Flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter基础-(4)widget-图片Image">
+<meta property="og:url" content="https://lhalcyon.com/flutter-widget-image/index.html">
 <meta property="og:site_name" content="Halcyon days">
-<meta property="og:description" content="know thyself.">
+<meta property="og:description" content="本篇将讲解图片加载及特定平台图片处理. 为了更好的阅读体验 , 请点击 阅读原文 概览Image 是用来展示图片的 widget.  系统提供着不同方式去构造 Image :  new Image, 从 ImageProvider 获取图片 new Image.asset , 从 AssetBundle 获取图片 new Image.network , 从网络获取图片 new Image.file">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fpzgpjsp5jg307y0gi779.gif">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNbRwgy1fpzt0t09yrj304u05cwf1.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1fq0g3uy9fij305903x0sv.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwgy1fpztwo2w0cj302s0343yd.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwgy1fpztxrirxfj307109eaag.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwgy1fpzu30fkbsj307s0bgdg3.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fq0fz6qak5j30r207imxx.jpg">
+<meta property="og:updated_time" content="2018-04-05T04:24:16.882Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Halcyon days">
-<meta name="twitter:description" content="know thyself.">
+<meta name="twitter:title" content="Flutter基础-(4)widget-图片Image">
+<meta name="twitter:description" content="本篇将讲解图片加载及特定平台图片处理. 为了更好的阅读体验 , 请点击 阅读原文 概览Image 是用来展示图片的 widget.  系统提供着不同方式去构造 Image :  new Image, 从 ImageProvider 获取图片 new Image.asset , 从 AssetBundle 获取图片 new Image.network , 从网络获取图片 new Image.file">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fpzgpjsp5jg307y0gi779.gif">
 
 
 
@@ -129,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="https://lhalcyon.com/tags/Xcode/"/>
+  <link rel="canonical" href="https://lhalcyon.com/flutter-widget-image/"/>
 
 
 
 
 
-  <title>标签: Xcode | Halcyon days</title>
+  <title>Flutter基础-(4)widget-图片Image | Halcyon days</title>
   
 
 
@@ -154,7 +164,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -282,82 +292,281 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Xcode<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/flutter-widget-image/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/xcode-idiot/" itemprop="url">
-              
-                <span itemprop="name">Xcode代码提示问题处理</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Flutter基础-(4)widget-图片Image</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-15T13:32:45+08:00"
-              content="2017-08-15" >
-          08-15
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-30T00:00:00+08:00">
+                2018-03-30
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Flutter/" itemprop="url" rel="index">
+                    <span itemprop="name">Flutter</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/flutter-widget-image/" class="leancloud_visitors" data-flag-title="Flutter基础-(4)widget-图片Image">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,492
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/hybrid-compile_swift2oc/" itemprop="url">
-              
-                <span itemprop="name">混编:Swift调用Objective-C</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-20T16:02:11+08:00"
-              content="2017-06-20" >
-          06-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <div class="note info"><p>本篇将讲解图片加载及特定平台图片处理.</p>
+<p>为了更好的阅读体验 , 请点击 <a href="https://lhalcyon.com/flutter-widget-image">阅读原文</a></p></div>
+<h3 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h3><p><a href="https://docs.flutter.io/flutter/widgets/Image-class.html" target="_blank" rel="noopener">Image</a> 是用来展示图片的 widget. </p>
+<p>系统提供着不同方式去构造 Image :</p>
+<ul>
+<li><a href="https://docs.flutter.io/flutter/widgets/Image/Image.html" target="_blank" rel="noopener">new Image</a>, 从 <a href="https://docs.flutter.io/flutter/painting/ImageProvider-class.html" target="_blank" rel="noopener">ImageProvider</a> 获取图片</li>
+<li><a href="https://docs.flutter.io/flutter/widgets/Image/Image.asset.html" target="_blank" rel="noopener">new Image.asset</a> , 从 <a href="https://docs.flutter.io/flutter/services/AssetBundle-class.html" target="_blank" rel="noopener">AssetBundle</a> 获取图片</li>
+<li><a href="https://docs.flutter.io/flutter/widgets/Image/Image.network.html" target="_blank" rel="noopener">new Image.network</a> , 从网络获取图片</li>
+<li><a href="https://docs.flutter.io/flutter/widgets/Image/Image.file.html" target="_blank" rel="noopener">new Image.file</a> , 从<a href="https://docs.flutter.io/flutter/dart-io/File-class.html" target="_blank" rel="noopener">File</a>获取图片</li>
+<li><a href="https://docs.flutter.io/flutter/widgets/Image/Image.memory.html" target="_blank" rel="noopener">new Image.memory</a> , 从 <a href="https://docs.flutter.io/flutter/dart-typed_data/Uint8List-class.html" target="_blank" rel="noopener">Uint8List</a> 获取图片</li>
+</ul>
+<p>Image 支持以下图片格式 : </p>
+<p>JPEG , PNG ,GIF , 动态 GIF , WebP , 动态WebP , BMP WBMP .</p>
+<p>直接上示例</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fpzgpjsp5jg307y0gi779.gif" alt=""></p>
+<a id="more"></a>
+<p>图中三个示例分别表示</p>
+<ol>
+<li>从Assets加载图片 </li>
+<li>从网络加载图片并缓存在内存中 </li>
+<li>从网络加载图片并缓存在内存中且以渐现动画的形式展示 .</li>
+</ol>
+<p><strong>1</strong> 类似 Android 从 mipmap或drawable 下获取图片; iOS 从Assets.xcassets 中读取图片</p>
+<p><strong>2</strong> 常规的从网络加载图片,可选缓存在文件或者内存中.</p>
+<p><strong>3</strong> 移动应用中常用的图片展示效果.</p>
+<h3 id="Assets加载图片"><a href="#Assets加载图片" class="headerlink" title="Assets加载图片"></a>Assets加载图片</h3><p>Flutter 使用 <code>pubspec.yaml</code>文件定位项目根目录,识别app所需要的资产</p>
+<p>示例:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">flutter:</span></span><br><span class="line"><span class="attr">  assets:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">assets/images/ic_link.png</span></span><br></pre></td></tr></table></figure>
+<div class="note warning"><p>注意此处资产路径是根目录下的路径.示例中assets和源码lib是同级目录</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNbRwgy1fpzt0t09yrj304u05cwf1.jpg" alt=""></p></div>
+<p>加载代码:</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">var</span> imageAssets = <span class="string">'assets/images/ic_link.png'</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Image.asset(</span><br><span class="line">         imageAssets,</span><br><span class="line">         width: <span class="number">150.0</span>,</span><br><span class="line">         height: <span class="number">150.0</span>,</span><br><span class="line">         )</span><br><span class="line">  );</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">var</span> imageAssets = <span class="string">'assets/images/ic_link.png'</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Image(</span><br><span class="line">           image: <span class="keyword">new</span> AssetImage(imageAssets),</span><br><span class="line">           width: <span class="number">150.0</span>,</span><br><span class="line">           height: <span class="number">150.0</span>,</span><br><span class="line">        )</span><br><span class="line">   );</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上为加载当前项目中的资产图片.当从依赖包中加载图片时,需要加上依赖包名</p>
+<p>例如我们的应用依赖三方包 <code>flutter_gallery_assets</code> ,它有着以下目录结构</p>
+<ul>
+<li>…/pubspec.yaml</li>
+<li>…/lib/ali_connors.png</li>
+</ul>
+<p>我们就需要用以下代码来加载图片</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> AssetImage(<span class="string">'ali_connors.png'</span>, package: <span class="string">'flutter_gallery_assets'</span>)</span><br></pre></td></tr></table></figure>
+<p>同时还需要去 <code>pubspec.yaml</code> 文件中申明</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">assets:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">assets/images/ic_link.png</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">packages/flutter_gallery_assets/ali_connors.png</span></span><br></pre></td></tr></table></figure>
+<div class="note warning"><p><strong>注意:</strong> ali_connors.png 文件路径其实为 <code>flutter_gallery_assets-版本号/lib/ali_connors.png</code> 其中<code>lib</code>作为三方包时是隐式包含了, <strong>不需要</strong>我们自己添加</p></div>
+<h3 id="File加载图片"><a href="#File加载图片" class="headerlink" title="File加载图片"></a>File加载图片</h3><p>直接上代码</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">var</span> imagePath = <span class="string">'/Users/xx/Downloads/cow.png'</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Image(</span><br><span class="line">           image: <span class="keyword">new</span> FileImage(<span class="keyword">new</span> File(imagePath)),</span><br><span class="line">           repeat: ImageRepeat.noRepeat,</span><br><span class="line">           width: <span class="number">150.0</span>,</span><br><span class="line">           height: <span class="number">150.0</span>,</span><br><span class="line">         )</span><br><span class="line">  );</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="note warning"><p><strong>注意:</strong> 这里imagePath作为绝对路径读的是计算机上的图片地址 , 找不到本机图片时不会显示 . 因为平台关系 , 相对路径一般访问不到 , 需要通过三方包 <a href="https://pub.dartlang.org/packages/path_provider" target="_blank" rel="noopener">path_provider</a> 来提供与平台无关的访问设备文件的方法.届时还需要将图片导入到设备中 ,此处就不作展开</p></div>
+<h3 id="网络加载图片"><a href="#网络加载图片" class="headerlink" title="网络加载图片"></a>网络加载图片</h3><p>应用中网络加载图片的场景许多 , 先给出一个简单的示例:</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">var</span> imgUrl = <span class="string">'https://ws1.sinaimg.cn/large/006tNc79gy1fpa5bvsqskj3044048mx5.jpg'</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Image.network(</span><br><span class="line">         imgUrl,</span><br><span class="line">         width: <span class="number">150.0</span>,</span><br><span class="line">         height: <span class="number">150.0</span>,</span><br><span class="line">         )</span><br><span class="line">  );</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">var</span> imgUrl = <span class="string">'https://ws1.sinaimg.cn/large/006tNc79gy1fpa5bvsqskj3044048mx5.jpg'</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Image(</span><br><span class="line">           image: <span class="keyword">new</span> NetworkImage(imgUrl),</span><br><span class="line">           width: <span class="number">150.0</span>,</span><br><span class="line">           height: <span class="number">150.0</span>,</span><br><span class="line">        )</span><br><span class="line">   );</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种只是简单的加载网络图片,若图片较大,或者网络卡顿.图片显示的效果就显得很突兀(可参考上面gif ) , 此时我们需要给图片呈现加一段渐现的Fading动画.</p>
+<p><strong>FadeInImage</strong></p>
+<p>FadeInImage更符合应用中的场景 , 渐现呈现网络图片,并且缓存到内存</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:transparent_image/transparent_image.dart'</span>;</span><br><span class="line"></span><br><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">var</span> imgUrl = <span class="string">'https://ws1.sinaimg.cn/large/006tNc79gy1fpa5bvsqskj3044048mx5.jpg'</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> FadeInImage.memoryNetwork(</span><br><span class="line">           placeholder: kTransparentImage,</span><br><span class="line">           image: imgUrl,</span><br><span class="line">           width: <span class="number">150.0</span>,</span><br><span class="line">           height: <span class="number">150.0</span>,</span><br><span class="line">           fadeInDuration: <span class="keyword">const</span> <span class="built_in">Duration</span>(milliseconds: <span class="number">1200</span>),</span><br><span class="line">           fadeOutDuration: <span class="keyword">const</span> <span class="built_in">Duration</span>(milliseconds: <span class="number">1200</span>),</span><br><span class="line">         )</span><br><span class="line">   );</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例效果请参考上面的gif效果图 , 其中用到了三方库 <a href="https://pub.dartlang.org/packages/transparent_image" target="_blank" rel="noopener">transparent_image</a> 主要作用是使用其透明图片作为占位图</p>
+<blockquote>
+<p>可使用 <code>FadeInImage.assetNetwork</code> 实现文件缓存. 若想实现 Android 中 Glide ,Picasso , iOS 中 Kingfisher 这样的图片三级缓存框架 , 就需要自行封装实现了.</p>
+</blockquote>
+<p>这里我们可以发现 , 我们未主动地在Android应用清单文件中申明网络权限,Flutter默认已经授予了网络权限用以提供热部署等等.</p>
+<h3 id="分辨率处理"><a href="#分辨率处理" class="headerlink" title="分辨率处理"></a>分辨率处理</h3><p>手机有不同的像素比率 , 这时就需要根据手机的像素比率来加载不同图片 . 做法很简单,只需要在图片同级目录下创建 2.0x/abc.png 和 3.0x/abc.png 的目录即可</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fq0g3uy9fij305903x0sv.jpg" alt=""></p>
+<p><em>在 <code>pubspec.yaml</code> 中定义的assets路径不需要增加 2.0x 3.0x</em></p>
+<p>例如以前图片是</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">flutter:</span></span><br><span class="line"><span class="attr">  assets:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">assets/images/ic_link.png</span></span><br></pre></td></tr></table></figure>
+<p>加入分辨率目录后不变 , 依然是该路径</p>
+<h3 id="特定平台图片"><a href="#特定平台图片" class="headerlink" title="特定平台图片"></a>特定平台图片</h3><p>对于 Android , iOS 特定平台的资产图片需要我们去对应的平台文件夹下去设置 . 以下为两个常见的场景 , 我们将在Flutter框架运行前使用到图片资产</p>
+<h4 id="更新应用图标"><a href="#更新应用图标" class="headerlink" title="更新应用图标"></a>更新应用图标</h4><p>更新应用图标的方式与在开发原生Android,iOS应用时一样.</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fpztwo2w0cj302s0343yd.jpg" alt=""></p>
+<p><strong>Android</strong></p>
+<p>在项目根目录下的 <code>.../android/app/src/main/res</code>里,默认应用图标为<code>ic_launcher.png</code> ,可分别替换对应分辨率下的图片从而更新应用图标</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fpztxrirxfj307109eaag.jpg" alt=""></p>
+<p><strong>iOS</strong></p>
+<p>在项目根目录下的 <code>.../ios/Runner/Assets.xcassets/AppIcon.appiconset</code> , 替换相应图片从而更新应用图标</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fpzu30fkbsj307s0bgdg3.jpg" alt=""></p>
+<h4 id="更新启动页"><a href="#更新启动页" class="headerlink" title="更新启动页"></a>更新启动页</h4><p><strong>Android</strong></p>
+<p>Flutter 默认设置了个启动页 <code>.../android/app/src/main/res/drawable/launch_background.xml</code> . 可通过修改该文件来定制个性化的元素</p>
+<p><strong>iOS</strong></p>
+<p>在 <code>.../ios/Runner/Assets.xcassets/LaunchImage.imageset</code> , 放置<code>LaunchImage.png</code> ,<code>LaunchImage@2x.png</code> , <code>LaunchImage@3x.png</code>. 若用到不同的文件名称 , 需要在同目录下更新 <code>Contents.json</code>中的文件名称</p>
+<p>还可以通过打开…/ios/Runner.xcworkspace , 来完全定制启动屏幕storyboard . </p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fq0fz6qak5j30r207imxx.jpg" alt=""></p>
+<p>好了, 关于 Image 的部分就讲到这里了. 相关代码已经上传 <a href="https://github.com/lhalcyon/flutter_study" target="_blank" rel="noopener">GitHub</a> ,如有帮到你, 请不吝点个Star🤗</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Flutter/" rel="tag"># Flutter</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/flutter-widget-text/" rel="next" title="Flutter基础-(3)Widget-文本Text">
+                <i class="fa fa-chevron-left"></i> Flutter基础-(3)Widget-文本Text
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -365,6 +574,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -387,8 +600,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -481,6 +703,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概览"><span class="nav-number">1.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Assets加载图片"><span class="nav-number">2.</span> <span class="nav-text">Assets加载图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#File加载图片"><span class="nav-number">3.</span> <span class="nav-text">File加载图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络加载图片"><span class="nav-number">4.</span> <span class="nav-text">网络加载图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分辨率处理"><span class="nav-number">5.</span> <span class="nav-text">分辨率处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特定平台图片"><span class="nav-number">6.</span> <span class="nav-text">特定平台图片</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#更新应用图标"><span class="nav-number">6.1.</span> <span class="nav-text">更新应用图标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新启动页"><span class="nav-number">6.2.</span> <span class="nav-text">更新启动页</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -625,6 +863,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
