@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="Android,Blockchain,ETH," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Halcyon days" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="离上篇文章更新已经接近两个月了,主要由于工作重心转移到了区块链DApp.期间各种踩坑,从无到有去完成一款钱包+去中心化交易所 DApp 目前这款 app Android和iOS 处于公测中,  待上线后会将代码进行开源.笔者计划是对以太坊钱包的创建,导入,智能合约调用等进行系列教程,本文先对区块链的基本概念及以太坊钱包创建等进行说明. 为了良好的阅读体验, 请阅读原文">
+<meta name="keywords" content="Android,Blockchain,ETH">
+<meta property="og:type" content="article">
+<meta property="og:title" content="区块链-ETH创建钱包">
+<meta property="og:url" content="https://lhalcyon.com/blockchain-eth-wallet-android/index.html">
+<meta property="og:site_name" content="Halcyon days">
+<meta property="og:description" content="离上篇文章更新已经接近两个月了,主要由于工作重心转移到了区块链DApp.期间各种踩坑,从无到有去完成一款钱包+去中心化交易所 DApp 目前这款 app Android和iOS 处于公测中,  待上线后会将代码进行开源.笔者计划是对以太坊钱包的创建,导入,智能合约调用等进行系列教程,本文先对区块链的基本概念及以太坊钱包创建等进行说明. 为了良好的阅读体验, 请阅读原文">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1frr1y9lo50j30pn0ezwfl.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1frs14iyktzj30hq0dg41w.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1frs5n8xslhj30jg0d277n.jpg">
+<meta property="og:updated_time" content="2018-06-21T16:23:16.536Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="区块链-ETH创建钱包">
+<meta name="twitter:description" content="离上篇文章更新已经接近两个月了,主要由于工作重心转移到了区块链DApp.期间各种踩坑,从无到有去完成一款钱包+去中心化交易所 DApp 目前这款 app Android和iOS 处于公测中,  待上线后会将代码进行开源.笔者计划是对以太坊钱包的创建,导入,智能合约调用等进行系列教程,本文先对区块链的基本概念及以太坊钱包创建等进行说明. 为了良好的阅读体验, 请阅读原文">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1frr1y9lo50j30pn0ezwfl.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lhalcyon.com/blockchain-eth-wallet-android/"/>
+
+
+
+
+
+  <title>区块链-ETH创建钱包 | Halcyon days</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Halcyon days</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/blockchain-eth-wallet-android/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">区块链-ETH创建钱包</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-20T00:00:00+08:00">
+                2018-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Blockchain/" itemprop="url" rel="index">
+                    <span itemprop="name">Blockchain</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Blockchain/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/blockchain-eth-wallet-android/" class="leancloud_visitors" data-flag-title="区块链-ETH创建钱包">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,722
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="note info"><p>离上篇文章更新已经接近两个月了,主要由于工作重心转移到了区块链DApp.期间各种踩坑,从无到有去完成一款钱包+去中心化交易所 DApp</p>
+<p>目前这款 app Android和iOS 处于公测中,  待上线后会将代码进行开源.笔者计划是对以太坊钱包的创建,导入,智能合约调用等进行系列教程,本文先对区块链的基本概念及以太坊钱包创建等进行说明.</p>
+<p>为了良好的阅读体验, 请<a href="https://lhalcyon.com/blockchain-eth-wallet">阅读原文</a></p></div>
+<a id="more"></a>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>所有问题大体可以分为三类:区块链基本概念,钱包安全知识以及钱包转账交易</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1frr1y9lo50j30pn0ezwfl.jpg" alt=""></p>
+<h4 id="区块链的基本特性"><a href="#区块链的基本特性" class="headerlink" title="区块链的基本特性"></a>区块链的基本特性</h4><p><strong>去中心化</strong></p>
+<p>因为整个网络没有中心统治者。系统依靠的是网络上多个参与者的公平约束，所以任意每几个节点的权利和义务都是均等的，而且每一个节点都会储存这个区块链上所有数据。即使该节点被损坏或遭受攻击，仍然不会对账簿造成任何威胁。</p>
+<p><strong>不可逆</strong></p>
+<p>区块链上的信息必须不可撤销，不能随意销毁。系统是开源的，整个系统都必须是公开透明的，因此某笔交易被全网广播以后，达到 6 个确认以上就成功记录在案了，且不可逆转不可撤销。注: imToken 是 12 个区块确认。</p>
+<p><strong>不可篡改</strong></p>
+<p>确保信息或合约无法伪造。账簿在某个人或某几人手上，造假的可能性就非常高，但每个人手里都有一本账簿，除非整个游戏里超过51%的人都更改某一笔账目，否则任何的篡改都是无效的，这也是集体维护和监督的优越性。</p>
+<p><strong>匿名性</strong></p>
+<p>各区块节点的身份信息不需要公告或验证, 信息传递可以匿名进行。举个简单的例子, 就是你在区块链上向一个钱包地址发起交易, 但是却无法知道这个地址背后确切对应的是那一个人, 或者你的私钥被某一个黑客盗窃了, 无法从一个钱包地址中得知黑客是谁。</p>
+<h4 id="以太坊基本概念"><a href="#以太坊基本概念" class="headerlink" title="以太坊基本概念"></a>以太坊基本概念</h4><p><strong>钱包地址</strong></p>
+<p>以0x开头的42位的哈希值 (16进制) 字符串</p>
+<p><strong>keystore</strong></p>
+<p>明文私钥通过加密算法加密过后的 JSON 格式的字符串, 一般以文件形式存储</p>
+<p><strong>助记词</strong></p>
+<p>12 (或者 15、18、21) 单词构成, 用户可以通过助记词导入钱包, 但反过来讲, 如果他人得到了你的助记词, 不需要任何密码就可以轻而易举的转移你的资产, 所以要妥善保管自己的助记词</p>
+<p><strong>明文私钥</strong></p>
+<p>64位的16进制哈希值字符串, 用一句话阐述明文私钥的重要性 “谁掌握了私钥, 谁就掌握了该钱包的使用权!” 同样, 如果他人得到了你的明文私钥, 不需要任何密码就可以轻而易举的转移你的资产</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1frs14iyktzj30hq0dg41w.jpg" alt=""></p>
+<p>通俗地去解释,以银行账户为类比,这些名词分别对应内容如下:</p>
+<ul>
+<li>钱包地址 = 银行卡号</li>
+<li>密码 = 银行卡密码</li>
+<li>私钥 = 银行卡号 + 银行卡密码</li>
+<li>助记词 = 银行卡号 + 银行卡密码</li>
+<li>Keystore+ 密码 = 银行卡号 + 银行卡密码</li>
+<li>Keystore ≠ 银行卡号</li>
+</ul>
+<p><em>Note: 此小节大部分内容摘自<a href="https://support.token.im/hc/zh-cn/articles/115002400974-imToken-%E6%B5%8B%E8%AF%84%E9%80%9A%E5%85%B3%E6%94%BB%E7%95%A5" target="_blank" rel="noopener">imToken 测评通关攻略</a></em></p>
+<h3 id="BIP32-BIP39-BIP44"><a href="#BIP32-BIP39-BIP44" class="headerlink" title="BIP32,BIP39,BIP44"></a>BIP32,BIP39,BIP44</h3><p>在创建钱包前,得先说下BIP32,BIP39,BIP44</p>
+<blockquote>
+<p>BIP 全名是 Bitcoin Improvement Proposals，是提出 Bitcoin 的新功能或改进措施的文件。可由任何人提出，经过审核后公布在 <a href="https://github.com/bitcoin/bips" target="_blank" rel="noopener">bitcoin/bips</a> 上。BIP 和 Bitcoin 的关系，就像是 RFC 之于 Internet。</p>
+</blockquote>
+<p>而其中的 <strong>BIP32, BIP39, BIP44 共同定义了目前被广泛使用的 HD Wallet</strong>，包含其设计动机和理念、实作方式、实例等。</p>
+<p><strong><a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki" target="_blank" rel="noopener">BIP32</a></strong></p>
+<p>定义 <strong>Hierarchical Deterministic wallet (简称 “HD Wallet”)</strong>，是一个系统可以从单一个 <strong>seed</strong> <strong>产生一树状结构储存多组 keypairs（私钥和公钥）</strong>。好处是可以方便的备份、转移到其他相容装置（因为都只需要 seed），以及分层的权限控制等</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1frs5n8xslhj30jg0d277n.jpg" alt=""></p>
+<p><strong><a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki" target="_blank" rel="noopener">BIP39</a></strong></p>
+<p>将 <strong>seed</strong> 用方便记忆和书写的单字表示。一般由 <strong>12 个单字</strong>组成，称为 <strong>mnemonic code(phrase)</strong>，中文称为助记词或助记码。例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rose rocket invest real refuse margin festival danger anger border idle brown</span><br></pre></td></tr></table></figure>
+<p><strong><a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki" target="_blank" rel="noopener">BIP44</a></strong></p>
+<p>基于 BIP32 的系统，赋予树状结构中的各层特殊的意义。让同一个 seed 可以支援<strong>多币种、多帐户</strong>等。各层定义如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">m / purpose&apos; / coin_type&apos; / account&apos; / change / address_index</span><br></pre></td></tr></table></figure>
+<p>其中的 <code>purporse&#39;</code> 固定是 <code>44&#39;</code>，代表使用 BIP44。而 <code>coin_type&#39;</code> 用来表示不同币种，例如 Bitcoin 就是 <code>0&#39;</code>，Ethereum 是 <code>60&#39;</code></p>
+<p><strong>Ethereum HD Wallet</strong></p>
+<p>Ethereum 的钱包目前均采用以上 Bitcoin HD Wallet 的架构，并订 <code>coin_type&#39;</code> 为 <code>60&#39;</code>，可以在 <a href="https://link.jianshu.com/?t=https%3A%2F%2Fgithub.com%2Fethereum%2FEIPs%2Fissues%2F84" target="_blank" rel="noopener">ethereum/EIPs/issues</a> 中看到相关的讨论。举例来说，在一个 Ethereum HD Wallet 中，第一个帐户（这里的帐户指 BIP44 中定义的 <code>account&#39;</code>）的第一组 keypair，其路径会是 <code>m/44&#39;/60&#39;/0&#39;/0/0</code></p>
+<h3 id="创建钱包"><a href="#创建钱包" class="headerlink" title="创建钱包"></a>创建钱包</h3><p>在了解BIP 后,我们开始以太坊钱包开发,创建的钱包的流程为:</p>
+<ol>
+<li>随机生成一组助记词</li>
+<li><strong>计算 seed</strong></li>
+<li>生成 master key</li>
+<li>生成 child key</li>
+<li>我们取第一组child key即<code>m/44&#39;/60&#39;/0&#39;/0/0</code> 得到私钥,keystore及地址</li>
+</ol>
+<h4 id="bitcoinj"><a href="#bitcoinj" class="headerlink" title="bitcoinj"></a>bitcoinj</h4><p>这里我们需要配置开发环境,通常Android 开发以太坊钱包,会依赖两个库 <a href="https://github.com/bitcoinj/bitcoinj" target="_blank" rel="noopener">bitcoinj</a> , <a href="https://github.com/web3j/web3j" target="_blank" rel="noopener">web3j</a></p>
+<p><strong>bitcoinj</strong> 主要用来实现BIP32和BIP44 , <strong>web3j</strong> 实现BIP39和钱包功能 .</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">'org.web3j:core:3.3.1-android'</span></span><br><span class="line">implementation <span class="string">'org.bitcoinj:bitcoinj-core:0.14.7'</span></span><br></pre></td></tr></table></figure>
+<p>不过web3j在生成助记词中需要使用到<code>MnemonicUtils</code>,但是有坑,加载助记词列表文件的方式在Android上不行,会导致Crash</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;String&gt; <span class="title">populateWordList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       URL url = Thread.currentThread().getContextClassLoader()</span><br><span class="line">               .getResource(<span class="string">"en-mnemonic-word-list.txt"</span>);</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> readAllLines(url.toURI().getSchemeSpecificPart());</span><br><span class="line">       &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">           <span class="keyword">return</span> Collections.emptyList();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>这是Java的加载方式,Android上需要做平台适配,需要将<code>en-mnemonic-word-list.txt</code>文件放到assets目录下加载.</p>
+<p>以下笔者则使用了另一个BIP39的依赖库</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">'io.github.novacrypto:BIP39:0.1.9'</span></span><br></pre></td></tr></table></figure>
+<p><em>本篇在使用中还用到了RxJava2</em></p>
+<p><strong>1</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Flowable&lt;String&gt; <span class="title">mnemonics</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 1. 生成一组随机的助记词</span></span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">byte</span>[] entropy = <span class="keyword">new</span> <span class="keyword">byte</span>[Words.TWELVE.byteLength()];</span><br><span class="line">        <span class="keyword">new</span> SecureRandom().nextBytes(entropy);</span><br><span class="line">        <span class="keyword">new</span> MnemonicGenerator(English.INSTANCE)</span><br><span class="line">                .createMnemonic(entropy, sb::append);</span><br><span class="line">        String mnemonics = sb.toString();</span><br><span class="line">        Logger.w(<span class="string">"助记词:"</span> + mnemonics);</span><br><span class="line">        <span class="keyword">return</span> Flowable.just(mnemonics);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>2~5</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Flowable&lt;HLWallet&gt; <span class="title">generateWallet</span><span class="params">(Context context, String walletName, String password)</span> </span>&#123;</span><br><span class="line">    Flowable&lt;String&gt; flowable = mnemonics();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> flowable</span><br><span class="line">            .map(mnemonics -&gt; &#123;</span><br><span class="line">                <span class="comment">// 2. 由助记词得到种子</span></span><br><span class="line">                <span class="keyword">byte</span>[] seed = <span class="keyword">new</span> SeedCalculator().calculateSeed(mnemonics, <span class="string">""</span>);</span><br><span class="line">                NetworkParameters params = MainNetParams.get();</span><br><span class="line">                <span class="comment">// 3. 生成根私钥 root private key</span></span><br><span class="line">                DeterministicKey rootPrivateKey = HDKeyDerivation.createMasterPrivateKey(seed);</span><br><span class="line">                <span class="comment">// 4. 根私钥进行 priB58编码,得到测试网站上显示的数据</span></span><br><span class="line">                String priv = rootPrivateKey.serializePrivB58(params);</span><br><span class="line">                Logger.i(<span class="string">"BIP32 Extended Private Key:"</span> + priv);</span><br><span class="line">                <span class="comment">// 5. 生成 HD 钱包 , 由根私钥</span></span><br><span class="line">                DeterministicHierarchy dh = <span class="keyword">new</span> DeterministicHierarchy(rootPrivateKey);</span><br><span class="line">                <span class="comment">// 6. 定义父路径</span></span><br><span class="line">                List&lt;ChildNumber&gt; parentPath = HDUtil.parsePath();</span><br><span class="line">                <span class="comment">// 7. 由父路径,派生出第一个子私钥 "new ChildNumber(0)" 表示第一个</span></span><br><span class="line">                DeterministicKey child = dh.deriveChild(parentPath, <span class="keyword">true</span>, <span class="keyword">true</span>, <span class="keyword">new</span> ChildNumber(<span class="number">0</span>));</span><br><span class="line">                Logger.w(<span class="string">" BIP32 Extended private Key:"</span> + child.serializePrivB58(params));</span><br><span class="line">                String childPrivateKey = child.getPrivateKeyAsHex();</span><br><span class="line">                String childPublicKey = child.getPublicKeyAsHex();</span><br><span class="line">                ECKeyPair childEcKeyPair = ECKeyPair.create(child.getPrivKeyBytes());</span><br><span class="line">                String childAddress = Keys.getAddress(childEcKeyPair);</span><br><span class="line">                String fullAddress = Constant.PREFIX_16 + childAddress;</span><br><span class="line">                Logger.w(<span class="string">"child privateKey:"</span> + childPrivateKey + <span class="string">"\n"</span> + <span class="string">"child publicKey:"</span> + childPublicKey + <span class="string">"\n"</span> + <span class="string">"address:"</span> + fullAddress);</span><br><span class="line">                WalletFile walletFile = org.web3j.crypto.Wallet.createLight(password, childEcKeyPair);</span><br><span class="line">                String keystore = Singleton.get().gson.toJson(walletFile);</span><br><span class="line">                Logger.w(<span class="string">"keystore:\n"</span> + keystore);</span><br><span class="line">                WalletManager.shared().saveWallet(context, walletName, walletFile, mnemonics);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> HLWallet(mnemonics, walletName, childAddress);</span><br><span class="line">            &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="note warning"><p>Note: 这里有个注意点,<code>byte[] seed = new SeedCalculator().calculateSeed(mnemonics, &quot;&quot;)</code>这里的””是BIP39的密码.少数平台生成钱包使用用户输入的密码作为其密码,这将使得钱包不能通用.目前大多平台生成钱包时对其设置均为空字符串.</p></div>
+<p><em>关于bitcoinj的使用比较不做赘述了.以上已经贴了主要的代码,下面我们主要讲解一下其他实现</em></p>
+<h4 id="novacrypto"><a href="#novacrypto" class="headerlink" title="novacrypto"></a>novacrypto</h4><p>这里使用<a href="https://github.com/NovaCrypto/" target="_blank" rel="noopener">novacrypto</a>作者的BIP全家桶,我们重点讲解下这种实现</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">'io.github.novacrypto:BIP39:0.1.9'</span></span><br><span class="line">implementation <span class="string">'io.github.novacrypto:BIP44:0.0.3'</span></span><br><span class="line">implementation <span class="string">'io.github.novacrypto:BIP32:0.0.9'</span> <span class="comment">// 有少许问题</span></span><br></pre></td></tr></table></figure>
+<p>其中作者的BIP32库还有些许问题, 大家可以使用文末 demo 中的 <strong>BIP32 lib</strong>,笔者对其做了部分修改.</p>
+<p><strong>1</strong> . 随机生成一组助记词,这里我们使用的是12个英文单词</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">generateMnemonics</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">byte</span>[] entropy = <span class="keyword">new</span> <span class="keyword">byte</span>[Words.TWELVE.byteLength()];</span><br><span class="line">        <span class="keyword">new</span> SecureRandom().nextBytes(entropy);</span><br><span class="line">        <span class="keyword">new</span> MnemonicGenerator(English.INSTANCE)</span><br><span class="line">                .createMnemonic(entropy, sb::append);</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>2</strong> . 使用助记词计算出Seed,得到master key ,根据BIP44派生地址,获取KeyPair</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ECKeyPair <span class="title">generateKeyPair</span><span class="params">(String mnemonics)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 1. we just need eth wallet for now</span></span><br><span class="line">    AddressIndex addressIndex = BIP44</span><br><span class="line">            .m()</span><br><span class="line">            .purpose44()</span><br><span class="line">            .coinType(<span class="number">60</span>)</span><br><span class="line">            .account(<span class="number">0</span>)</span><br><span class="line">            .external()</span><br><span class="line">            .address(<span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 2. calculate seed from mnemonics , then get master/root key ; Note that the bip39 passphrase we set "" for common</span></span><br><span class="line">    ExtendedPrivateKey rootKey = ExtendedPrivateKey.fromSeed(<span class="keyword">new</span> SeedCalculator().calculateSeed(mnemonics, <span class="string">""</span>), Bitcoin.MAIN_NET);</span><br><span class="line">    Logger.i(<span class="string">"mnemonics:"</span> + mnemonics);</span><br><span class="line">    String extendedBase58 = rootKey.extendedBase58();</span><br><span class="line">    Logger.i(<span class="string">"extendedBase58:"</span> + extendedBase58);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. get child private key deriving from master/root key</span></span><br><span class="line">    ExtendedPrivateKey childPrivateKey = rootKey.derive(addressIndex, AddressIndex.DERIVATION);</span><br><span class="line">    String childExtendedBase58 = childPrivateKey.extendedBase58();</span><br><span class="line">    Logger.i(<span class="string">"childExtendedBase58:"</span> + childExtendedBase58);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. get key pair</span></span><br><span class="line">    <span class="keyword">byte</span>[] privateKeyBytes = childPrivateKey.getKey();</span><br><span class="line">    ECKeyPair keyPair = ECKeyPair.create(privateKeyBytes);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// we 've gotten what we need</span></span><br><span class="line">    String privateKey = childPrivateKey.getPrivateKey();</span><br><span class="line">    String publicKey = childPrivateKey.neuter().getPublicKey();</span><br><span class="line">    String address = Keys.getAddress(keyPair);</span><br><span class="line"></span><br><span class="line">    Logger.i(<span class="string">"privateKey:"</span>+privateKey);</span><br><span class="line">    Logger.i(<span class="string">"publicKey:"</span>+publicKey);</span><br><span class="line">    Logger.i(<span class="string">"address:"</span>+ Constant.PREFIX_16+address);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> keyPair;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里可以清晰看出,我们已经可以得到私钥,公钥,地址. </p>
+<p>当前的钱包app基本上都用所有币种公用一套助记词, 然后可以分别生成不同的钱包地址, 如果需要测试助记词, 和校验助记词生成的地址, 那么可以访问这个网站 : <a href="https://iancoleman.io/bip39/" target="_blank" rel="noopener">https://iancoleman.io/bip39/</a> </p>
+<div class="note default"><p>我们需要校验的值主要为以上代码实例中打印日志的值.</p></div>
+<p><strong>3</strong> . 通过keypair创建钱包</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Flowable&lt;HLWallet&gt; <span class="title">generateWallet</span><span class="params">(Context context, </span></span></span><br><span class="line"><span class="function"><span class="params">                                         String password, </span></span></span><br><span class="line"><span class="function"><span class="params">                                         String mnemonics)</span> </span>&#123;</span><br><span class="line">    Flowable&lt;String&gt; flowable = Flowable.just(mnemonics);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> flowable</span><br><span class="line">            .map(s -&gt; &#123;</span><br><span class="line">                ECKeyPair keyPair = generateKeyPair(s);</span><br><span class="line">                WalletFile walletFile = Wallet.createLight(password, keyPair);</span><br><span class="line">                HLWallet hlWallet = <span class="keyword">new</span> HLWallet(walletFile);</span><br><span class="line">                WalletManager.shared().saveWallet(context,hlWallet);</span><br><span class="line">                <span class="keyword">return</span> hlWallet;</span><br><span class="line">            &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>其中<code>WalletFile</code>  Json 序列化则为 Keystore</em></p>
+<p>完整调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Flowable</span><br><span class="line">        .just(password) <span class="comment">// 用户输入的密码</span></span><br><span class="line">        .filter(o -&gt; validateInput(password,repassword)) <span class="comment">// 校验密码</span></span><br><span class="line">        .map(s -&gt; InitWalletManager.shared().generateMnemonics())<span class="comment">// 生成随机助记词</span></span><br><span class="line">        .flatMap(s -&gt; InitWalletManager.shared().generateWallet(mContext,password,s))<span class="comment">//创建钱包</span></span><br><span class="line">        .compose(ScheduleCompat.apply()) <span class="comment">// 线程切换</span></span><br><span class="line">        .subscribe(<span class="keyword">new</span> HLSubscriber&lt;HLWallet&gt;(mContext,<span class="keyword">true</span>) &#123;</span><br><span class="line">             <span class="meta">@Override</span></span><br><span class="line">             <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">success</span><span class="params">(HLWallet data)</span> </span>&#123;  </span><br><span class="line">             &#125;</span><br><span class="line"></span><br><span class="line">             <span class="meta">@Override</span></span><br><span class="line">             <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">failure</span><span class="params">(HLError error)</span> </span>&#123;</span><br><span class="line">             &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<p>以上即为以太坊创建钱包的主要内容.主要先理解概念,然后着手coding,事半功倍.</p>
+<p><a href="https://github.com/lhalcyon/dapp-wallet-demo" target="_blank" rel="noopener">GitHub</a> 系列教程代码已上传,如果对你有所帮助,请不吝点个star! </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+          
+            <a href="/tags/ETH/" rel="tag"># ETH</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/flutter-layout-single/" rel="next" title="Flutter基础-(5)布局之单子widget">
+                <i class="fa fa-chevron-left"></i> Flutter基础-(5)布局之单子widget
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460"
+                alt="L" />
+            
+              <p class="site-author-name" itemprop="name">L</p>
+              <p class="site-description motion-element" itemprop="description">know thyself.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lhalcyon" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:longhai@lhalcyon.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/56a18660816dfa005a7e58df" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-archive"></i>掘金</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#区块链的基本特性"><span class="nav-number">1.1.</span> <span class="nav-text">区块链的基本特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以太坊基本概念"><span class="nav-number">1.2.</span> <span class="nav-text">以太坊基本概念</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BIP32-BIP39-BIP44"><span class="nav-number">2.</span> <span class="nav-text">BIP32,BIP39,BIP44</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建钱包"><span class="nav-number">3.</span> <span class="nav-text">创建钱包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#bitcoinj"><span class="nav-number">3.1.</span> <span class="nav-text">bitcoinj</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#novacrypto"><span class="nav-number">3.2.</span> <span class="nav-text">novacrypto</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">L</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Goodbye , halcyon days .</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("UbniSKfBsoNe7s8pbumwYrJX-gzGzoHsz", "PwtF7EaCdn3QisFXC9XsMo9T");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"scale":0.8,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":1,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-24},"mobile":{"show":false,"scale":0.3},"react":{"opacityDefault":0.7,"opacityOnHover":0.2}});</script></body>
+</html>
