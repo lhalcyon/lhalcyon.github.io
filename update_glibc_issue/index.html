@@ -99,8 +99,8 @@
 <meta property="og:description" content="CenterOS上默认的Glibc版本为2.12.1,由于我们的Android项目使用到了JNI,将项目构建部署在服务器上时会遇到问题&amp;#39;GLIBC_2.14&amp;#39; not found,那么就需要升级Glibc至2.14.升级的教程网上很多,可是却漏掉了一个步骤,导致后面中文乱码的问题.本篇会做一个全面的解说">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79ly1fo0wcs8mt3j30ap00vt8t.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79ly1fo0rvnge0hj30es0363yp.jpg">
-<meta property="og:updated_time" content="2018-02-04T08:03:16.352Z">
+<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79ly1fo0rvnge0hj30es0363yp.jpg">
+<meta property="og:updated_time" content="2021-01-20T10:12:57.116Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux升级Glibc2.14中文乱码">
 <meta name="twitter:description" content="CenterOS上默认的Glibc版本为2.12.1,由于我们的Android项目使用到了JNI,将项目构建部署在服务器上时会遇到问题&amp;#39;GLIBC_2.14&amp;#39; not found,那么就需要升级Glibc至2.14.升级的教程网上很多,可是却漏掉了一个步骤,导致后面中文乱码的问题.本篇会做一个全面的解说">
@@ -306,7 +306,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
+      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -439,7 +439,7 @@
 <p>编译成功,接着定义下环境变量即可</p>
 <h4 id="3-补充"><a href="#3-补充" class="headerlink" title="3. 补充"></a>3. 补充</h4><div class="note warning"><p>通常的教程至此就结束了.最初笔者参考网上的教程也是做到这里.当时跑程序也没问题,直到前段时间大楼停电,服务器重启后,通过服务器上<code>Jenkins</code>打包上传到蒲公英的中文信息全是乱码! 相当于服务器的编码文件丢失了,所有中文都会乱码.</p>
 <p>是因为遗漏了<code>localedata</code>未编译,在服务器重启后,<code>Glibc2.14</code>找不到对应版本<code>2.14</code>的<code>glibc locale</code>文件.</p></div>
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1fo0rvnge0hj30es0363yp.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79ly1fo0rvnge0hj30es0363yp.jpg" alt=""></p>
 <p>正确操作是,在<code>make</code>&amp;<code>make install</code>完成后继续编译local包</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make localedata/install-locales</span><br></pre></td></tr></table></figure>
 <p>编译需要一些时间,完成后重启服务器即可生效</p>
@@ -560,11 +560,11 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460"
+                src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
                 alt="L" />
             
               <p class="site-author-name" itemprop="name">L</p>
-              <p class="site-description motion-element" itemprop="description">know thyself.</p>
+              <p class="site-description motion-element" itemprop="description">琴棋书画诗酒花 , 柴米油盐酱醋茶.</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -574,7 +574,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -585,7 +585,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -596,7 +596,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -678,7 +678,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="heart">
     <i class="fa fa-heart"></i>
   </span>
@@ -694,7 +694,7 @@
 
 
 
-  <div class="footer-custom">Goodbye , halcyon days .</div>
+  <div class="footer-custom">Goodbye , Halcyon Days .</div>
 
 
         

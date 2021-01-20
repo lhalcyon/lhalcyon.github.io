@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="MySQL,Docker,Nginx,GitLab,Docker-Compose,Redis,JDK," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Halcyon days" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="本篇记录 AWS EC2 的环境搭建内容">
+<meta name="keywords" content="MySQL,Docker,Nginx,GitLab,Docker-Compose,Redis,JDK">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Amazon Linux 搭建开发环境及常用软件">
+<meta property="og:url" content="https://lhalcyon.com/amazon-linux-build-env/index.html">
+<meta property="og:site_name" content="Halcyon days">
+<meta property="og:description" content="本篇记录 AWS EC2 的环境搭建内容">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-01-20T10:12:57.106Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Amazon Linux 搭建开发环境及常用软件">
+<meta name="twitter:description" content="本篇记录 AWS EC2 的环境搭建内容">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lhalcyon.com/amazon-linux-build-env/"/>
+
+
+
+
+
+  <title>Amazon Linux 搭建开发环境及常用软件 | Halcyon days</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Halcyon days</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/amazon-linux-build-env/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Amazon Linux 搭建开发环境及常用软件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-13T00:00:00+08:00">
+                2019-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AWS/" itemprop="url" rel="index">
+                    <span itemprop="name">AWS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/amazon-linux-build-env/" class="leancloud_visitors" data-flag-title="Amazon Linux 搭建开发环境及常用软件">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4,348
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="note info"><p>本篇记录 AWS EC2 的环境搭建内容</p></div>
+<a id="more"></a>
+<h3 id="EBS磁盘挂载和卸载"><a href="#EBS磁盘挂载和卸载" class="headerlink" title="EBS磁盘挂载和卸载"></a>EBS磁盘挂载和卸载</h3><h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/ebs-using-volumes.html" target="_blank" rel="noopener">AWS Doc</a></p>
+<h3 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h3><h4 id="参考链接-1"><a href="#参考链接-1" class="headerlink" title="参考链接"></a>参考链接</h4><ol>
+<li><a href="https://amazonaws-china.com/cn/premiumsupport/knowledge-center/new-user-accounts-linux-instance/" target="_blank" rel="noopener">AWS Doc: 如何将具有 SSH 访问权限的新用户添加到 Amazon EC2 Linux</a></li>
+<li><a href="https://docs.aws.amazon.com/zh_cn/AWSEC2/latest/WindowsGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws" target="_blank" rel="noopener">Amazon EC2 密钥对和 Windows 实例</a></li>
+<li><a href="https://www.jianshu.com/p/5d02428f313d" target="_blank" rel="noopener">简书: 免密码使用 sudo 和 su</a></li>
+<li><a href="https://clowlido.com/centos7/49/" target="_blank" rel="noopener">CenterOS 7 创建新用户和ssh安全登录配置</a></li>
+</ol>
+<p><code>chmod u+w /etc/sudoers</code> 先要给予权限才可修改</p>
+<blockquote>
+<p>CenterOS 添加新用户后,若需要 SSH 登录就需要去修改 <code>/etc/ssh/sshd_config</code>  在<code>AllowUsers</code> 后添加用户名, 然后</p>
+<p><code>service sshd restart</code> 重启生效</p>
+</blockquote>
+<p>检索 pem 文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -y -f XX.pem</span><br></pre></td></tr></table></figure>
+<h3 id="同步时区"><a href="#同步时区" class="headerlink" title="同步时区"></a>同步时区</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 查看时区</span><br><span class="line">timedatectl</span><br><span class="line"># 设置当前系统为Asia/Shanghai上海时区</span><br><span class="line">timedatectl set-timezone Asia/Shanghai</span><br><span class="line"># 设置完时区后，强制同步下系统时钟</span><br><span class="line">chronyc -a makestep</span><br></pre></td></tr></table></figure>
+<h4 id="参考链接-2"><a href="#参考链接-2" class="headerlink" title="参考链接"></a>参考链接</h4><ol>
+<li><a href="https://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/set-time.html" target="_blank" rel="noopener">AWS Doc: 为 Linux 实例设置时间</a></li>
+<li><a href="https://www.cnblogs.com/JetpropelledSnake/p/10175763.html" target="_blank" rel="noopener">K8S学习笔记之CentOS7集群使用Chrony实现时间同步</a></li>
+</ol>
+<h3 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list java*</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install java-1.8.0-openjdk.x86_64</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h3><p><a href="https://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/SSL-on-amazon-linux-2.html" target="_blank" rel="noopener">AWS Doc: 在 Amazon Linux 2 上配置SSL</a></p>
+<h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><h4 id="1-添加下载源"><a href="#1-添加下载源" class="headerlink" title="1. 添加下载源"></a>1. 添加下载源</h4><p>在 <code>/etc/yum.repos.d/</code> 目录下新建一个 <code>nginx.repo</code> 文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[nginx]</span><br><span class="line">name=nginx repo</span><br><span class="line">baseurl=http://nginx.org/packages/centos/7/x86_64/</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1</span><br></pre></td></tr></table></figure>
+<p>保存</p>
+<h4 id="2-下载"><a href="#2-下载" class="headerlink" title="2. 下载"></a>2. 下载</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install nginx</span><br></pre></td></tr></table></figure>
+<h4 id="3-启动"><a href="#3-启动" class="headerlink" title="3. 启动"></a>3. 启动</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 设置开机启动</span><br><span class="line">sudo systemctl enable nginx</span><br><span class="line"># 启动服务</span><br><span class="line">sudo systemctl start nginx</span><br><span class="line"># 重启服务</span><br><span class="line">sudo systemctl restart nginx</span><br><span class="line"># 重新加载，因为一般重新配置之后，不希望重启服务，这时可以使用重新加载</span><br><span class="line">sudo systemctl reload nginx</span><br></pre></td></tr></table></figure>
+<h4 id="参考链接-3"><a href="#参考链接-3" class="headerlink" title="参考链接"></a>参考链接</h4><ol>
+<li><a href="http://john3.cn/2019/04/09/diary/d20190409/" target="_blank" rel="noopener">Amazon Linux 2 AMI 下 yum 安装 Nginx</a></li>
+<li><a href="https://qizhanming.com/blog/2018/08/06/how-to-install-nginx-on-centos-7" target="_blank" rel="noopener">CentOS 7 下 yum 安装和配置 Nginx</a></li>
+</ol>
+<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><h4 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h4><p>默认 AWS EC2 上 是没有 redis 源的 , 需要下载 Fedora 的 epel 仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install epel-release</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>若找不到则需要手动安装 <code>rpm -ivh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</code></p>
+</blockquote>
+<p>此时会提示需要通过另外的命令安装,输入安装即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo amazon-linux-extras install epel</span><br></pre></td></tr></table></figure>
+<p>然后再安装redis</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install redis</span><br></pre></td></tr></table></figure>
+<h4 id="2-启动"><a href="#2-启动" class="headerlink" title="2. 启动"></a>2. 启动</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动redis</span></span><br><span class="line">service redis start</span><br><span class="line"><span class="comment"># 停止redis</span></span><br><span class="line">service redis stop</span><br><span class="line"><span class="comment"># 查看redis运行状态</span></span><br><span class="line">service redis status</span><br><span class="line"><span class="comment"># 查看redis进程</span></span><br><span class="line">ps -ef | grep redis</span><br></pre></td></tr></table></figure>
+<p>开启自启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig redis on</span><br></pre></td></tr></table></figure>
+<h4 id="3-配置"><a href="#3-配置" class="headerlink" title="3. 配置"></a>3. 配置</h4><p>Redis 默认配置文件为 <code>/etc/redis.conf</code> , 通常对其进行配置修改</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 指定 Redis 端口</span></span><br><span class="line">port 6379</span><br><span class="line"><span class="comment"># 绑定主机 IP , 通常修改为 0.0.0.0 或内网地址方便远程访问</span></span><br><span class="line"><span class="built_in">bind</span> 127.0.0.1</span><br><span class="line"><span class="comment"># 设置数据库数量</span></span><br><span class="line">databases 16</span><br><span class="line"><span class="comment"># 指定在多长时间内，有多少次更新操作，就将数据同步到数据文件，可以多个条件配合</span></span><br><span class="line"><span class="comment"># save &lt;seconds&gt; &lt;changes&gt; </span></span><br><span class="line"><span class="comment"># Redis 默认配置文件中提供了三个条件</span></span><br><span class="line">save 900 1</span><br><span class="line">save 300 10</span><br><span class="line">save 60 10000</span><br><span class="line"><span class="comment"># 指定本地数据库文件名,默认如下</span></span><br><span class="line">dbfilename dump.rdb</span><br><span class="line"><span class="comment"># 指定本地数据库存放目录 , 若自定义目录,需要赋予权限 chown -R redis:redis &#123;自定义目录&#125;</span></span><br><span class="line">dir /var/lib/redis </span><br><span class="line"><span class="comment"># 指定是否激活重置哈希，默认为开启</span></span><br><span class="line">activerehashing yes</span><br><span class="line"><span class="comment"># 设置Redis连接密码，如果配置了连接密码，客户端在连接Redis时需要通过AUTH &lt;password&gt;命令提供密码，默认关闭</span></span><br><span class="line">requirepass foobared</span><br></pre></td></tr></table></figure>
+<p>更多的配置,可直接查看配置文件的注释或者查看 <a href="https://www.runoob.com/redis/redis-conf.html" target="_blank" rel="noopener">详细文档</a></p>
+<h4 id="4-常用操作"><a href="#4-常用操作" class="headerlink" title="4. 常用操作"></a>4. 常用操作</h4><h5 id="1-连接-Redis"><a href="#1-连接-Redis" class="headerlink" title="1. 连接 Redis"></a>1. 连接 Redis</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h [ip] -p [端口]</span><br><span class="line"><span class="comment">#例</span></span><br><span class="line">redis-cli -h 127.0.0.1 -p 6379</span><br></pre></td></tr></table></figure>
+<p>若设置了密码 , 则需要输入密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth 445813  <span class="comment">#445813为密码，输入密码前要密码前面加 auth和空格</span></span><br></pre></td></tr></table></figure>
+<h5 id="2-键值操作"><a href="#2-键值操作" class="headerlink" title="2. 键值操作"></a>2. 键值操作</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#添加</span></span><br><span class="line"><span class="built_in">set</span> key value</span><br><span class="line"><span class="comment">#例</span></span><br><span class="line"><span class="built_in">set</span> webname django.cn</span><br><span class="line"><span class="built_in">set</span> usrname <span class="string">"My namne is XXX"</span> <span class="comment">#中间有空格的要用引号</span></span><br><span class="line"><span class="comment">#通过KEY查询</span></span><br><span class="line">127.0.0.1:6379&gt; get webname</span><br><span class="line"><span class="string">"django.cn"</span></span><br><span class="line"><span class="comment">#删除key</span></span><br><span class="line">del webname</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置过期时间(单位为秒)</span></span><br><span class="line">expire key timeout</span><br><span class="line"><span class="comment">#也可以在设置值的时候，一同指定过期时间</span></span><br><span class="line"><span class="built_in">set</span> key value EX timeout</span><br><span class="line"><span class="comment">#例子</span></span><br><span class="line"><span class="built_in">set</span> name django.cn EX 20  <span class="comment">#设置20秒过期</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查看过期时间</span></span><br><span class="line">ttl key</span><br><span class="line"><span class="comment">#如</span></span><br><span class="line">ttl name</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看当前redis中所有Key</span></span><br><span class="line">keys *</span><br></pre></td></tr></table></figure>
+<p>Redis支持五种数据类型: string（字符串),hash（哈希）, list（列表）,set（集合）及zset(sorted set: 有序集合).更多关于不同数据类型操作方法, 可查看官方文档: <a href="https://redis.io/commands" target="_blank" rel="noopener">https://redis.io/commands</a>（英文）, 这里还有一个中文的, 可以去看看 <a href="http://redisdoc.com/index.html" target="_blank" rel="noopener">http://redisdoc.com/index.html</a>  </p>
+<h4 id="docker-compose-安装-Redis"><a href="#docker-compose-安装-Redis" class="headerlink" title="docker-compose 安装 Redis"></a>docker-compose 安装 Redis</h4><p>直接通过 Rancher 或者 docker-compose 安装 ,方便追踪</p>
+<p>首先在对应目录下创建 <a href="https://jipay.oss-cn-shenzhen.aliyuncs.com/auth/redis.conf" target="_blank" rel="noopener">redis.conf</a> , 关于端口 , 目录等基本不要改 , 就改动访问密码等平台相关的信息即可</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">   redis:</span></span><br><span class="line"><span class="attr">     image:</span> <span class="string">redis</span></span><br><span class="line"><span class="attr">     container_name:</span> <span class="string">redis</span></span><br><span class="line"><span class="attr">     restart:</span> <span class="string">always</span></span><br><span class="line"><span class="attr">     ports:</span></span><br><span class="line"><span class="bullet">       -</span> <span class="number">16379</span><span class="string">:6379</span></span><br><span class="line"><span class="attr">     volumes:</span></span><br><span class="line"><span class="bullet">       -</span> <span class="string">$PWD:/data</span></span><br><span class="line"><span class="bullet">       -</span> <span class="string">/etc/localtime:/etc/localtime:ro</span></span><br><span class="line"><span class="bullet">       -</span> <span class="string">$PWD/conf/redis.conf:/etc/redis/redis.conf</span></span><br><span class="line"><span class="attr">     command:</span> <span class="string">redis-server</span> <span class="string">/etc/redis/redis.conf</span></span><br></pre></td></tr></table></figure>
+<h4 id="参考链接-4"><a href="#参考链接-4" class="headerlink" title="参考链接"></a>参考链接</h4><ul>
+<li><p><a href="https://www.django.cn/article/show-24.html" target="_blank" rel="noopener">django中文网: centos和ubuntu下redis的安装与使用</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/linjiqin/p/10472023.html" target="_blank" rel="noopener">Docker安装Redis</a></p>
+</li>
+</ul>
+<hr>
+<h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><h4 id="1-卸载自带的-mariadb-lib-及-mysql"><a href="#1-卸载自带的-mariadb-lib-及-mysql" class="headerlink" title="1. 卸载自带的 mariadb-lib 及 mysql"></a>1. 卸载自带的 mariadb-lib 及 mysql</h4><p>首先查看已安装的 mariadb 和 mysql</p>
+<p>然后一一卸载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看</span></span><br><span class="line">rpm -qa|grep mariadb</span><br><span class="line"><span class="comment"># 卸载</span></span><br><span class="line">rpm -e --nodeps mariadb-libs-xxx</span><br></pre></td></tr></table></figure>
+<p>mysql 同理</p>
+<h4 id="2-下载-MySQL-的-Yum-Repository"><a href="#2-下载-MySQL-的-Yum-Repository" class="headerlink" title="2. 下载 MySQL 的 Yum Repository"></a>2. 下载 MySQL 的 Yum Repository</h4><p>查看系统发行版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/os-release</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">NAME=&quot;Amazon Linux&quot;</span><br><span class="line">VERSION=&quot;2&quot;</span><br><span class="line">ID=&quot;amzn&quot;</span><br><span class="line">ID_LIKE=&quot;centos rhel fedora&quot;    # 留意这里, 对应可选下载版本</span><br><span class="line">VERSION_ID=&quot;2&quot;</span><br><span class="line">PRETTY_NAME=&quot;Amazon Linux 2&quot;</span><br><span class="line">ANSI_COLOR=&quot;0;33&quot;</span><br><span class="line">CPE_NAME=&quot;cpe:2.3:o:amazon:amazon_linux:2&quot;</span><br><span class="line">HOME_URL=&quot;https://amazonlinux.com/&quot;</span><br></pre></td></tr></table></figure>
+<p>然后进入 <a href="https://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="noopener">MySQL 官网 Yum Repository 下载区</a> 选择对应版本复制链接, 下载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm</span><br></pre></td></tr></table></figure>
+<p>安装 repo</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum localinstall ./mysql80-community-release-el7-3.noarch.rpm</span><br></pre></td></tr></table></figure>
+<p>检查是否安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum repolist enabled | grep &quot;mysql.*-community.*&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="3-安装-MySQL"><a href="#3-安装-MySQL" class="headerlink" title="3. 安装 MySQL"></a>3. 安装 MySQL</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mysql-community-server</span><br></pre></td></tr></table></figure>
+<h4 id="4-配置"><a href="#4-配置" class="headerlink" title="4. 配置"></a>4. 配置</h4><p>修改 MySQL 的配置文件 <code>/etc/my.cnf</code>  , 这里笔者将 mysql 配置目录集中配置在了 <code>/mnt/efs/mysql</code> 下 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">basedir=/mnt/efs/mysql <span class="comment"># 新增</span></span><br><span class="line">datadir=/mnt/efs/mysql/data  <span class="comment"># 修改</span></span><br><span class="line">socket=/mnt/efs/mysql/mysql.sock <span class="comment"># 修改</span></span><br><span class="line">character_set_server = utf8 <span class="comment"># 新增</span></span><br><span class="line"></span><br><span class="line">pid-file=/mnt/efs/mysql/mysqld/mysqld.pid <span class="comment"># 修改</span></span><br><span class="line"><span class="built_in">log</span>-error=/mnt/efs/mysql/<span class="built_in">log</span>/mysqld.log  <span class="comment"># 修改</span></span><br><span class="line"></span><br><span class="line">[client] <span class="comment"># 新增</span></span><br><span class="line">socket=/mnt/efs/mysql/mysql.sock<span class="comment"># 新增</span></span><br></pre></td></tr></table></figure>
+<p>然后需要给予自定义目录权限</p>
+<div class="note warn"><p>这里需要注意, 在给权限之前需要创建一些子目录, 否则后面启动 mysql 时会报<code>&quot;SERVER_BOOTING&quot; Permission denied</code> 类似的错误 , 需要查看错误日志了解详情 . 这里罗列下要创建的子目录</p>
+undefined</div>
+<p>再给予权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R mysql:mysql /mnt/efs/mysql</span><br></pre></td></tr></table></figure>
+<p>初始化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld --initialize --user=mysql</span><br></pre></td></tr></table></figure>
+<p>管理 SELinux</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setenforce 0</span><br></pre></td></tr></table></figure>
+<p>设置开机启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable mysqld</span><br></pre></td></tr></table></figure>
+<p>启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mysqld</span><br></pre></td></tr></table></figure>
+<p>查询是否启动成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl  status mysqld</span><br></pre></td></tr></table></figure>
+<h4 id="5-登录验证"><a href="#5-登录验证" class="headerlink" title="5. 登录验证"></a>5. 登录验证</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep &quot;temporary password&quot; /mnt/efs/mysql/log/mysqld.log</span><br></pre></td></tr></table></figure>
+<p>得到临时密码 , 然后登录数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p # 输入得到的临时密码</span><br></pre></td></tr></table></figure>
+<p>再修改密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &apos;root&apos;@&apos;%&apos; IDENTIFIED BY &apos;xxxxxx&apos;;</span><br></pre></td></tr></table></figure>
+<p>如果是 mysql8.0 需要使用以下命令 , 否则用 Navicat 等客户端登录时会报 <code>Authentication plugin &#39;caching_sha2_password&#39; cannot be loaded</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &apos;root&apos;@&apos;%&apos; IDENTIFIED WITH mysql_native_password BY &apos;xxx&apos;;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>若这里的 <code>%</code> 填写的是<code>localhost</code>  后面登录时会报 <code>Host &#39;x.x.x.x&#39; is not allowed to connect to this MySQL server</code>  . 其中 <code>x.x.x.x</code> 是登录的本地 IP .</p>
+<p>最好不要改root的登录host , 创建新用户并修改host .</p>
+</blockquote>
+<h4 id="6-创建用户及权限控制"><a href="#6-创建用户及权限控制" class="headerlink" title="6. 创建用户及权限控制"></a>6. 创建用户及权限控制</h4><p>创建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># root登录,然后创建用户 </span><br><span class="line">use mysql;</span><br><span class="line"># 创建用户</span><br><span class="line">create user &apos;dev&apos;@&apos;%&apos;;</span><br><span class="line"># 查询用户</span><br><span class="line">select user,host from user;</span><br><span class="line"># mysql_native_password 是使用旧版本密码插件,使本地 navicat 方便登录</span><br><span class="line">ALTER USER &apos;dev&apos;@&apos;%&apos; IDENTIFIED WITH mysql_native_password BY &apos;xxx&apos;;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+<p>授权</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 给予 dev my_db 数据库下的所有表的所有权限</span><br><span class="line">grant all privileges on my_db.* to &apos;dev&apos;@&apos;%&apos;;</span><br><span class="line"># 给予 dev testDB 数据库下的所有查询和更新语句权限</span><br><span class="line">grant select,update on testDB.* to &apos;dev&apos;@&apos;%&apos;;</span><br><span class="line"># 给予 dev 所有数据库的某些权限</span><br><span class="line">grant select,delete,update,create,drop on *.* to &apos;dev&apos;@&apos;%&apos;;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+<h4 id="7-docker-compose-安装-MySQL"><a href="#7-docker-compose-安装-MySQL" class="headerlink" title="7. docker-compose 安装 MySQL"></a>7. docker-compose 安装 MySQL</h4><p>直接通过 Rancher 或者 Docker 安装 MySQL</p>
+<p>首先创建 <code>conf/my.cnf</code> 文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line"></span><br><span class="line">default-authentication-plugin=mysql_native_password</span><br><span class="line">bind-address = 0.0.0.0</span><br><span class="line">character_set_server = utf8</span><br><span class="line">skip-name-resolve</span><br><span class="line">max_connections = 1000</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[client]</span><br></pre></td></tr></table></figure>
+<p><code>docker-compose.yml</code> 配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  mysql:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">mysql:8.0</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">always</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">13306</span><span class="string">:3306</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/etc/localtime:/etc/localtime:ro</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$PWD/conf:/etc/mysql/conf.d</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$PWD/logs:/logs</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$PWD/data:/var/lib/mysql</span></span><br><span class="line"><span class="attr">    privileged:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">MYSQL_ROOT_PASSWORD=yourpassword</span></span><br></pre></td></tr></table></figure>
+<h4 id="8-数据库日备"><a href="#8-数据库日备" class="headerlink" title="8. 数据库日备"></a>8. 数据库日备</h4><p>这里我们对 docker 安装的 MySQL 进行数据库结构+数据的每日全量备份</p>
+<p>首先 <code>docker ps</code> 查看 MySQL 容器的 container ID 或者 Name </p>
+<p>然后编写脚本 , 首先在当前目录下创建好 <code>db</code> 目录 , 用于存放备份好的文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">DAT=`date +%m%d`</span><br><span class="line">HOR=`date +%H`</span><br><span class="line">begin=`date +%F<span class="string">" "</span>%T`</span><br><span class="line">DIR=<span class="variable">$PWD</span>/db</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ ! -d <span class="variable">$DIR</span>/<span class="variable">$DAT</span> ]];<span class="keyword">then</span></span><br><span class="line">	mkdir <span class="variable">$DIR</span>/<span class="variable">$DAT</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `cat <span class="variable">$PWD</span>/mysql-back.list`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	docker <span class="built_in">exec</span> -it  CONTAINER_NAME mysqldump -uroot -pPASSWORD <span class="variable">$i</span> &gt; <span class="variable">$DIR</span>/<span class="variable">$DAT</span>/<span class="variable">$i</span>-<span class="variable">$DAT</span><span class="variable">$HOR</span>.sql</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">find <span class="variable">$DIR</span>/* -mtime +20 -<span class="built_in">exec</span> rm -rf &#123;&#125; \;</span><br><span class="line">end=`date +%F<span class="string">" "</span>%T`</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$begin</span> dump mysql   -------&gt;   <span class="variable">$end</span> has done"</span> &gt;&gt; <span class="variable">$PWD</span>/mysqldump.log</span><br></pre></td></tr></table></figure>
+<p>然后在当前目录创建 <code>mysql-back.list</code> 文件 , 填入要备份的数据库名</p>
+<p>替换以上脚本中的 <code>CONTAINER_NAME</code> 和 <code>PASSWORD</code></p>
+<p>然后设置脚本运行时间</p>
+<p><code>vim /etc/crontab</code></p>
+<p>在最下方加入行 , sh 文件路径替换为自己存放的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 2 * * * root sh /mnt/data/mysql/backups/mysql-backup.sh</span><br></pre></td></tr></table></figure>
+<p>这样每天凌晨2点就会执行全量数据备份</p>
+<h4 id="参考链接-5"><a href="#参考链接-5" class="headerlink" title="参考链接"></a>参考链接</h4><ol>
+<li><a href="https://www.jianshu.com/p/f4e887781cf9" target="_blank" rel="noopener">Centos7，redhat安装Mysql</a></li>
+<li><a href="https://blog.csdn.net/weixin_42266606/article/details/80879571" target="_blank" rel="noopener">CentOS7安装MySQL8.0图文教程</a></li>
+<li><a href="https://blog.csdn.net/u012611878/article/details/80721220" target="_blank" rel="noopener">MySQL 8.0报错：ERROR 2059 (HY000): Authentication plugin ‘caching_sha2_password’ cannot be loaded</a></li>
+<li><a href="https://blog.csdn.net/qianghaohao/article/details/78996189" target="_blank" rel="noopener">查看Linux发行版名称及版本号</a></li>
+<li><a href="https://www.jianshu.com/p/71efd60edde8" target="_blank" rel="noopener">CenterOS7-Docker-安装MySQL8</a></li>
+</ol>
+<h3 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h3><h4 id="1-安装依赖包"><a href="#1-安装依赖包" class="headerlink" title="1. 安装依赖包"></a>1. 安装依赖包</h4><p>首先移除旧的 <code>docker</code> 及其 依赖</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
+<p>然后安装 <code>docker</code> 依赖包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
+<h4 id="2-添加-Docker-ce-镜像"><a href="#2-添加-Docker-ce-镜像" class="headerlink" title="2. 添加 Docker-ce 镜像"></a>2. 添加 Docker-ce 镜像</h4><ul>
+<li>国外源</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+<ul>
+<li>国内阿里云源</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+<p>远程的包信息缓存到本机</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum makecache fast</span><br></pre></td></tr></table></figure>
+<h4 id="3-安装-Docker"><a href="#3-安装-Docker" class="headerlink" title="3. 安装 Docker"></a>3. 安装 Docker</h4><p>最新版安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install docker-ce</span><br></pre></td></tr></table></figure>
+<div class="note info"><p>在生产环境中, 通常需要使用统一的稳定版 ,而不是最新版 . 此时我们需要查看并安装指定版本</p></div>
+<p><strong>指定版本安装</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">yum list docker-ce --showduplicates | sort -r</span><br><span class="line"></span><br><span class="line">Loaded plugins: extras_suggestions, langpacks, priorities, update-motd</span><br><span class="line">docker-ce.x86_64            3:18.09.6-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.5-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.4-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.3-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.2-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.1-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.0-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            18.06.3.ce-3.el7                    docker-ce-stable</span><br><span class="line">docker-ce.x86_64            18.06.2.ce-3.el7                    docker-ce-stable</span><br><span class="line">docker-ce.x86_64            18.06.1.ce-3.el7                    docker-ce-stable</span><br><span class="line">docker-ce.x86_64            18.06.0.ce-3.el7                    docker-ce-stable</span><br><span class="line">docker-ce.x86_64            18.03.1.ce-1.el7.centos             docker-ce-stable</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>然后安装对应版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install docker-ce-18.09.5 docker-ce-cli-18.09.5 containerd.io-1.2.5</span><br></pre></td></tr></table></figure>
+<h5 id="Issue"><a href="#Issue" class="headerlink" title="Issue"></a>Issue</h5><p>此时可能出现 <code>Requires: container-selinux &gt;= 2.9</code> 的报错</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Error: Package: 3:docker-ce-18.09.6-3.el7.x86_64 (docker-ce-stable)             </span><br><span class="line">           Requires: container-selinux &gt;= 2.9                                   </span><br><span class="line"> You could try using --skip-broken to work around the problem                   </span><br><span class="line"> You could try running: rpm -Va --nofiles --nodigest</span><br></pre></td></tr></table></figure>
+<p>此时需要去 <a href="http://rpm.pbone.net/index.php3/stat/4/idpl/40704222/dir/centos_7/com/container-selinux-2.9-4.el7.noarch.rpm.html" target="_blank" rel="noopener">http://rpm.pbone.net/index.php3/stat/4/idpl/40704222/dir/centos_7/com/container-selinux-2.9-4.el7.noarch.rpm.html</a> 或 <a href="https://pkgs.org/download/container-selinux" target="_blank" rel="noopener">https://pkgs.org/download/container-selinux</a> 下载 <code>container-selinux2.9.4</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget ftp://bo.mirror.garr.it/1/slc/centos/7.1.1503/extras/x86_64/Packages/container-selinux-2.9-4.el7.noarch.rpm</span><br></pre></td></tr></table></figure>
+<p>接着执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh container-selinux-2.9-4.el7.noarch.rpm</span><br></pre></td></tr></table></figure>
+<p>过程中可能又报错 , 若无报错则可跳过</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">error: Failed dependencies:</span><br><span class="line">        policycoreutils-python is needed by container-selinux-2:2.9-4.el7.noarch</span><br></pre></td></tr></table></figure>
+<p>直接 yum install 缺失的包即可 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install policycoreutils-python</span><br></pre></td></tr></table></figure>
+<p>至此,缺失的依赖包已补全 , 再按照上述安装 Docker</p>
+<h4 id="4-配置-Docker"><a href="#4-配置-Docker" class="headerlink" title="4. 配置 Docker"></a>4. 配置 Docker</h4><p>重载 systemctl 并启动和开机自启动 docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start docker</span><br><span class="line">systemctl <span class="built_in">enable</span> docker</span><br><span class="line">docker --version</span><br></pre></td></tr></table></figure>
+<h4 id="5-安装-Docker-compose"><a href="#5-安装-Docker-compose" class="headerlink" title="5. 安装 Docker-compose"></a>5. 安装 Docker-compose</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L <span class="string">"https://github.com/docker/compose/releases/download/1.24.0/docker-compose-<span class="variable">$(uname -s)</span>-<span class="variable">$(uname -m)</span>"</span> -o /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line"></span><br><span class="line">sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line"></span><br><span class="line">docker-compose --version</span><br></pre></td></tr></table></figure>
+<h4 id="6-改变-Docker-默认存储路径"><a href="#6-改变-Docker-默认存储路径" class="headerlink" title="6. 改变 Docker 默认存储路径"></a>6. 改变 Docker 默认存储路径</h4><p>安装完后不要启动,或者先停掉服务</p>
+<p>移动现有文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /var/lib/docker/* /mnt/efs/docker</span><br></pre></td></tr></table></figure>
+<p>删除原来的目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /var/lib/docker</span><br></pre></td></tr></table></figure>
+<p>建立软连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /mnt/efs/docker/ /var/lib/docker</span><br></pre></td></tr></table></figure>
+<p>进入 <code>/var/lib</code> 下用命令查看软连接结果 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> ls -la docker</span><br><span class="line"># 显示结果如下表示成功</span><br><span class="line">docker -&gt; /mnt/efs/docker/</span><br></pre></td></tr></table></figure>
+<p>启动服务 , 用 <code>docker info</code> 查看是否成功</p>
+<h4 id="7-卸载-Docker"><a href="#7-卸载-Docker" class="headerlink" title="7. 卸载 Docker"></a>7. 卸载 Docker</h4><p><strong>1. </strong> 搜索已安装的 docker 包 并删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum list installed|grep docker</span><br><span class="line"></span><br><span class="line">yum –y remove &#123;以上所列的包&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>2. </strong> 删除 docker 镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /var/lib/docker    ##  若有自定义目录,需删除自定义目录</span><br></pre></td></tr></table></figure>
+<p>也可在卸载前删除容器及镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 停止所有容器并删除</span><br><span class="line">docker stop $(docker ps -a -q)</span><br><span class="line">docker rm $(docker ps -a -q)</span><br></pre></td></tr></table></figure>
+<h4 id="Docker制作-Java-服务镜像并推送到私有镜像库"><a href="#Docker制作-Java-服务镜像并推送到私有镜像库" class="headerlink" title="Docker制作 Java 服务镜像并推送到私有镜像库"></a>Docker制作 Java 服务镜像并推送到私有镜像库</h4><p>首先将 Java 工程改造成docker工程 . 在 <code>pom.xml</code> 中加入</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">docker.image.prefix</span>&gt;</span>hc<span class="tag">&lt;/<span class="name">docker.image.prefix</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.spotify<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dockerfile-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">repository</span>&gt;</span>$&#123;docker.image.prefix&#125;/$&#123;project.artifactId&#125;<span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">buildArgs</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">JAR_FILE</span>&gt;</span>target/$&#123;project.build.finalName&#125;.jar<span class="tag">&lt;/<span class="name">JAR_FILE</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">buildArgs</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后本地安装 Docker , 此处不清楚的可自行 Google .</p>
+<p>然后命令打包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean package dockerfile:build -Dmaven.test.skip=true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 登录私有镜像库,然后输入密码</span><br><span class="line">sudo docker login --username=用户名 registry.cn-shenzhen.aliyuncs.com</span><br><span class="line"># 通过 docker images 查看imageId 填入下方指令中</span><br><span class="line">sudo docker tag [ImageId] registry.cn-shenzhen.aliyuncs.com/命名空间/仓库:[镜像版本号]</span><br><span class="line"># 推送</span><br><span class="line">sudo docker push registry.cn-shenzhen.aliyuncs.com/命名空间/仓库:[镜像版本号]</span><br></pre></td></tr></table></figure>
+<div class="note warning"><p>此时注意下,如果是在 Mac 端输入 <code>sudo xxx</code> 命令,第一个输入的密码其实是本地电脑密码, 通过后才是输入镜像库密码, 别搞错了😂</p></div>
+<h4 id="CenterOS-补充"><a href="#CenterOS-补充" class="headerlink" title="CenterOS 补充"></a>CenterOS 补充</h4><p>后面使用了几台 CenterOS , 安装过程中依赖环境相对于 AWS Linux 还是全一些 .</p>
+<p>卸载 <code>device-mapper-*</code> 安装高版本即可安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 查看安装的 device* 包</span><br><span class="line">rpm -qa | grep device</span><br><span class="line"># rpm -e xxx(以上查找出来的包) --nodeps</span><br><span class="line"># 下载依赖</span><br><span class="line">wget ftp://ftp.pbone.net/mirror/ftp.scientificlinux.org/linux/scientific/7.4/x86_64/os/Packages/device-mapper-1.02.140-8.el7.x86_64.rpm</span><br><span class="line"></span><br><span class="line">wget ftp://ftp.pbone.net/mirror/ftp.scientificlinux.org/linux/scientific/7.4/x86_64/os/Packages/device-mapper-libs-1.02.140-8.el7.x86_64.rpm</span><br><span class="line"></span><br><span class="line"># 安装 </span><br><span class="line">rpm -ivh xxx(以上两个包) --nodeps</span><br></pre></td></tr></table></figure>
+<p><a href="http://rpm.pbone.net/index.php3/stat/4/idpl/38000634/dir/scientific_linux_7/com/device-mapper-1.02.140-8.el7.x86_64.rpm.html" target="_blank" rel="noopener">NPM Repo</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 删除所有无用镜像</span><br><span class="line">docker image prune -a</span><br></pre></td></tr></table></figure>
+<h5 id="Issue-1"><a href="#Issue-1" class="headerlink" title="Issue"></a>Issue</h5><p>若 <code>docker info</code> 查看有 <code>WARNING: bridge-nf-call-iptables is disabled</code> 的警告显示 .</p>
+<p>解决办法 : </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysctl.conf</span><br></pre></td></tr></table></figure>
+<p>添加以下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net.bridge.bridge-nf-call-ip6tables = 1</span><br><span class="line">net.bridge.bridge-nf-call-iptables = 1</span><br></pre></td></tr></table></figure>
+<p>再执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+<p>再执行 <code>docker info</code> 就不会报错了.</p>
+<h4 id="参考链接-6"><a href="#参考链接-6" class="headerlink" title="参考链接"></a>参考链接</h4><ol>
+<li><a href="https://blog.csdn.net/zhangfeng5909/article/details/88770481" target="_blank" rel="noopener">Requires: container-selinux &gt;= 2.9报错</a></li>
+<li><a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank" rel="noopener">官网: Get Docker CE for CenterOS</a></li>
+<li><a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">官网: Install Docker Compose</a></li>
+<li><a href="https://blog.csdn.net/glongljl/article/details/80158297" target="_blank" rel="noopener">修改 docker 默认的存储位置</a></li>
+<li><a href="https://yq.aliyun.com/articles/278801" target="_blank" rel="noopener">WARNING:bridge-nf-call-iptables is disabled解决</a></li>
+</ol>
+<hr>
+<h3 id="SS"><a href="#SS" class="headerlink" title="SS"></a>SS</h3><h4 id="参考链接-7"><a href="#参考链接-7" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://www.blog-china.cn/blog/liuzaiqingshan/home/10/1536938599643" target="_blank" rel="noopener">Amazon EC2 Linux实例上安装Shadowsocks服务器</a></p>
+<h3 id="GitLab"><a href="#GitLab" class="headerlink" title="GitLab"></a>GitLab</h3><h4 id="1-Docker及docker-compose"><a href="#1-Docker及docker-compose" class="headerlink" title="1. Docker及docker-compose"></a>1. Docker及docker-compose</h4><p>参考本文 Docker部分</p>
+<h4 id="2-GitLab"><a href="#2-GitLab" class="headerlink" title="2. GitLab"></a>2. GitLab</h4><h5 id="Issue-2"><a href="#Issue-2" class="headerlink" title="Issue"></a>Issue</h5><ul>
+<li>阿里云企业邮箱 smtp OpenTimeout: execution expired</li>
+</ul>
+<p>通常是因为阿里云服务器 25 端口未开放, 换成 465 即可. </p>
+<p>已经通过 docker-compose 部署的 GitLab 需要修改GitLab自身的配置文件<code>gitlab.rb</code></p>
+<p>首先修改自定义目录下的 <code>{docker-compose文件中的自定义路径}/config/gitlab.rb</code> 并保存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">gitlab_rails[&apos;smtp_enable&apos;] = true</span><br><span class="line">gitlab_rails[&apos;smtp_address&apos;] = &quot;smtp.mxhichina.com&quot;</span><br><span class="line">gitlab_rails[&apos;smtp_port&apos;] = 465</span><br><span class="line">gitlab_rails[&apos;smtp_user_name&apos;] = &quot;&#123;account&#125;@&#123;domain&#125;&quot;</span><br><span class="line">gitlab_rails[&apos;smtp_password&apos;] = &quot;有授权码填授权码,没有填密码&quot;</span><br><span class="line">gitlab_rails[&apos;smtp_domain&apos;] = &quot;&#123;domain&#125;&quot;</span><br><span class="line">gitlab_rails[&apos;smtp_authentication&apos;] = &quot;login&quot;</span><br><span class="line">gitlab_rails[&apos;smtp_enable_starttls_auto&apos;] = true</span><br><span class="line">gitlab_rails[&apos;smtp_tls&apos;] = true</span><br></pre></td></tr></table></figure>
+<p>然后进入容器 bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it gitlab bash</span><br></pre></td></tr></table></figure>
+<p>重新读取配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure</span><br><span class="line">gitlab-ctl restart</span><br></pre></td></tr></table></figure>
+<p>然后进入 gitlab 控制台</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-rails console</span><br></pre></td></tr></table></figure>
+<p>检查邮件配置</p>
+<ul>
+<li>检查邮件发送协议</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ActionMailer::Base.delivery_method</span><br></pre></td></tr></table></figure>
+<p>显示<code>=&gt; :smtp</code> </p>
+<ul>
+<li>查看当前的发送邮件配置</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ActionMailer::Base.smtp_settings</span><br></pre></td></tr></table></figure>
+<p>查看配置是否与修改后的一致</p>
+<p>然后发送测试邮件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Notify.test_email(&apos;xxx@yyy.com&apos;,&apos;测试标题&apos;,&apos;测试内容&apos;).deliver_now</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>建议不要使用163邮箱, 可能因为内容导致邮件发送失败报554</p>
+</blockquote>
+<h4 id="参考链接-8"><a href="#参考链接-8" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://blog.51cto.com/zpf666/2333869" target="_blank" rel="noopener">Docker-compose一键部署gitlab中文版</a></p>
+<h3 id="Yapi"><a href="#Yapi" class="headerlink" title="Yapi"></a>Yapi</h3><h4 id="参考链接-9"><a href="#参考链接-9" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://www.jianshu.com/p/a97d2efb23c5" target="_blank" rel="noopener">顶尖API文档管理工具Yapi</a></p>
+<h4 id="爱发布-APP-托管"><a href="#爱发布-APP-托管" class="headerlink" title="爱发布 APP 托管"></a>爱发布 APP 托管</h4><p><a href="https://github.com/HeadingMobile/fabu.love" target="_blank" rel="noopener">fabu.love</a></p>
+<p>常用的APP托管平台 <strong>蒲公英</strong> , <strong>fir</strong> 审核越来越严格,时不时还会突然下架. 最好自己部署平台</p>
+<h3 id="物理机环境补充"><a href="#物理机环境补充" class="headerlink" title="物理机环境补充"></a>物理机环境补充</h3><p>物理机初始化缺少很多云主机装好的环境</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## vim</span></span><br><span class="line">yum -y install vim*</span><br><span class="line"><span class="comment">## wget </span></span><br><span class="line">yum -y install wget</span><br><span class="line"><span class="comment">## yum-utils</span></span><br><span class="line">yum -y install yum-utils</span><br><span class="line"><span class="comment">## telnet</span></span><br><span class="line">yum list telnet*              列出telnet相关的安装包</span><br><span class="line">yum install telnet-server          安装telnet服务</span><br><span class="line">yum install telnet.*           安装telnet客户端</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+            <a href="/tags/Docker/" rel="tag"># Docker</a>
+          
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          
+            <a href="/tags/GitLab/" rel="tag"># GitLab</a>
+          
+            <a href="/tags/Docker-Compose/" rel="tag"># Docker-Compose</a>
+          
+            <a href="/tags/Redis/" rel="tag"># Redis</a>
+          
+            <a href="/tags/JDK/" rel="tag"># JDK</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/nginx-letsencrypt-ssl/" rel="next" title="Nginx启用Let's Encrypt SSL证书">
+                <i class="fa fa-chevron-left"></i> Nginx启用Let's Encrypt SSL证书
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/alpine-font-issue/" rel="prev" title="解决docker alpine缺少字体的问题">
+                解决docker alpine缺少字体的问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
+                alt="L" />
+            
+              <p class="site-author-name" itemprop="name">L</p>
+              <p class="site-description motion-element" itemprop="description">琴棋书画诗酒花 , 柴米油盐酱醋茶.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lhalcyon" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:longhai@lhalcyon.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/56a18660816dfa005a7e58df" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-archive"></i>掘金</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#EBS磁盘挂载和卸载"><span class="nav-number">1.</span> <span class="nav-text">EBS磁盘挂载和卸载</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接"><span class="nav-number">1.1.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加用户"><span class="nav-number">2.</span> <span class="nav-text">添加用户</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接-1"><span class="nav-number">2.1.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步时区"><span class="nav-number">3.</span> <span class="nav-text">同步时区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接-2"><span class="nav-number">3.1.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK"><span class="nav-number">4.</span> <span class="nav-text">JDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSL"><span class="nav-number">5.</span> <span class="nav-text">SSL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx"><span class="nav-number">6.</span> <span class="nav-text">Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-添加下载源"><span class="nav-number">6.1.</span> <span class="nav-text">1. 添加下载源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-下载"><span class="nav-number">6.2.</span> <span class="nav-text">2. 下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-启动"><span class="nav-number">6.3.</span> <span class="nav-text">3. 启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接-3"><span class="nav-number">6.4.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis"><span class="nav-number">7.</span> <span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-安装"><span class="nav-number">7.1.</span> <span class="nav-text">1. 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-启动"><span class="nav-number">7.2.</span> <span class="nav-text">2. 启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-配置"><span class="nav-number">7.3.</span> <span class="nav-text">3. 配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-常用操作"><span class="nav-number">7.4.</span> <span class="nav-text">4. 常用操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-连接-Redis"><span class="nav-number">7.4.1.</span> <span class="nav-text">1. 连接 Redis</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-键值操作"><span class="nav-number">7.4.2.</span> <span class="nav-text">2. 键值操作</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-compose-安装-Redis"><span class="nav-number">7.5.</span> <span class="nav-text">docker-compose 安装 Redis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接-4"><span class="nav-number">7.6.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL"><span class="nav-number">8.</span> <span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-卸载自带的-mariadb-lib-及-mysql"><span class="nav-number">8.1.</span> <span class="nav-text">1. 卸载自带的 mariadb-lib 及 mysql</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-下载-MySQL-的-Yum-Repository"><span class="nav-number">8.2.</span> <span class="nav-text">2. 下载 MySQL 的 Yum Repository</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-安装-MySQL"><span class="nav-number">8.3.</span> <span class="nav-text">3. 安装 MySQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-配置"><span class="nav-number">8.4.</span> <span class="nav-text">4. 配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-登录验证"><span class="nav-number">8.5.</span> <span class="nav-text">5. 登录验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-创建用户及权限控制"><span class="nav-number">8.6.</span> <span class="nav-text">6. 创建用户及权限控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-docker-compose-安装-MySQL"><span class="nav-number">8.7.</span> <span class="nav-text">7. docker-compose 安装 MySQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-数据库日备"><span class="nav-number">8.8.</span> <span class="nav-text">8. 数据库日备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接-5"><span class="nav-number">8.9.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker"><span class="nav-number">9.</span> <span class="nav-text">Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-安装依赖包"><span class="nav-number">9.1.</span> <span class="nav-text">1. 安装依赖包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-添加-Docker-ce-镜像"><span class="nav-number">9.2.</span> <span class="nav-text">2. 添加 Docker-ce 镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-安装-Docker"><span class="nav-number">9.3.</span> <span class="nav-text">3. 安装 Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Issue"><span class="nav-number">9.3.1.</span> <span class="nav-text">Issue</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-配置-Docker"><span class="nav-number">9.4.</span> <span class="nav-text">4. 配置 Docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-安装-Docker-compose"><span class="nav-number">9.5.</span> <span class="nav-text">5. 安装 Docker-compose</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-改变-Docker-默认存储路径"><span class="nav-number">9.6.</span> <span class="nav-text">6. 改变 Docker 默认存储路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-卸载-Docker"><span class="nav-number">9.7.</span> <span class="nav-text">7. 卸载 Docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker制作-Java-服务镜像并推送到私有镜像库"><span class="nav-number">9.8.</span> <span class="nav-text">Docker制作 Java 服务镜像并推送到私有镜像库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CenterOS-补充"><span class="nav-number">9.9.</span> <span class="nav-text">CenterOS 补充</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Issue-1"><span class="nav-number">9.9.1.</span> <span class="nav-text">Issue</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接-6"><span class="nav-number">9.10.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SS"><span class="nav-number">10.</span> <span class="nav-text">SS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接-7"><span class="nav-number">10.1.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitLab"><span class="nav-number">11.</span> <span class="nav-text">GitLab</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Docker及docker-compose"><span class="nav-number">11.1.</span> <span class="nav-text">1. Docker及docker-compose</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-GitLab"><span class="nav-number">11.2.</span> <span class="nav-text">2. GitLab</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Issue-2"><span class="nav-number">11.2.1.</span> <span class="nav-text">Issue</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接-8"><span class="nav-number">11.3.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Yapi"><span class="nav-number">12.</span> <span class="nav-text">Yapi</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接-9"><span class="nav-number">12.1.</span> <span class="nav-text">参考链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#爱发布-APP-托管"><span class="nav-number">12.2.</span> <span class="nav-text">爱发布 APP 托管</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物理机环境补充"><span class="nav-number">13.</span> <span class="nav-text">物理机环境补充</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">L</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Goodbye , Halcyon Days .</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("UbniSKfBsoNe7s8pbumwYrJX-gzGzoHsz", "PwtF7EaCdn3QisFXC9XsMo9T");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"scale":0.8,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":1,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-24},"mobile":{"show":false,"scale":0.3},"react":{"opacityDefault":0.7,"opacityOnHover":0.2}});</script></body>
+</html>

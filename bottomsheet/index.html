@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="BottomSheet," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Halcyon days" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="本文转自 掘金: BottomSheet详解  关系 BottomSheet不是真正存在的类，而是一种称呼，表示该种控件类型，参照Google翻译，本文以下称之为“底页”，就是从屏幕底部弹出的工具条。与之对应是BottomSheetBehavior的行为类，它需要附属某个控件使用。该行为性质包括： 可以从底部弹出 可以上下拖拽布局 可以单击淡黑色遮罩隐藏/关闭   BottomSheetDialo">
+<meta name="keywords" content="BottomSheet">
+<meta property="og:type" content="article">
+<meta property="og:title" content="转-BottomSheet详解">
+<meta property="og:url" content="https://lhalcyon.com/bottomsheet/index.html">
+<meta property="og:site_name" content="Halcyon days">
+<meta property="og:description" content="本文转自 掘金: BottomSheet详解  关系 BottomSheet不是真正存在的类，而是一种称呼，表示该种控件类型，参照Google翻译，本文以下称之为“底页”，就是从屏幕底部弹出的工具条。与之对应是BottomSheetBehavior的行为类，它需要附属某个控件使用。该行为性质包括： 可以从底部弹出 可以上下拖拽布局 可以单击淡黑色遮罩隐藏/关闭   BottomSheetDialo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/170a3f6a5777f744 (1">
+<meta property="og:updated_time" content="2021-01-20T10:12:57.107Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="转-BottomSheet详解">
+<meta name="twitter:description" content="本文转自 掘金: BottomSheet详解  关系 BottomSheet不是真正存在的类，而是一种称呼，表示该种控件类型，参照Google翻译，本文以下称之为“底页”，就是从屏幕底部弹出的工具条。与之对应是BottomSheetBehavior的行为类，它需要附属某个控件使用。该行为性质包括： 可以从底部弹出 可以上下拖拽布局 可以单击淡黑色遮罩隐藏/关闭   BottomSheetDialo">
+<meta name="twitter:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/170a3f6a5777f744 (1">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lhalcyon.com/bottomsheet/"/>
+
+
+
+
+
+  <title>转-BottomSheet详解 | Halcyon days</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Halcyon days</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/bottomsheet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">转-BottomSheet详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-05T00:00:00+08:00">
+                2020-11-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/bottomsheet/" class="leancloud_visitors" data-flag-title="转-BottomSheet详解">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,457
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="note info"><p>本文转自 <a href="https://juejin.cn/post/6844904081064984584" target="_blank" rel="noopener">掘金: BottomSheet详解</a> </p></div>
+<h4 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h4><ol>
+<li><code>BottomSheet</code>不是真正存在的类，而是一种称呼，表示该种控件类型，参照Google翻译，本文以下称之为“底页”，就是从屏幕底部弹出的工具条。与之对应是<code>BottomSheetBehavior</code>的行为类，它需要附属某个控件使用。该行为性质包括：<ul>
+<li>可以从底部弹出</li>
+<li>可以上下拖拽布局</li>
+<li>可以单击淡黑色遮罩隐藏/关闭</li>
+</ul>
+</li>
+<li><code>BottomSheetDialog</code>继承<code>Dialog</code>，是一种对话框，它是拥有<code>BottomSheetBehavior</code>行为的对话框，从而实现从底部弹出和上下拉伸的效果。</li>
+<li><code>BottomSheetDialogFragment</code>是包含<code>BottomSheetDialog</code>的片段（<code>Fragment</code>），所以它可以同时利用<code>Fragment</code>的特点和<code>BottomSheet</code>这一交互效果</li>
+</ol>
+<a id="more"></a>
+<h4 id="BottomSheetBehavior"><a href="#BottomSheetBehavior" class="headerlink" title="BottomSheetBehavior"></a>BottomSheetBehavior</h4><h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h5><p>在xml布局文件中与<code>CoordinatorLayout</code>配合使用。如下设置后，<code>NestedScrollView</code>具有<code>BottomSheetBehavior</code>的性质，且一开始就显示在布局中，初始的显示高度为<code>peekHeight</code>值。背景没有淡黑色遮罩，可以上下拖拽。</p>
+<ul>
+<li>关键语句<code>app:layout_behavior=&quot;@string/bottom_sheet_behavior&quot;</code>。</li>
+<li><code>NestedScrollView</code>的子视图只能有一个。</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">android.support.design.widget.CoordinatorLayout</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:fitsSystemWindows</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">android.support.v4.widget.NestedScrollView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/bottom_sheet"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:behavior_hideable</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:behavior_peekHeight</span>=<span class="string">"50dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_behavior</span>=<span class="string">"@string/bottom_sheet_behavior"</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">&lt;!--内部布局--&gt;</span></span><br><span class="line">        </span><br><span class="line">    <span class="tag">&lt;/<span class="name">android.support.v4.widget.NestedScrollView</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">android.support.design.widget.CoordinatorLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上述代码中有两个属性值得注意。</p>
+<p><code>app:behavior_hideable</code>：当我们上下拖拽时，布局是否可以全部隐藏。如果设置为真，那么你向下滑完之后，布局会被隐藏起来，然后就滑不出来了。。。（除非你写了按钮之类的逻辑控制它的行为）所以要谨慎。</p>
+<p><code>app:behavior_peekHeight</code>：是当底页关闭的时候，底部我们能看到的高度，默认是0不可见。</p>
+<h5 id="获取行为"><a href="#获取行为" class="headerlink" title="获取行为"></a>获取行为</h5><p>在布局文件中声明之后，就可以在代码中获取行为了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取视图</span></span><br><span class="line">View = findViewById(R.id.bottom_sheet);</span><br><span class="line"><span class="comment">// 获取行为</span></span><br><span class="line">BottomSheetBehavior behavior = BottomSheetBehavior.from(view);</span><br></pre></td></tr></table></figure>
+<h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><p>行为的一些常用的方法。</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>用法示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>setHideable</code></td>
+<td>setHideable(true)</td>
+<td>对应<code>app:behavior_hideable</code>属性</td>
+</tr>
+<tr>
+<td><code>setPeekHeight</code></td>
+<td>setPeekHeight(500)</td>
+<td>对应<code>app:behavior_peekHeight</code>属性</td>
+</tr>
+<tr>
+<td><code>setBottomSheetCallback</code></td>
+<td>/</td>
+<td>设置监听回调</td>
+</tr>
+<tr>
+<td><code>setState</code></td>
+<td>setState(BottomSheetBehavior.STATE_EXPANDED)</td>
+<td>设置底页状态</td>
+</tr>
+</tbody>
+</table>
+<h5 id="BottomSheetCallback"><a href="#BottomSheetCallback" class="headerlink" title="BottomSheetCallback"></a>BottomSheetCallback</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">behavior.setBottomSheetCallback(<span class="keyword">new</span> BottomSheetBehavior.BottomSheetCallback() &#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStateChanged</span><span class="params">(@NonNull View bottomSheet, <span class="keyword">int</span> newState)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//监听BottomSheet状态的改变</span></span><br><span class="line">    &#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSlide</span><span class="params">(@NonNull View bottomSheet, <span class="keyword">float</span> slideOffset)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//监听拖拽中的回调，根据slideOffset可以做一些动画</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>底页行为一共有五种状态。</p>
+<ul>
+<li><p><code>STATE_HIDDEN</code>: 隐藏状态。默认是false，可通过<code>app:behavior_hideable</code>属性设置。</p>
+</li>
+<li><p><code>STATE_COLLAPSED</code>: 折叠关闭状态。可通过<code>app:behavior_peekHeight</code>来设置显示的高度，peekHeight默认是0。</p>
+</li>
+<li><p><code>STATE_DRAGGING</code>: 被拖拽状态</p>
+</li>
+<li><p><code>STATE_SETTLING</code>: 拖拽松开之后到达终点位置（collapsed or expanded）前的状态。</p>
+</li>
+<li><p><code>STATE_EXPANDED</code>: 完全展开的状态。</p>
+</li>
+</ul>
+<h4 id="BottomSheetDialog"><a href="#BottomSheetDialog" class="headerlink" title="BottomSheetDialog"></a>BottomSheetDialog</h4><p>这是具有底页行为性质的对话框，不需要与<code>CoordinatorLayout</code>配合使用。弹出时，背景为出现一层淡黑色遮罩。需要相关逻辑控制它的弹出。</p>
+<h5 id="使用布局文件"><a href="#使用布局文件" class="headerlink" title="使用布局文件"></a>使用布局文件</h5><p>设计<code>BottomSheetDialog</code>内部的视图。Xml可以不用被<code>CoordinatorLayout</code>包裹，但是还是推荐实用推荐的滑动控件<code>NestedScrollView</code>。</p>
+<h5 id="使用代码"><a href="#使用代码" class="headerlink" title="使用代码"></a>使用代码</h5><p>使用上述的布局文件，假设名称为<code>layout_bsd</code>。可以获取行为实现自定义。要注意的是从视图的父视图（<code>(View)view.getParent()</code>）获取底页行为，否则会报错：</p>
+<blockquote>
+<p>The view is not a child of CoordinatorLayout.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BottomSheetDialog dialog = <span class="keyword">new</span> BottomSheetDialog(context);</span><br><span class="line">View view = getLayoutInflater.inflate(R.layout.layout_bsd, <span class="keyword">null</span>);</span><br><span class="line">dialog.setContentView(view);</span><br><span class="line"><span class="comment">// 获取行为，用于自定义</span></span><br><span class="line">BottomSheetBehavior behavior = BottomSheetBehavior.from((View)view.getParent());</span><br><span class="line">dialog.show();</span><br></pre></td></tr></table></figure>
+<h4 id="BottomSheetDialogFragment"><a href="#BottomSheetDialogFragment" class="headerlink" title="BottomSheetDialogFragment"></a>BottomSheetDialogFragment</h4><p>有两种用法。</p>
+<ul>
+<li>当作中装了一个底页对话框的<code>Fragment</code>。实际是与底页对话框的作用和使用方法是相同的。</li>
+<li>具有底页行为的<code>Fragment</code>。</li>
+</ul>
+<h5 id="用法1-披着-Fragment-外衣的-Dialog"><a href="#用法1-披着-Fragment-外衣的-Dialog" class="headerlink" title="用法1 披着 Fragment 外衣的 Dialog"></a>用法1 披着 Fragment 外衣的 Dialog</h5><p>重写<code>BottomSheetDialogFragment</code>中的<code>onCreateDialog</code>方法。可以看到和上面<code>BottomSheetDialog</code>的代码是相同的。同样可以在中间获取行为用于自定义。要注意是子视图的扩充用到的是<code>View.inflate</code>的静态方法，否则会报错。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Dialog <span class="title">onCreateDialog</span><span class="params">(Bundle savedInstanceState)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    BottomSheetDialog dialog = (BottomSheetDialog) <span class="keyword">super</span>.onCreateDialog(savedInstanceState);</span><br><span class="line">    View view = View.inflate(getContext(), R.layout.dialog_bottom_sheet, <span class="keyword">null</span>);</span><br><span class="line">    dialog.setContentView(view);</span><br><span class="line">    mBehavior = BottomSheetBehavior.from((View) view.getParent());</span><br><span class="line">    <span class="keyword">return</span> dialog;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="用法2-Fragment"><a href="#用法2-Fragment" class="headerlink" title="用法2 Fragment"></a>用法2 Fragment</h5><p>重写<code>BottomSheetDialogFragment</code>中的<code>onCreateView</code>方法。代码与<code>Fragment</code>的常规写法相同。不过不好的一点是不容易获取行为。如果要强行获取行为的话，可以使用以下的代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStart</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">super</span>.onStart();</span><br><span class="line">    Dialog dialog = getDialog();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (dialog != <span class="keyword">null</span>) &#123;</span><br><span class="line">        View bottomSheet = dialog.findViewById(R.id.design_bottom_sheet);</span><br><span class="line">        bottomSheet.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;</span><br><span class="line">    &#125;</span><br><span class="line">    View view = getView();</span><br><span class="line">    view.post(() -&gt; &#123;</span><br><span class="line">        View parent = (View) view.getParent();</span><br><span class="line">        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) (parent).getLayoutParams();</span><br><span class="line">        CoordinatorLayout.Behavior behavior = params.getBehavior();</span><br><span class="line">        BottomSheetBehavior bottomSheetBehavior = (BottomSheetBehavior) behavior;</span><br><span class="line">        bottomSheetBehavior.setPeekHeight(view.getMeasuredHeight());</span><br><span class="line">        ((View)bottomSheet.getParent()).setBackgroundColor(Color.TRANSPARENT);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是如果这两个方法都重写了，那么以<code>onCreateView</code>里的视图为准，<code>onCreateDialog</code>会被覆盖。</p>
+<h4 id="扩展-通过设置style实现圆角样式"><a href="#扩展-通过设置style实现圆角样式" class="headerlink" title="扩展: 通过设置style实现圆角样式"></a>扩展: 通过设置style实现圆角样式</h4><p>如下设置好之后，在创建<code>BottomSheetDialog</code>时传入样式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BottomSheetDialog dialog = <span class="keyword">new</span> BottomSheetDialog(context, R.style.BottomSheetDialog);</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--styles.xml文件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"BottomSheet"</span> <span class="attr">parent</span>=<span class="string">"Widget.Design.BottomSheet.Modal"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="xml">    <span class="comment">&lt;!--背景，顶部两个圆角--&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:background"</span>&gt;</span>@drawable/bg_bottom_sheet<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"BottomSheetDialog"</span> <span class="attr">parent</span>=<span class="string">"Theme.Design.Light.BottomSheetDialog"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowIsFloating"</span>&gt;</span>false<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="comment">&lt;!--底部弹出条的样式（相当于背景）--&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"bottomSheetStyle"</span>&gt;</span>@style/BottomSheet<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="comment">&lt;!--状态栏颜色--&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:statusBarColor"</span>&gt;</span>@color/transparent<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="comment">&lt;!--导航条颜色--&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:navigationBarColor"</span>&gt;</span>@color/white<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--以下是@drawable/bg_bottom_sheet--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">shape</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:shape</span>=<span class="string">"rectangle"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">corners</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:topLeftRadius</span>=<span class="string">"16dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:topRightRadius</span>=<span class="string">"16dp"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">corners</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">solid</span> <span class="attr">android:color</span>=<span class="string">"@android:color/white"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">padding</span> <span class="attr">android:top</span>=<span class="string">"16dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:left</span>=<span class="string">"8dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:right</span>=<span class="string">"8dp"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">shape</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>效果图</p>
+<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/170a3f6a5777f744 (1" alt="">.png)</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://www.jianshu.com/p/0a7383e0ad0f" target="_blank" rel="noopener">BottomSheet、BottomSheetDialog使用详解</a></p>
+<p><a href="https://stackoverflow.com/questions/36030879/bottomsheetdialogfragment-how-to-set-expanded-height-or-min-top-offset" target="_blank" rel="noopener">StackOverflow</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/BottomSheet/" rel="tag"># BottomSheet</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/dockerfile/" rel="next" title="转-Dockerfile详解">
+                <i class="fa fa-chevron-left"></i> 转-Dockerfile详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/spannablestring-issue/" rel="prev" title="TextView添加SpannableString并设置点击色">
+                TextView添加SpannableString并设置点击色 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
+                alt="L" />
+            
+              <p class="site-author-name" itemprop="name">L</p>
+              <p class="site-description motion-element" itemprop="description">琴棋书画诗酒花 , 柴米油盐酱醋茶.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lhalcyon" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:longhai@lhalcyon.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/56a18660816dfa005a7e58df" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-archive"></i>掘金</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#关系"><span class="nav-number">1.</span> <span class="nav-text">关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BottomSheetBehavior"><span class="nav-number">2.</span> <span class="nav-text">BottomSheetBehavior</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用"><span class="nav-number">2.1.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取行为"><span class="nav-number">2.2.</span> <span class="nav-text">获取行为</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法"><span class="nav-number">2.3.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BottomSheetCallback"><span class="nav-number">2.4.</span> <span class="nav-text">BottomSheetCallback</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BottomSheetDialog"><span class="nav-number">3.</span> <span class="nav-text">BottomSheetDialog</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用布局文件"><span class="nav-number">3.1.</span> <span class="nav-text">使用布局文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用代码"><span class="nav-number">3.2.</span> <span class="nav-text">使用代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BottomSheetDialogFragment"><span class="nav-number">4.</span> <span class="nav-text">BottomSheetDialogFragment</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#用法1-披着-Fragment-外衣的-Dialog"><span class="nav-number">4.1.</span> <span class="nav-text">用法1 披着 Fragment 外衣的 Dialog</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用法2-Fragment"><span class="nav-number">4.2.</span> <span class="nav-text">用法2 Fragment</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展-通过设置style实现圆角样式"><span class="nav-number">5.</span> <span class="nav-text">扩展: 通过设置style实现圆角样式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">L</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Goodbye , Halcyon Days .</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("UbniSKfBsoNe7s8pbumwYrJX-gzGzoHsz", "PwtF7EaCdn3QisFXC9XsMo9T");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"scale":0.8,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":1,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-24},"mobile":{"show":false,"scale":0.3},"react":{"opacityDefault":0.7,"opacityOnHover":0.2}});</script></body>
+</html>

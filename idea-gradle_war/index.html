@@ -98,18 +98,18 @@
 <meta property="og:site_name" content="Halcyon days">
 <meta property="og:description" content="最近在帮朋友开发小程序的 Java 后端,项目采用 Gradle 构建,使用IntelliJ开发. 开发中经常需要发包到外网上,方便前端联调,而IntelliJ默认构建的 war 包名称为项目名-版本号,使得每次上传war包至服务器tomcat时还得手动重命名,发布次数多了,就显得很繁琐.这里就水一篇,简短说明下 IntelliJ中Gradle构建如何自定义war包名称. 首先打开 Project">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fopikcl9olj30mc01o3ys.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fopiml70qkj31kw190qa2.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fopiqgxj6ej31bg0hy0z2.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fopj7lkx3cj31bu0e0tbt.jpg">
-<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1fopjt8ggu0j31c00midjh.jpg">
-<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1fopk3yib95j30qg0qoabp.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fopk8hw84uj30h40aygmy.jpg">
-<meta property="og:updated_time" content="2018-02-23T14:51:22.258Z">
+<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fopikcl9olj30mc01o3ys.jpg">
+<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fopiml70qkj31kw190qa2.jpg">
+<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fopiqgxj6ej31bg0hy0z2.jpg">
+<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fopj7lkx3cj31bu0e0tbt.jpg">
+<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fopjt8ggu0j31c00midjh.jpg">
+<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fopk3yib95j30qg0qoabp.jpg">
+<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fopk8hw84uj30h40aygmy.jpg">
+<meta property="og:updated_time" content="2021-01-20T10:12:57.113Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IntelliJ+Gradle自定义war包名称">
 <meta name="twitter:description" content="最近在帮朋友开发小程序的 Java 后端,项目采用 Gradle 构建,使用IntelliJ开发. 开发中经常需要发包到外网上,方便前端联调,而IntelliJ默认构建的 war 包名称为项目名-版本号,使得每次上传war包至服务器tomcat时还得手动重命名,发布次数多了,就显得很繁琐.这里就水一篇,简短说明下 IntelliJ中Gradle构建如何自定义war包名称. 首先打开 Project">
-<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fopikcl9olj30mc01o3ys.jpg">
+<meta name="twitter:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fopikcl9olj30mc01o3ys.jpg">
 
 
 
@@ -311,7 +311,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460">
+      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -427,19 +427,19 @@
       
         <p>最近在帮朋友开发小程序的 Java 后端,项目采用 Gradle 构建,使用IntelliJ开发. 开发中经常需要发包到外网上,方便前端联调,而IntelliJ默认构建的 war 包名称为<code>项目名-版本号</code>,使得每次上传war包至服务器tomcat时还得手动重命名,发布次数多了,就显得很繁琐.这里就水一篇,简短说明下 <strong>IntelliJ中Gradle构建如何自定义war包名称</strong>.</p>
 <p>首先打开 Project Settings</p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fopikcl9olj30mc01o3ys.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fopikcl9olj30mc01o3ys.jpg" alt=""></p>
 <p>选择 Artifacts</p>
-<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fopiml70qkj31kw190qa2.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fopiml70qkj31kw190qa2.jpg" alt=""></p>
 <p>前两个 <code>Gradle:xxx</code>  是创建Gradle项目并添加tomcat后,自动生成的.我们这里点击 + 新增</p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fopiqgxj6ej31bg0hy0z2.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fopiqgxj6ej31bg0hy0z2.jpg" alt=""></p>
 <p>选择 <code>Web Application: Archive</code>    -&gt;    <code>Empty</code></p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fopj7lkx3cj31bu0e0tbt.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fopj7lkx3cj31bu0e0tbt.jpg" alt=""></p>
 <p>修改war包名称及输出路径</p>
-<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fopjt8ggu0j31c00midjh.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fopjt8ggu0j31c00midjh.jpg" alt=""></p>
 <p>添加war包内容,同样选择 Artifact</p>
-<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fopk3yib95j30qg0qoabp.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fopk3yib95j30qg0qoabp.jpg" alt=""></p>
 <p>选择 Gradle: xxx (exploded) </p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fopk8hw84uj30h40aygmy.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fopk8hw84uj30h40aygmy.jpg" alt=""></p>
 <p>之后打包只能选择 Build -&gt; Build Artifacts 然后选择自定义的build, 然后在输出目录下即可找到war包</p>
 
       
@@ -547,11 +547,11 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="https://avatars3.githubusercontent.com/u/21357951?v=3&s=460"
+                src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
                 alt="L" />
             
               <p class="site-author-name" itemprop="name">L</p>
-              <p class="site-description motion-element" itemprop="description">know thyself.</p>
+              <p class="site-description motion-element" itemprop="description">琴棋书画诗酒花 , 柴米油盐酱醋茶.</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -561,7 +561,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -572,7 +572,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -583,7 +583,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -649,7 +649,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="heart">
     <i class="fa fa-heart"></i>
   </span>
@@ -665,7 +665,7 @@
 
 
 
-  <div class="footer-custom">Goodbye , halcyon days .</div>
+  <div class="footer-custom">Goodbye , Halcyon Days .</div>
 
 
         

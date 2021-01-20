@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="regex," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Halcyon days" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="在研发中 , 经常用到正则表达式 , 看过很多次 , 在用时却记不住 , 这里转篇结合例子讲解的文章以记录. 转自 掘金">
+<meta name="keywords" content="regex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="转-正则">
+<meta property="og:url" content="https://lhalcyon.com/regex/index.html">
+<meta property="og:site_name" content="Halcyon days">
+<meta property="og:description" content="在研发中 , 经常用到正则表达式 , 看过很多次 , 在用时却记不住 , 这里转篇结合例子讲解的文章以记录. 转自 掘金">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/164e60dc2e523db9.png">
+<meta property="og:updated_time" content="2021-01-20T10:12:57.125Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="转-正则">
+<meta name="twitter:description" content="在研发中 , 经常用到正则表达式 , 看过很多次 , 在用时却记不住 , 这里转篇结合例子讲解的文章以记录. 转自 掘金">
+<meta name="twitter:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/164e60dc2e523db9.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lhalcyon.com/regex/"/>
+
+
+
+
+
+  <title>转-正则 | Halcyon days</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Halcyon days</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/regex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">转-正则</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-20T16:02:11+08:00">
+                2020-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/regex/" itemprop="url" rel="index">
+                    <span itemprop="name">regex</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/regex/" class="leancloud_visitors" data-flag-title="转-正则">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,686
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="note info"><p>在研发中 , 经常用到正则表达式 , 看过很多次 , 在用时却记不住 , 这里转篇结合例子讲解的文章以记录.</p>
+<p>转自 <a href="https://juejin.cn/post/6844903648309297166" target="_blank" rel="noopener">掘金</a></p></div>
+<a id="more"></a>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><h3 id="1-1-基本语法"><a href="#1-1-基本语法" class="headerlink" title="1.1 基本语法"></a>1.1 基本语法</h3><p>通过一张图表来对正则表达式的基本进行一个回顾</p>
+<table>
+<thead>
+<tr>
+<th><strong>single char</strong></th>
+<th><strong>quantifiers(数量)</strong></th>
+<th><strong>position(位置)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\d 匹配数字</td>
+<td>* 0个或者更多</td>
+<td>^一行的开头</td>
+</tr>
+<tr>
+<td>\w 匹配word(数字、字母)</td>
+<td>+ 1个或更多，至少1个</td>
+<td>$一行的结尾</td>
+</tr>
+<tr>
+<td>\W 匹配<strong>非</strong>word(数字、字母)</td>
+<td>? 0个或1个,一个Optional</td>
+<td>\b 单词”结界”(word bounds)</td>
+</tr>
+<tr>
+<td>\s 匹配white space(包括空格、tab等)</td>
+<td>{min,max}出现次数在一个范围内</td>
+<td></td>
+</tr>
+<tr>
+<td>\S 匹配<strong>非</strong>white space(包括空格、tab等)</td>
+<td>{n}匹配出现n次的</td>
+<td></td>
+</tr>
+<tr>
+<td>. 匹配任何，任何的字符</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-1-1-single-char"><a href="#1-1-1-single-char" class="headerlink" title="1.1.1 single char"></a>1.1.1 single char</h4><p>假设你有一段字符如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">These are some phone numbers 917-555-1234. Also, you can call me at 645.555.1234 and of course I&apos;m always reachable at (212)867-5309.</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>\w</code></li>
+</ul>
+<p>将匹配所有word，当然，() - 等字符除外</p>
+<ul>
+<li><code>\w\w\w</code></li>
+</ul>
+<p>注意正则表达式是匹配一个连续串的规则，所以可以看到三个字母的单词可以匹配到，6个单词的也可以匹配到。</p>
+<ul>
+<li><code>\s\s</code></li>
+</ul>
+<p>匹配到一行中连续两个空格</p>
+<h4 id="quantifiers"><a href="#quantifiers" class="headerlink" title="quantifiers"></a>quantifiers</h4><p>假设我们有一段话:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">The colors of the rainbow have many colours </span><br><span class="line">and the rainbow does not  have a single colour.</span><br></pre></td></tr></table></figure>
+<p>我们想把所有的颜色找出来<code>colors</code> <code>colours</code> <code>colour</code></p>
+<p><strong>答案</strong> <code>colou?rs?</code> 嗯，看起来很简单，很方便。</p>
+<hr>
+<p>好了，现在想要匹配一行中的4个数字，或者一行中的5个字母等，这时候用quantifiers就非常方便了。</p>
+<blockquote>
+<p>我现在想找5个字母组成的单词</p>
+</blockquote>
+<ul>
+<li><code>\w{5}</code> 这样可以吗？嗯..不行的，看下它匹配的内容,如下: ‘<code>These</code> are some <code>phone</code> <code>numbe</code>rs 915-555-1234…’ 的确，我们模板给的很简单，它只找一行中，连续出现5个字母的序列。所以现在改进一下好了</li>
+<li><code>\w{5}\s</code> 为了能找到单词，所以我希望5个字母后，跟一个空格的序列，这样应该可以了吧，看下匹配情况： ‘<code>These</code>are some <code>phone</code>nu<code>mbers</code>915-555-1234…’ 嗯，是的，只有目前这些方法，是做不到的。 所以，我们需要第三个工具  “position”</li>
+</ul>
+<h4 id="1-1-2-position"><a href="#1-1-2-position" class="headerlink" title="1.1.2 position"></a>1.1.2 position</h4><p>回到刚才的问题之前，先熟悉下<code>^</code> <code>$</code> 和 <code>\b</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">This is somthing</span><br><span class="line">is about</span><br><span class="line">a blah</span><br><span class="line">words</span><br><span class="line">sequence of words</span><br><span class="line">Hello and</span><br><span class="line">GoodBye and </span><br><span class="line">Go gogo!</span><br></pre></td></tr></table></figure>
+<p>来看下各种正则所匹配的内容</p>
+<ul>
+<li><code>\w+</code> 这个应该毫无疑问，匹配所有的words</li>
+<li><code>^\w+</code> 多了一个 <code>^</code> ,这样子,就只能匹配到每一行开头的单词了 </li>
+<li><code>\w+$</code> 这样就能匹配到每行的最后一个字母了</li>
+</ul>
+<p>回到刚才的问题</p>
+<blockquote>
+<p>现在想找5个字母组成的单词</p>
+</blockquote>
+<p>就变得很简单了，使用单词结界符<code>\b</code></p>
+<p>答案就是<code>\b\w{5}\b</code></p>
+<h4 id="1-1-3-找个电话号码"><a href="#1-1-3-找个电话号码" class="headerlink" title="1.1.3 找个电话号码"></a>1.1.3 找个电话号码</h4><p>最后，找一个刚才出现的电话号<code>123-456-1231</code></p>
+<p>用以上最基本的正则方法就是 <code>\d{3}-\d{3}-\d{4}</code>，这样就找到了。 但是有的时候，电话号码是<code>123.456.1234</code> 或者 <code>(212)867-4233</code>的结构怎么办呢？</p>
+<p>正则表达式中的<code>或</code>或者其他表达方式，下面一一来介绍。</p>
+<h3 id="1-2-字符分类-char-class"><a href="#1-2-字符分类-char-class" class="headerlink" title="1.2 字符分类(char class)"></a>1.2 字符分类(char class)</h3><p>前面记录了最基本的方法 , 接下来说一下分类符 <code>[]</code></p>
+<p>这个符号用来表示逻辑关系<code>或</code>，比如<code>[abc]</code>表示a或者b或c.<code>[-.]</code>表示符号<code>-</code>或者<code>.</code>号(<strong>注意这里，在<code>[]</code>中的<code>.</code>号代表的就是这个符号，但是如果在其外面，表示个匹配所有。 所以如果不在<code>[]</code>之中，想要匹配’.’，就要通过转意符号<code>\.</code></strong>)</p>
+<h4 id="1-2-1-分类的简单应用"><a href="#1-2-1-分类的简单应用" class="headerlink" title="1.2.1 分类的简单应用"></a>1.2.1 分类的简单应用</h4><p>字符序列:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The lynk is quite a link don&apos;t you think? l nk l(nk</span><br></pre></td></tr></table></figure>
+<p>正则表达式： <code>l[yi (]nk</code></p>
+<p>结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lynk  link  l nk   l(nk</span><br></pre></td></tr></table></figure>
+<p>很容易理解的，就是表达<code>或</code>逻辑。</p>
+<h4 id="1-2-2-匹配所有可能的电话号码"><a href="#1-2-2-匹配所有可能的电话号码" class="headerlink" title="1.2.2 匹配所有可能的电话号码"></a>1.2.2 匹配所有可能的电话号码</h4><p>好了，现在回到之前遗留的问题，有以下字段，请匹配所有可能的电话号码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">These are some phone numbers 915-134-3122. Also,</span><br><span class="line">you can call me at 643.123.1333 and of course,</span><br><span class="line">I&apos;m always reachable at (212)867-5509</span><br></pre></td></tr></table></figure>
+<p>好的，一步一步来，刚才我们使用<code>\d{3}-\d{3}-\d{4}</code>匹配了连字符的情况。现在我们可以很轻松的把<code>.</code>这种情况加进去了</p>
+<p>第一步： <code>\d{3}[-.]\d{3}[-.]\d{4}</code></p>
+<p>第二步: 为了能够匹配括号，可以使用?来，因为这是一个option选择。所以最后就成了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\(?\d&#123;3&#125;[-.)]\d&#123;3&#125;[-.]\d&#123;4&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>这里还是要说明，在[]中，特殊字符不需要转义，可以直接使用，比如<code>[.()]</code>,但是在外面，是需要转义的<code>\(</code> <code>\.</code>等</strong></p>
+<h4 id="1-2-3-的特殊语法"><a href="#1-2-3-的特殊语法" class="headerlink" title="1.2.3 []的特殊语法"></a>1.2.3 []的特殊语法</h4><p>刚才介绍了最简单和基本的功能，但是有些特殊的地方需要注意</p>
+<p><strong>1</strong>. -连接符是第一个字符时</p>
+<p>比如<code>[-.]</code>的含义是连字符<code>-</code>或者点符<code>.</code>。 但是，如果当连字符不是第一个字符时，比如<code>[a-z]</code>，这就表示是从字母a到字符z。</p>
+<p><strong>2.</strong> []中的^</p>
+<p><code>^</code>在之前介绍中，是表示一行开头，但是在<code>[]</code>中，有着不同的含义。 <code>[ab]</code> 表示a或者b <code>[^ab]</code> 啥都行，只要不是a或b(anythings except a and b)，相当于取反</p>
+<h4 id="1-2-4-和"><a href="#1-2-4-和" class="headerlink" title="1.2.4 []和()"></a>1.2.4 []和()</h4><p>除了使用<code>[]</code>表示或逻辑,<code>()</code>也是可以的。用法是<code>(a|b)</code>表示a或者b</p>
+<p>比如下面的例子，匹配所有email</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gaoyaqi411@126.com  </span><br><span class="line">dyumc@google.net </span><br><span class="line">sam@sjtu.edu</span><br></pre></td></tr></table></figure>
+<p>思路：</p>
+<p>首先要想我到底相匹配什么，这里我想匹配的是</p>
+<ol>
+<li>任何一个以words开头的，一个或更多 <code>\w+</code></li>
+<li>紧接着是一个<code>@</code>符号 <code>\w+@</code></li>
+<li>接着有一个或者更多的words <code>\w+@\w+</code></li>
+<li>接着一个<code>.</code>标点 <code>\w+@\w+\.</code></li>
+<li>接着一个<code>com</code> <code>net</code> 或 <code>edu</code> <code>\w+@\w+\.(com|net|edu)</code></li>
+</ol>
+<p><strong>还是提醒注意第四步的<code>\.</code>转义符号</strong></p>
+<p>好了，这样几可以匹配以上的所有邮箱了。但是还有一个问题，因为邮箱用户名是可以有<code>.</code>的，比如<code>vincent.ko@126.com</code></p>
+<p>其实仍然很简单，修复如下： <code>[\w.]+@\w+\.(com|net|edu)</code></p>
+<h4 id="1-2-5-总结"><a href="#1-2-5-总结" class="headerlink" title="1.2.5 总结"></a>1.2.5 总结</h4><ol>
+<li><p><code>[]</code>的作用，用英文表达就是”alternation”,表达一个或的逻辑；</p>
+</li>
+<li><p><code>/[-.(]/</code> 在符号中的连字符<code>-</code>放在第一位表示连字符本身，如果放在中间，表示”从..到..”，比如<code>[a-z]</code>表示a-z</p>
+</li>
+<li><p><code>[.)]</code> 括号中的特殊符号不需要转义，就表示其本身</p>
+</li>
+<li><p>[^ab]<code>括号中的</code>^<code>表示非，anythings except</code>a<code>and</code>b</p>
+</li>
+<li><p><code>(a|b)</code>也可表示选择，但是它有更强大的功能….</p>
+</li>
+</ol>
+<p>所以，<code>()</code>的强大功能是什么呢？ 分组捕获，这对序列的替换、交换是很有帮助的。 后面一节进行学习记录</p>
+<h3 id="1-3-分组捕获-capturing-groups"><a href="#1-3-分组捕获-capturing-groups" class="headerlink" title="1.3 分组捕获(capturing groups)"></a>1.3 分组捕获(capturing groups)</h3><p>什么是分组捕获，现在回到之前电话号码的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">212-555-1234</span><br><span class="line">915-412-1333</span><br><span class="line"></span><br><span class="line">//我想要保留区号，把后面的电话号码变为通用性的</span><br><span class="line">👇👇👇👇👇👇👇👇👇👇👇👇</span><br><span class="line"></span><br><span class="line">212-xxx-xxxx</span><br><span class="line">915-xxx-xxxx</span><br></pre></td></tr></table></figure>
+<p>按照之前的做法<code>\d{3}-\d{3}-\d{4}</code>,这种匹配的方式，是将整个电话号码作为一个组(group)匹配起来。 我们把<code>212-555-1234</code>这样的叫<code>Group0</code>。</p>
+<p>这个时候，如果我们加了一个括号<code>\d{3}-(\d{3})-\d{4}</code>，那么匹配到的<code>555</code>就叫<code>Group1</code>。 以此类推，如果有两个小括号<code>\d{3}-(\d{3})-(\d{4})</code>那么分组就是下面的情况：</p>
+<h4 id="1-3-1-选择分组"><a href="#1-3-1-选择分组" class="headerlink" title="1.3.1 选择分组"></a>1.3.1 选择分组</h4><p>现在组已经分好，那么如何选择已经匹配的分组？</p>
+<p>这里有两种方法，第一种使用<code>$</code>符号，比如<code>$1</code> 代表<code>555</code>,<code>$2</code>代表<code>1234</code>；第二种，使用<code>\</code>,比如<code>\1</code>代表<code>555</code>。两种的使用场景不一样，先讲<code>$</code></p>
+<p>现在为了满足最开始的要求，我们可以这么做</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">reg: \(?(\d&#123;3&#125;)[-.)]\d&#123;3&#125;[-.]\d&#123;4&#125;</span><br><span class="line"></span><br><span class="line">replace: $1-xxx-xxxx</span><br></pre></td></tr></table></figure>
+<h4 id="1-3-2-实景训练"><a href="#1-3-2-实景训练" class="headerlink" title="1.3.2 实景训练"></a>1.3.2 实景训练</h4><p><strong>1.</strong> 现在有一个名单列表 , 但是姓和名是反过来的, 需要调正</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">shiffina, Daniel</span><br><span class="line">shifafl, Daniell</span><br><span class="line">shquer, Danny</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>实现方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">reg: (\w+),\s(\w+)</span><br><span class="line"></span><br><span class="line">replace: $2 $1</span><br></pre></td></tr></table></figure>
+<p>注意：<code>$0</code> 是所有匹配到的，所以第一个加括号的是<code>$1</code></p>
+<p><strong>2.</strong> 匹配markdown中的link标签，并替换为html标签</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[google](http://google.com)</span><br><span class="line">[itp](http://itp.nyu.edu)</span><br><span class="line">[Coding Rainbow](http://codingrainbow.com)</span><br></pre></td></tr></table></figure>
+<p>解析： 这道题有些坑，需要慢慢来。</p>
+<p>看到这个，第一个想考虑匹配<code>[google]</code>这个东西，立马想到正则表达式<code>\[.*\]</code>。 这个是巨大的坑，在当前来看，它的确能正确匹配到上面的三条。 但是如果文本是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[google](http://google.com),[test]</span><br><span class="line">[itp](http://itp.nyu.edu)</span><br><span class="line">[Coding Rainbow](http://codingrainbow.com)</span><br></pre></td></tr></table></figure>
+<p>看到了，第一行的内容会全部匹配下来，而不能区分<code>[google]</code>和<code>[test]</code>。 之所以这样，<strong>是因为<code>.</code>是贪婪的，他表示所有，所有能匹配到的，所以当然也包括了<code>]</code>，一直到这一行的最后一个<code>]</code>，它才停止。</strong></p>
+<p>所以为了让它能正确匹配，需要去掉这种贪婪的属性。这里用到<code>？</code> 。 当<code>?</code>放在了<code>quantifiers</code>符号后，表示去掉贪婪属性，匹配到终止条件，即可停下。</p>
+<p><code>\[.*?\]</code>这样子，就可以将<code>[google]</code>和<code>[test]</code>分开</p>
+<p>接下来完成所有内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">reg: \[(.*?)\]\((http.*?)\)</span><br><span class="line"></span><br><span class="line">replace: &lt;a href=&quot;$2&quot;&gt;$1&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="1-3-3-使用-选择器"><a href="#1-3-3-使用-选择器" class="headerlink" title="1.3.3 使用 \ 选择器"></a>1.3.3 使用 <code>\</code> 选择器</h4><p><code>$</code>选择符是在替换的时候进行的标志或选择，但是如果在正则表达式本身，就要使用<code>\</code>选择了。比如以下的场景</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">This is is a a dog , I think think this is is really</span><br><span class="line">a a good good dog. Don&apos;t you you thinks so so ?</span><br></pre></td></tr></table></figure>
+<p>我们想要匹配比如<code>is is</code> <code>so so</code>这样连续的序列，就用到了下面的表达方式: <code>(\w+)\s\1</code></p>
+<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/164e60dc2e523db9.png" alt=""></p>
+<p>嗯，差不多达到效果，但是有一些小的bug。比如第一句话<code>This is is a</code> 这个就匹配不准确，会把第一个This的后面字母匹配进去。 <strong>这就用到第一节说的字符结界 <code>\b</code>了</strong>，就变成了<code>\b(\w+)\s\1\b</code></p>
+<p>好了，大功告成，就不贴效果图了，自行脑补就好了。</p>
+<h4 id="1-3-4-总结"><a href="#1-3-4-总结" class="headerlink" title="1.3.4 总结"></a>1.3.4 总结</h4><ol>
+<li>分组捕获，使用()进行数据分组，编号0代表整个匹配项，选择的分组从1号开始</li>
+<li>选择器可以使用<code>$1</code>和<code>\1</code>，但是使用场景不同，<code>\</code>用在正则表达式自己身上</li>
+<li><code>?</code>符号可以禁止贪婪属性，放在<code>.*</code>之后，表示一次匹配遇到重点就可以停止。否则将会一直向后匹配。</li>
+</ol>
+<h3 id="1-4-在JavaScript中的应用"><a href="#1-4-在JavaScript中的应用" class="headerlink" title="1.4 在JavaScript中的应用"></a>1.4 在JavaScript中的应用</h3><p>这里就不贴了, 若需要查看 ,请参考 <a href="https://juejin.cn/post/6844903648309297166#heading-17" target="_blank" rel="noopener">作者文章</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/regex/" rel="tag"># regex</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/nginx-proxy_pass/" rel="next" title="Nginx之proxy_pass详解">
+                <i class="fa fa-chevron-left"></i> Nginx之proxy_pass详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/dockerfile/" rel="prev" title="转-Dockerfile详解">
+                转-Dockerfile详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
+                alt="L" />
+            
+              <p class="site-author-name" itemprop="name">L</p>
+              <p class="site-description motion-element" itemprop="description">琴棋书画诗酒花 , 柴米油盐酱醋茶.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lhalcyon" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:longhai@lhalcyon.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/56a18660816dfa005a7e58df" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-archive"></i>掘金</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式"><span class="nav-number">1.</span> <span class="nav-text">正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-基本语法"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-1-single-char"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1.1 single char</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#quantifiers"><span class="nav-number">1.1.2.</span> <span class="nav-text">quantifiers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-2-position"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.1.2 position</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-3-找个电话号码"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.1.3 找个电话号码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-字符分类-char-class"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 字符分类(char class)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-分类的简单应用"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 分类的简单应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-匹配所有可能的电话号码"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2 匹配所有可能的电话号码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-3-的特殊语法"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.3 []的特殊语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-4-和"><span class="nav-number">1.2.4.</span> <span class="nav-text">1.2.4 []和()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-5-总结"><span class="nav-number">1.2.5.</span> <span class="nav-text">1.2.5 总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-分组捕获-capturing-groups"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 分组捕获(capturing groups)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-1-选择分组"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.1 选择分组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-2-实景训练"><span class="nav-number">1.3.2.</span> <span class="nav-text">1.3.2 实景训练</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-3-使用-选择器"><span class="nav-number">1.3.3.</span> <span class="nav-text">1.3.3 使用 \ 选择器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-4-总结"><span class="nav-number">1.3.4.</span> <span class="nav-text">1.3.4 总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-在JavaScript中的应用"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 在JavaScript中的应用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">L</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Goodbye , Halcyon Days .</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("UbniSKfBsoNe7s8pbumwYrJX-gzGzoHsz", "PwtF7EaCdn3QisFXC9XsMo9T");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"scale":0.8,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":1,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-24},"mobile":{"show":false,"scale":0.3},"react":{"opacityDefault":0.7,"opacityOnHover":0.2}});</script></body>
+</html>
