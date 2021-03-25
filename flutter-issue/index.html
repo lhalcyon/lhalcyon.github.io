@@ -98,12 +98,12 @@
 <meta property="og:site_name" content="Halcyon days">
 <meta property="og:description" content="记录一些 Flutter 研发中遇到错误及处理.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/1413364-d0256e8e7c4af403.webp">
-<meta property="og:updated_time" content="2021-01-20T10:12:57.111Z">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/1413364-d0256e8e7c4af403.webp">
+<meta property="og:updated_time" content="2021-03-25T15:23:14.334Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flutter研发报错归整">
 <meta name="twitter:description" content="记录一些 Flutter 研发中遇到错误及处理.">
-<meta name="twitter:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/1413364-d0256e8e7c4af403.webp">
+<meta name="twitter:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/1413364-d0256e8e7c4af403.webp">
 
 
 
@@ -305,7 +305,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -394,7 +394,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  107
+                  245
                 </span>
               
 
@@ -423,13 +423,17 @@
 <a id="more"></a>
 <h4 id="1-Unexpected-end-of-file-from-server"><a href="#1-Unexpected-end-of-file-from-server" class="headerlink" title="1. Unexpected end of file from server"></a>1. Unexpected end of file from server</h4><p>在新环境安装好 Flutter 环境后 , 运行项目报错</p>
 <p><code>Exception in thread &quot;main&quot; java.net.SocketException: Unexpected end of file from server</code></p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/1413364-d0256e8e7c4af403.webp" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/1413364-d0256e8e7c4af403.webp" alt=""></p>
 <p>搜索后发现是因为 gradle 设置了代理 . 前往 <code>C:/Users/&lt;username&gt;/.gradle/gradle.properties</code> ) (不是项目下的gradle.properties) , 删除多余的代理设置</p>
 <blockquote>
 <p><del>systemProp.https.proxyPort=1080</del></p>
 <p>…</p>
 </blockquote>
 <h5 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h5><p><a href="https://www.jianshu.com/p/5aa8c2fbd3d1" target="_blank" rel="noopener">简书: 解决Flutter报错 Unexpected…</a></p>
+<h4 id="2-Waiting-for-another-flutter-command-to-release-the-startup-lock…"><a href="#2-Waiting-for-another-flutter-command-to-release-the-startup-lock…" class="headerlink" title="2. Waiting for another flutter command to release the startup lock…"></a>2. Waiting for another flutter command to release the startup lock…</h4><p>在安装依赖时 , 偶尔出现 <code>Waiting for another flutter command to release the startup lock...</code> , 通常是上一个命令还未执行完毕 , 但是因为墙的原因可能继续等待也未必成功 .</p>
+<p>想要终止等待状态 , 需要前往 <code>flutter</code> 安装目录下删除 <code>bin/cache/lockfile</code> 文件即可 . 若显示该文件被使用中无法删除 , 则先杀死 dart 进程再删除即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// Linux</span><br><span class="line">killall -9 dart</span><br><span class="line"></span><br><span class="line">// Windows</span><br><span class="line">taskkill /F /IM dart.exe</span><br></pre></td></tr></table></figure>
+<h4 id="参考链接-1"><a href="#参考链接-1" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://zhuanlan.zhihu.com/p/113223263" target="_blank" rel="noopener">知乎</a></p>
 
       
     </div>
@@ -541,7 +545,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
+                src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
                 alt="L" />
             
               <p class="site-author-name" itemprop="name">L</p>
@@ -555,7 +559,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -566,7 +570,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -577,7 +581,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -639,7 +643,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Unexpected-end-of-file-from-server"><span class="nav-number">1.</span> <span class="nav-text">1. Unexpected end of file from server</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考链接"><span class="nav-number">1.1.</span> <span class="nav-text">参考链接</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Unexpected-end-of-file-from-server"><span class="nav-number">1.</span> <span class="nav-text">1. Unexpected end of file from server</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考链接"><span class="nav-number">1.1.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Waiting-for-another-flutter-command-to-release-the-startup-lock…"><span class="nav-number">2.</span> <span class="nav-text">2. Waiting for another flutter command to release the startup lock…</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接-1"><span class="nav-number">3.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
             
 
           </div>

@@ -1,3 +1,7 @@
+https://lhalcyon.com/docker-deploy-python/
+https://lhalcyon.com/python-requirements/
+https://lhalcyon.com/python-import/
+https://lhalcyon.com/hello-pyqt5/
 https://lhalcyon.com/docker-pull-speedup/
 https://lhalcyon.com/spannablestring-issue/
 https://lhalcyon.com/bottomsheet/
@@ -15,7 +19,7 @@ https://lhalcyon.com/idea-maven-issue/
 https://lhalcyon.com/office-mac-language/
 https://lhalcyon.com/jenkins-parameterized-build/
 https://lhalcyon.com/nginx-403-forbidden/
-https://lhalcyon.com/MySQL简易备份/
+https://lhalcyon.com/48.MySQL简易备份/
 https://lhalcyon.com/docker-ethereum-rinkeby/
 https://lhalcyon.com/hystrix-dashboard/
 https://lhalcyon.com/mysql-settings/

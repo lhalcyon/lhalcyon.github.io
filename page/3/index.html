@@ -297,12 +297,734 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/nginx-403-forbidden/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/nginx-403-forbidden/" itemprop="url">Nginx出现403 Forbidden报错解决办法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-02T22:12:11+08:00">
+                2020-01-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">Nginx</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/nginx-403-forbidden/" class="leancloud_visitors" data-flag-title="Nginx出现403 Forbidden报错解决办法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  331
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <div class="note info"><p>之前 AWS EC2 上安装 nginx 时 ,访问一直正常 , 直到在物理机和 <code>GCP</code> 上使用时就会出现 <code>403 Forbidden</code> 的情况 , 查看 nginx 日志 , 默认路径为 <code>/var/log/nginx/error.log</code> , 发现报错内容为 <code>Permission denied</code> .</p>
+<p>于是谷歌解决办法 . <a href="https://blog.csdn.net/onlysunnyboy/article/details/75270533" target="_blank" rel="noopener">CSDN</a> 此篇文章分析的比较完整 , 现简单总结如下 .</p></div>
+<h4 id="1-由于启动用户和-nginx-工作用户不一致所致"><a href="#1-由于启动用户和-nginx-工作用户不一致所致" class="headerlink" title="1. 由于启动用户和 nginx 工作用户不一致所致"></a>1. 由于启动用户和 nginx 工作用户不一致所致</h4><p>查看命令 <code>ps aux | grep &quot;nginx: worker process&quot; | awk&#39;{print $1}&#39;</code></p>
+<p>如若不一致 , 则要将 <code>nginx.conf</code> 中的 <code>user</code> 改为和启动用户一致</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">user  nginx;</span><br><span class="line">worker_processes  4;</span><br><span class="line"></span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  65535;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-缺少-index-html-或者-index-php-文件"><a href="#2-缺少-index-html-或者-index-php-文件" class="headerlink" title="2. 缺少 index.html 或者 index.php 文件"></a>2. 缺少 <code>index.html</code> 或者 <code>index.php</code> 文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server &#123;  </span><br><span class="line"></span><br><span class="line">     listen       80;  </span><br><span class="line"></span><br><span class="line">     server_name  localhost;  </span><br><span class="line"></span><br><span class="line">     index  index.php index.html;  </span><br><span class="line"></span><br><span class="line">     root  /data/www/;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>如果在 <code>/data/www/</code> 下没有 <code>index.php</code> 或 <code>index.html</code> 时 就会报 <code>403 forbidden</code></p>
+<h4 id="3-权限问题-若-nginx-没有-web-目录的操作权限-也会出现403错误"><a href="#3-权限问题-若-nginx-没有-web-目录的操作权限-也会出现403错误" class="headerlink" title="3. 权限问题 , 若 nginx 没有 web 目录的操作权限 , 也会出现403错误"></a>3. 权限问题 , 若 nginx 没有 web 目录的操作权限 , 也会出现403错误</h4><p>解决办法: 修改 web 目录的读写权限 , 或者是把nginx的启动用户改成目录的所属用户 , 重启 nginx 解决</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 777 /data</span><br><span class="line">chmod -R 777 /data/www/</span><br></pre></td></tr></table></figure>
+<h4 id="4-SELinux-设置为开启的原因"><a href="#4-SELinux-设置为开启的原因" class="headerlink" title="4. SELinux 设置为开启的原因"></a>4. SELinux 设置为开启的原因</h4><p>查看当前 selinux 状态</p>
+<p><code>cat /etc/selinux/conf</code></p>
+<p>将状态改为<code>disabled</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELINUX=disabled</span><br></pre></td></tr></table></figure>
+<p>重启 <code>reboot</code> 生效</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/48.MySQL简易备份/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/48.MySQL简易备份/" itemprop="url">MySQL简易备份</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-10T09:52:11+08:00">
+                2019-12-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Script/" itemprop="url" rel="index">
+                    <span itemprop="name">Script</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/48.MySQL简易备份/" class="leancloud_visitors" data-flag-title="MySQL简易备份">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  457
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <div class="note info"><p>简易的 MySQL 数据全量日备</p></div>
+<h4 id="备份脚本"><a href="#备份脚本" class="headerlink" title="备份脚本"></a>备份脚本</h4><p>首先确定下目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">## 总目录</span><br><span class="line">/mnt/data/backups</span><br><span class="line">## 内容</span><br><span class="line">- mysql-back.list 指定备份数据库名</span><br><span class="line">- mysql_backups.sh 备份脚本</span><br><span class="line">- mysqldump.log 备份日志</span><br></pre></td></tr></table></figure>
+<p><strong>mysql-back.list</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">## 备份数据库名</span><br><span class="line">test_db</span><br><span class="line">test_db2</span><br></pre></td></tr></table></figure>
+<p><strong>mysql_backups.sh</strong></p>
+<p>备份前推20天内的db数据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#This replication for Ali RDS</span></span><br><span class="line">PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/<span class="built_in">local</span>/bin:/usr/<span class="built_in">local</span>/sbin:/usr/<span class="built_in">local</span>/mysql/bin</span><br><span class="line"><span class="built_in">export</span> PATH</span><br><span class="line"></span><br><span class="line">DAT=`date +%m%d`</span><br><span class="line">HOR=`date +%H`</span><br><span class="line">begin=`date +%F<span class="string">" "</span>%T`</span><br><span class="line">DIR=/mnt/data/backups/db</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ ! -d <span class="variable">$DIR</span>/<span class="variable">$DAT</span> ]];<span class="keyword">then</span></span><br><span class="line">        mkdir <span class="variable">$DIR</span>/<span class="variable">$DAT</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `cat /mnt/data/backups/mysql-back.list`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">        /bin/mysqldump -uroot -p密码  <span class="variable">$i</span> &gt; <span class="variable">$DIR</span>/<span class="variable">$DAT</span>/<span class="variable">$i</span>-<span class="variable">$DAT</span><span class="variable">$HOR</span>.sql</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">find /mnt/data/backups/db/* -mtime +20 -<span class="built_in">exec</span> rm -rf &#123;&#125; \;</span><br><span class="line">end=`date +%F<span class="string">" "</span>%T`</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$begin</span> dump mysql   -------&gt;   <span class="variable">$end</span> has done"</span> &gt;&gt; /mnt/data/backups/mysqldump.log</span><br></pre></td></tr></table></figure>
+<h4 id="脚本执行"><a href="#脚本执行" class="headerlink" title="脚本执行"></a>脚本执行</h4><h5 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h5><p><code>vim /etc/crontab</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">SHELL=/bin/bash</span><br><span class="line">PATH=/sbin:/bin:/usr/sbin:/usr/bin</span><br><span class="line">MAILTO=root</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> For details see man 4 crontabs</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Example of job definition:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> .---------------- minute (0 - 59)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> |  .------------- hour (0 - 23)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> |  |  .---------- day of month (1 - 31)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> |  |  |  |  |</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> *  *  *  *  * user-name  <span class="built_in">command</span> to be executed</span></span><br><span class="line">01 11 * * * root sh /mnt/data/backups/mysql_backups.sh</span><br></pre></td></tr></table></figure>
+<h5 id="手动执行"><a href="#手动执行" class="headerlink" title="手动执行"></a>手动执行</h5><p><code>bash /mnt/data/backups/mysql_backups.sh</code></p>
+<h4 id="Docker-安装的MySQL修改点"><a href="#Docker-安装的MySQL修改点" class="headerlink" title="Docker 安装的MySQL修改点"></a>Docker 安装的MySQL修改点</h4><p><code>mysql-backup.sh</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">DAT=`date +%m%d`</span><br><span class="line">HOR=`date +%H`</span><br><span class="line">begin=`date +%F<span class="string">" "</span>%T`</span><br><span class="line">PARENT_DIR=/mnt/data/mysql/backups</span><br><span class="line">DIR=<span class="variable">$PARENT_DIR</span>/db</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ ! -d <span class="variable">$DIR</span>/<span class="variable">$DAT</span> ]];<span class="keyword">then</span></span><br><span class="line">        mkdir <span class="variable">$DIR</span>/<span class="variable">$DAT</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `cat <span class="variable">$PARENT_DIR</span>/mysql-back.list`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">        docker <span class="built_in">exec</span>  mysql容器名 mysqldump -uroot -p数据库密码 <span class="variable">$i</span> &gt; <span class="variable">$DIR</span>/<span class="variable">$DAT</span>/<span class="variable">$i</span>-<span class="variable">$DAT</span><span class="variable">$HOR</span>.sql</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">find <span class="variable">$DIR</span>/* -mtime +20 -<span class="built_in">exec</span> rm -rf &#123;&#125; \;</span><br><span class="line">end=`date +%F<span class="string">" "</span>%T`</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$begin</span> dump mysql   -------&gt;   <span class="variable">$end</span> has done"</span> &gt;&gt; <span class="variable">$PARENT_DIR</span>/mysqldump.log</span><br></pre></td></tr></table></figure>
+<p><code>/etc/crontab</code> 每天 2:00 备份</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 2  * * * sh /mnt/data/mysql/backups/mysql-backup.sh &gt;&gt;/mnt/data/mysql/backups/checkES.log 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/docker-ethereum-rinkeby/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/docker-ethereum-rinkeby/" itemprop="url">Docker部署区块链节点</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-01T22:12:11+08:00">
+                2019-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/docker-ethereum-rinkeby/" class="leancloud_visitors" data-flag-title="Docker部署区块链节点">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  32
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Ethereum"><a href="#Ethereum" class="headerlink" title="Ethereum"></a>Ethereum</h4><h5 id="Rinkeby"><a href="#Rinkeby" class="headerlink" title="Rinkeby"></a>Rinkeby</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d --name ethereum-node -p 8545:8545 -p 30303:30303  -v /mnt/data/ethereum:/root/.ethereum ethereum/client-go --rinkeby --rpc --rpcaddr <span class="string">"0.0.0.0"</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/hystrix-dashboard/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/hystrix-dashboard/" itemprop="url">Hystrix Dashboard 断路器监控</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-25T00:00:00+08:00">
+                2019-11-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/hystrix-dashboard/" class="leancloud_visitors" data-flag-title="Hystrix Dashboard 断路器监控">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  728
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <div class="note info"><p>Hystrix Dashboard 是 Hystrix 提供的一个可以查看 Hystrix 监控数据的控制面板 . Hystrix提供了近实时的数据监控 , Hystrix 会实时、累加的记录所有关于 HystrixCommand 的执行信息  ,  包括每秒执行多少请求  , 多少成功和多少失败等.</p></div>
+
+        
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/hystrix-dashboard/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/mysql-settings/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -490,7 +1212,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -671,7 +1393,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -850,7 +1572,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -971,10 +1693,10 @@
             <div class="note info"><p>最近的项目基本采用容器化部署, 由 Rancher 统一编排 . 在持续过程建设中 , 由于我们代码是托管在 <a href="https://dev.tencent.com" target="_blank" rel="noopener">腾讯开发者平台</a> 不在 Rancher 默认支持范围内 , 在持续构建过程中 , 最后一步更新服务始终只能手动去 Rancher UI 点击升级 , 甚是繁琐 . </p>
 <p>本篇将讲述如何通过API升级服务</p></div>
 <p>如若环境支持 , 使用 Rancher 自身的流水线部署其实是很方便的 , 默认支持以下几种托管仓库 . </p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/WX20190917-141630.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/WX20190917-141630.png" alt=""></p>
 <h4 id="持续构建流程"><a href="#持续构建流程" class="headerlink" title="持续构建流程"></a>持续构建流程</h4><p>首先说一下项目目前持续集成的整体流程</p>
 <p><strong>1. Jenkins 参数选择构建</strong></p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/WX20190917-142500.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/WX20190917-142500.png" alt=""></p>
 <p>然后 Jenkins 会去仓库拉取代码 , 编译 , 打包镜像然后上传到私有镜像仓库</p>
 <p><strong>2. 更新Rancher服务</strong></p>
 <p>目前是在 Jenkins 构建后手动去 Rancher UI 上点击升级服务 , 比较繁琐  , 因此要将此步骤自动化 , 通过调用 Rancher API 实现.</p>
@@ -982,7 +1704,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 1.获取一个服务的详细信息</span><br><span class="line">GET https://&lt;rancher_server&gt;/v3/project/&lt;project_id&gt;/workloads/deployment:&lt;rancher_namespace&gt;:&lt;rancher_service&gt; </span><br><span class="line"># 2.获取服务的所有容器信息</span><br><span class="line">GET https://&lt;rancher_server&gt;/v3/project/&lt;project_id&gt;/pods/?workloadId=deployment:&lt;rancher_namespace&gt;:&lt;rancher_service&gt; </span><br><span class="line"># 3.根据容器名删除容器</span><br><span class="line">DELETE https://&lt;rancher_server&gt;/v3/project/&lt;project_id&gt;/pods/&lt;rancher_namespace&gt;:&lt;container_name&gt; </span><br><span class="line"># 4.更新服务</span><br><span class="line">PUT https://&lt;rancher_server&gt;/v3/project/&lt;project_id&gt;/workloads/deployment:&lt;rancher_namespace&gt;:&lt;rancher_service&gt;</span><br></pre></td></tr></table></figure>
 <p>我们这里用到的是 1 和 4 </p>
 <p>变量参数通过 Rancher 中查询获得 , 在实践中发现, 直接拿到获取的服务信息调用 4 更新服务的接口 , 偶尔服务不会更新 , 后面发现需要将参数中的时间戳进行自增 , 方可达到立即升级的效果 .</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/WX20190917-143647.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/WX20190917-143647.png" alt=""></p>
 <h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://www.jianshu.com/p/56c90b03c481" target="_blank" rel="noopener">Docker+Jenkins+Pipline实现持续集成</a></p>
 
           
@@ -1037,7 +1759,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1277,7 +1999,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1406,754 +2128,9 @@
 <h4 id="部署服务后容器间网络无法互通"><a href="#部署服务后容器间网络无法互通" class="headerlink" title="部署服务后容器间网络无法互通"></a>部署服务后容器间网络无法互通</h4><p>需要检查防火墙或者安全组.</p>
 <h4 id="容器无法解析外网域名"><a href="#容器无法解析外网域名" class="headerlink" title="容器无法解析外网域名"></a>容器无法解析外网域名</h4><p>该情况表现为宿主机器可以ping通外网域名及IP, 而在容器内无法Ping通 ,  解析外部域名失败 ,部署的Java服务会报<code>Unknown Host</code> 错误.</p>
 <p>此时需要在部署的服务网络选项中加入DNS地址,即可解决</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/WX20190917-104306.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/WX20190917-104306.png" alt=""></p>
 
           
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/nginx-504onprod/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/nginx-504onprod/" itemprop="url">记录一次生产请求504排查</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-05T11:12:11+08:00">
-                2019-08-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">Nginx</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/nginx-504onprod/" class="leancloud_visitors" data-flag-title="记录一次生产请求504排查">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,217
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <div class="note info"><p>最近生产环境上使用公司系统时偶报504超时 , 并且使用起来越来越卡顿 . 于是将排查问题过程记录于此</p></div>
-<h3 id="Linux-amp-Nginx"><a href="#Linux-amp-Nginx" class="headerlink" title="Linux &amp; Nginx"></a>Linux &amp; Nginx</h3><h4 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h4><p>查看 Nginx 错误日志 , 发现报错</p>
-<p><code>worker_connections exceed open file resource limit: 1024</code></p>
-<p>此警告的问题是受限于 Linux 的最大文件数限制</p>
-<p>环境: </p>
-<p>CenterOS7.4 + , Amazon Linux</p>
-<p>查看进程打开的最大文件数 <code>ulimit -n</code> , 显示1024</p>
-<p>修改进程最大可打开文件数 , 打开 <code>/etc/security/limits.conf</code> 文件,在下面添加</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* soft noproc 65535</span><br><span class="line">* hard noproc 65535</span><br><span class="line">* soft nofile 65535</span><br><span class="line">* hard nofile 65535</span><br></pre></td></tr></table></figure>
-<p>这里将最大线程数和文件数限制提到了 65535 </p>
-<p>想要即时生效 , 需要再输入命令 <code>ulimit -n 65535</code></p>
-<h4 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h4><p>Linux 限制修改后, 还需要去调整 Nginx 进程最大可打开文件数 (worker_processes 和 worker_connections)</p>
-<p><strong>worker_processes</strong> : 操作系统启动多少个工作进程运行 Nginx . 通常是 1个 master process 和 n 个 worker process .</p>
-<p><code>ps -elf | grep nginx</code> </p>
-<p>eg:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost nginx]<span class="comment">#  ps -elf | grep nginx</span></span><br><span class="line">4 S root       2203   2031  0  80   0 - 46881 <span class="built_in">wait</span>   22:18 pts/0    00:00:00 su nginx</span><br><span class="line">4 S nginx      2204   2203  0  80   0 - 28877 <span class="built_in">wait</span>   22:18 pts/0    00:00:00 bash</span><br><span class="line">5 S root       2252      1  0  80   0 - 11390 sigsus 22:20 ?        00:00:00 nginx: master process /usr/<span class="built_in">local</span>/nginx/sbin/nginx -c /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf</span><br><span class="line">5 S nobody     2291   2252  0  80   0 - 11498 ep_pol 22:23 ?        00:00:00 nginx: worker process</span><br><span class="line">5 S nobody     2292   2252  0  80   0 - 11498 ep_pol 22:23 ?        00:00:00 nginx: worker process</span><br><span class="line">5 S nobody     2293   2252  0  80   0 - 11498 ep_pol 22:23 ?        00:00:00 nginx: worker process</span><br><span class="line">5 S nobody     2294   2252  0  80   0 - 11498 ep_pol 22:23 ?        00:00:00 nginx: worker process</span><br><span class="line">0 R root       2312   2299  0  80   0 - 28166 -      22:24 pts/0    00:00:00 grep --color=auto nginx</span><br></pre></td></tr></table></figure>
-<p>上图所示即 1个 nginx 主进程 (master process) , 4个 nginx 工作进程 (worker process) . 主进程负责监控端口 , 协调工作进程的工作状态 , 分配工作任务 , 工作进程负责进行任务处理. 一般这个参数要和操作系统的 CPU 内核数成倍数 .</p>
-<p><strong>worker_connections</strong> : 这个属性是指单个工作进程可以允许同时建立外部连接的数量. 无论这个连接是外部主动建立的 , 还是内部建立的. 这里需要注意的是 , 一个工作进程建立一个连接后 , 进程将打开一个文件副本 . <strong>所以这个数量还受操作系统设定的进程最大可打开文件数有关</strong>.</p>
-<p> 修改 nginx 软件级别<strong>进程最大可打开文件数</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">user root root; </span><br><span class="line">worker_processes 4; </span><br><span class="line">worker_rlimit_nofile 65535;</span><br><span class="line"></span><br><span class="line">events &#123; </span><br><span class="line">        use epoll; </span><br><span class="line">        worker_connections 65535; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>nginx -s reload</code> 重启生效</p>
-<h4 id="验证是否生效"><a href="#验证是否生效" class="headerlink" title="验证是否生效"></a>验证是否生效</h4><p>首先使用 <code>ulimit -n</code> 查看系统参数是否已经改变</p>
-<p>接下来验证 nginx 是否修改生效 .  在 Linux 系统中 , 所有进程都会有一个临时的核心配置文件描述 , 存放路径在<code>/pro/进程号/limit</code> </p>
-<p>首先查看进程</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost nginx]<span class="comment">#  ps -elf | grep nginx</span></span><br><span class="line">4 S root       2203   2031  0  80   0 - 46881 <span class="built_in">wait</span>   22:18 pts/0    00:00:00 su nginx</span><br><span class="line">4 S nginx      2204   2203  0  80   0 - 28877 <span class="built_in">wait</span>   22:18 pts/0    00:00:00 bash</span><br><span class="line">5 S root       2252      1  0  80   0 - 11390 sigsus 22:20 ?        00:00:00 nginx: master process /usr/<span class="built_in">local</span>/nginx/sbin/nginx -c /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf</span><br><span class="line">5 S nobody     2291   2252  0  80   0 - 11498 ep_pol 22:23 ?        00:00:00 nginx: worker process</span><br><span class="line">5 S nobody     2292   2252  0  80   0 - 11498 ep_pol 22:23 ?        00:00:00 nginx: worker process</span><br><span class="line">5 S nobody     2293   2252  0  80   0 - 11498 ep_pol 22:23 ?        00:00:00 nginx: worker process</span><br><span class="line">5 S nobody     2294   2252  0  80   0 - 11498 ep_pol 22:23 ?        00:00:00 nginx: worker process</span><br><span class="line">0 R root       2318   2299  0  80   0 - 28166 -      22:42 pts/0    00:00:00 grep --color=auto nginx</span><br></pre></td></tr></table></figure>
-<p>可以看到 nginx 工作进程的进程号分别是 2291 , 2293 , 2293 , 2294 . 我们选择一个进程查看核心配置信息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf]<span class="comment"># cat /proc/2351/limits</span></span><br><span class="line">Limit                     Soft Limit           Hard Limit           Units</span><br><span class="line">Max cpu time              unlimited            unlimited            seconds</span><br><span class="line">Max file size             unlimited            unlimited            bytes</span><br><span class="line">Max data size             unlimited            unlimited            bytes</span><br><span class="line">Max stack size            8388608              unlimited            bytes</span><br><span class="line">Max core file size        0                    unlimited            bytes</span><br><span class="line">Max resident <span class="built_in">set</span>          unlimited            unlimited            bytes</span><br><span class="line">Max processes             3829                 3829                 processes</span><br><span class="line">Max open files            65535                65535                files</span><br><span class="line">Max locked memory         65536                65536                bytes</span><br><span class="line">Max address space         unlimited            unlimited            bytes</span><br><span class="line">Max file locks            unlimited            unlimited            locks</span><br><span class="line">Max pending signals       3829                 3829                 signals</span><br><span class="line">Max msgqueue size         819200               819200               bytes</span><br><span class="line">Max nice priority         0                    0</span><br><span class="line">Max realtime priority     0                    0</span><br><span class="line">Max realtime timeout      unlimited            unlimited            us</span><br></pre></td></tr></table></figure>
-<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><ul>
-<li><a href="https://blog.csdn.net/liupeifeng3514/article/details/79007079" target="_blank" rel="noopener">修改 Nginx 进程最大可打开文件数</a></li>
-<li><a href="https://blog.51cto.com/lutaoxu/1614559" target="_blank" rel="noopener">Nginx:worker_connections exceed open file resource limit排错</a></li>
-</ul>
-<h3 id="应用层排查"><a href="#应用层排查" class="headerlink" title="应用层排查"></a>应用层排查</h3><p>在以上修改后 , 发现使用卡顿的情况明显减少 , 可是504超时问题还是会复现 .  此时基本已确认是前端项目的请求在 nginx 转发到后端服务器时发生的超时  , 后来发现超时只出现在 nginx 转发请求到其中一个网关的过程中 , 因此直接在另外的服务器部署了新网关进行替换 , 暂时未出现过超时了 . 后续持续跟踪…</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/docker-networklink-issue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/docker-networklink-issue/" itemprop="url">无法链接到由docker-compose启动的正在运行的容器问题解决</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-20T15:12:11+08:00">
-                2019-07-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/docker-networklink-issue/" class="leancloud_visitors" data-flag-title="无法链接到由docker-compose启动的正在运行的容器问题解决">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  249
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <div class="note info"><p>在一次环境部署中 ,发现无法 link 到 已运行的通过 docker-compose 部署的 mongo . 报错 </p>
-<p><code>docker: Error response from daemon: Cannot link to /mongo, as it does not belong to the default network</code>  现记录解决方案.</p></div>
-<p>首先通过命令列出所有 docker 网络 . </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network ls</span><br></pre></td></tr></table></figure>
-<p>docker-compose 在运行时会创建一个新的网络 . 例如在我遇到的情况中,是已有一个由 docker-compose 运行的 <code>docker_appnet</code> 的网络 , 后面想通过 <code>docker run xxx</code> 命令链接上 <code>docker_appnet</code> 网络 . </p>
-<p>原本我的运行命令是 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">  --name yapi \</span><br><span class="line">  --link mongo:mongo \</span><br><span class="line">  --workdir /api/vendors \</span><br><span class="line">  -p 3000:3000 \</span><br><span class="line">  registry.cn-hangzhou.aliyuncs.com/anoy/yapi \</span><br><span class="line">  server/app.js</span><br></pre></td></tr></table></figure>
-<p>此时无法正常运行 , 报出文章开头的错误 .</p>
-<p>正确的运行命令应该是</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">  --name yapi \</span><br><span class="line">  --link mongo:mongo \</span><br><span class="line">  --net docker_appnet \</span><br><span class="line">  --workdir /api/vendors \</span><br><span class="line">  -p 3000:3000 \</span><br><span class="line">  registry.cn-hangzhou.aliyuncs.com/anoy/yapi \</span><br><span class="line">  server/app.js</span><br></pre></td></tr></table></figure>
-<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><ul>
-<li><a href="https://codeday.me/bug/20171219/110229.html" target="_blank" rel="noopener">无法链接到由docker-compose启动的正在运行的容器</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/docker-date-with-host/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/docker-date-with-host/" itemprop="url">解决Docker容器和宿主机器时间不一致的问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-12T15:00:11+08:00">
-                2019-07-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/docker-date-with-host/" class="leancloud_visitors" data-flag-title="解决Docker容器和宿主机器时间不一致的问题">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  401
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <div class="note info"><p>之前在 AWS EC2 上部署 docker Java 应用时 , 发现 Java log4j 的打印日志时间和宿主时间不一致 . 应用和宿主均是 CST 时间, 而容器还是 UTC 时区. 网上翻阅了不少解决办法, 现记录于此 .</p></div>
-
-        
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/docker-date-with-host/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/alpine-font-issue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/alpine-font-issue/" itemprop="url">解决docker alpine缺少字体的问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-23T16:02:11+08:00">
-                2019-06-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JRE/" itemprop="url" rel="index">
-                    <span itemprop="name">JRE</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/alpine-font-issue/" class="leancloud_visitors" data-flag-title="解决docker alpine缺少字体的问题">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  305
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <div class="note info"><p>最近一个项目是用 Rancher 统一部署 , 所有程序均在 Docker 环境下运行 . 其中 Java 底包用的 <strong>Alpine</strong> , 但是 <strong>Alpine</strong> 没有自带默认字体 , 造成了一些问题 , 现记录解决方案.</p></div>
-
-        
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/alpine-font-issue/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -2229,7 +2206,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
+                src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
                 alt="L" />
             
               <p class="site-author-name" itemprop="name">L</p>
@@ -2243,7 +2220,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2254,7 +2231,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2265,7 +2242,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

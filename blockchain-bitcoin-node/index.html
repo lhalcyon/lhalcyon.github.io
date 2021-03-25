@@ -77,7 +77,7 @@
 
 
 
-  <meta name="keywords" content="Bitcoin,Blockchain,Linux," />
+  <meta name="keywords" content="Blockchain,Bitcoin,Linux," />
 
 
 
@@ -91,26 +91,26 @@
 
 
 <meta name="description" content="在近期的研发中 , 需要用到比特币测试节点 . 本来想找个类似以太坊 infura 这样的三方节点 , 最终只找到 BLOCKCYPHER . 其提供了 testnet 和 mainnet 的环境 , 不过 API 是包装过一层的 , 出于严谨 , 还是决定自行搭建节点.  本篇将说明在 Linux 下搭建 Bitcoin 测试节点. 为了良好的阅读体验 , 请点击阅读原文">
-<meta name="keywords" content="Bitcoin,Blockchain,Linux">
+<meta name="keywords" content="Blockchain,Bitcoin,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="区块链-Linux下Bitcoin测试节点搭建">
 <meta property="og:url" content="https://lhalcyon.com/blockchain-bitcoin-node/index.html">
 <meta property="og:site_name" content="Halcyon days">
 <meta property="og:description" content="在近期的研发中 , 需要用到比特币测试节点 . 本来想找个类似以太坊 infura 这样的三方节点 , 最终只找到 BLOCKCYPHER . 其提供了 testnet 和 mainnet 的环境 , 不过 API 是包装过一层的 , 出于严谨 , 还是决定自行搭建节点.  本篇将说明在 Linux 下搭建 Bitcoin 测试节点. 为了良好的阅读体验 , 请点击阅读原文">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxljr014f9j305y06k74i.jpg">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxllhxdu3mj30bl03iglv.jpg">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxlmdj97dyj30fu0a540t.jpg">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxmdo7p1mpj30fo016jrh.jpg">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxmdy3147mj30vd03hgm5.jpg">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxme8yw1g6j30j804rq3a.jpg">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxmeethdgtj30k101bmxc.jpg">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxmegv7m17j30vm07pq3x.jpg">
-<meta property="og:updated_time" content="2021-01-20T10:12:57.128Z">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxljr014f9j305y06k74i.jpg">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxllhxdu3mj30bl03iglv.jpg">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxlmdj97dyj30fu0a540t.jpg">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxmdo7p1mpj30fo016jrh.jpg">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxmdy3147mj30vd03hgm5.jpg">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxme8yw1g6j30j804rq3a.jpg">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxmeethdgtj30k101bmxc.jpg">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxmegv7m17j30vm07pq3x.jpg">
+<meta property="og:updated_time" content="2021-03-25T15:23:14.328Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="区块链-Linux下Bitcoin测试节点搭建">
 <meta name="twitter:description" content="在近期的研发中 , 需要用到比特币测试节点 . 本来想找个类似以太坊 infura 这样的三方节点 , 最终只找到 BLOCKCYPHER . 其提供了 testnet 和 mainnet 的环境 , 不过 API 是包装过一层的 , 出于严谨 , 还是决定自行搭建节点.  本篇将说明在 Linux 下搭建 Bitcoin 测试节点. 为了良好的阅读体验 , 请点击阅读原文">
-<meta name="twitter:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxljr014f9j305y06k74i.jpg">
+<meta name="twitter:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxljr014f9j305y06k74i.jpg">
 
 
 
@@ -312,7 +312,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -446,7 +446,7 @@
 </ul>
 <h3 id="节点搭建"><a href="#节点搭建" class="headerlink" title="节点搭建"></a>节点搭建</h3><p><strong>1.</strong> 进入 <a href="https://bitcoin.org/en/" target="_blank" rel="noopener">bitcoin</a> 选择 Choose your wallet</p>
 <p><strong>2.</strong> 选择 Bitcoin Core for Linux 下载</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxljr014f9j305y06k74i.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxljr014f9j305y06k74i.jpg" alt=""></p>
 <p><code>bitcoin-0.17.0.1-x86_64-linux-gnu.tar.gz</code></p>
 <p><strong>3. </strong>上传服务器,解压</p>
 <blockquote>
@@ -458,13 +458,13 @@
 <p>bitcoin的默认配置文件目录为 <code>~/.bitcoin/bitcoin.conf</code>  , 若没有指定, 默认则会在该目录下创建个新的.</p>
 <p><strong>同步数据比较占硬盘空间,建议自定义存储路径,避免后期空间不足的尴尬.</strong></p>
 <p>此处笔者在 <code>/opt/btc/bitcoin-data/</code> 下新建了 <code>bitcoin.conf</code> 文件</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxllhxdu3mj30bl03iglv.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxllhxdu3mj30bl03iglv.jpg" alt=""></p>
 <p><code>bitcoin.conf</code> : </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 数据存储目录</span><br><span class="line">datadir=/opt/btc/bitcoin-data</span><br><span class="line"># 使用测试网络</span><br><span class="line">testnet=1</span><br><span class="line"># 告知 Bitcoin-Qt 和 bitcoind 接受JSON-RPC命令</span><br><span class="line">server=1</span><br><span class="line"># 设置 gen=1 以尝试比特币挖矿</span><br><span class="line">gen=1</span><br><span class="line"># 后台执行</span><br><span class="line">daemon=1</span><br><span class="line"># 监听 RPC 链接,正式默认端口8333 测试默认18333</span><br><span class="line">#rpcport=18333</span><br><span class="line">#rpcuser=123456</span><br><span class="line">#rpcpassword=abcdef</span><br><span class="line">#rpcallowip=0.0.0.0/0</span><br><span class="line">#rpcconnect=127.0.0.1</span><br></pre></td></tr></table></figure>
 <p>这里只做一些简单的配置 , 更多的配置请参考 <a href="http://www.cnblogs.com/x-poior/p/9592263.html" target="_blank" rel="noopener">Bitcoin Core配置文件解读</a> </p>
 <p>配置设置好 , 开始同步</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/btc/bitcoin-0.17.0/bin</span><br><span class="line">./bitcoind -conf=/opt/btc/bitcoin-data/bitcoin.conf</span><br></pre></td></tr></table></figure>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxlmdj97dyj30fu0a540t.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxlmdj97dyj30fu0a540t.jpg" alt=""></p>
 <p>如无意外 , 同步则开始 . 测试网络节点数据大概几十G , 耐心等待即可 . 笔者大概花了1~2个小时</p>
 <blockquote>
 <p>以上这个 progress 代表同步进度 , 1.0 则为 100% .</p>
@@ -492,22 +492,22 @@
 <p>有些命令即将过期 , 会报错 . 此时最好用 <code>bitcoin-cli help</code> 查询下替换的命令</p>
 </blockquote>
 <h3 id="交易测试"><a href="#交易测试" class="headerlink" title="交易测试"></a>交易测试</h3><h4 id="创建账户及地址"><a href="#创建账户及地址" class="headerlink" title="创建账户及地址"></a>创建账户及地址</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bitcoin-cli -conf=/opt/btc/bitcoin-data/bitcoin.conf getnewaddress &quot;halcyon&quot;</span><br></pre></td></tr></table></figure>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxmdo7p1mpj30fo016jrh.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxmdo7p1mpj30fo016jrh.jpg" alt=""></p>
 <p>此处 “halcyon” 为自定义账户名 , 默认创建的地址类型是隔离见证的 , 即在测试网络下是 <code>2</code> 开头的.</p>
 <h4 id="获取测试币"><a href="#获取测试币" class="headerlink" title="获取测试币"></a>获取测试币</h4><p>在以下测试币水龙头网页中申请测试比特币 , 注意科学上网 .</p>
 <ul>
 <li><a href="http://bitcoinfaucet.uo1.net/send.php" target="_blank" rel="noopener">http://bitcoinfaucet.uo1.net/send.php</a></li>
 <li><a href="https://coinfaucet.eu/en/btc-testnet/" target="_blank" rel="noopener">https://coinfaucet.eu/en/btc-testnet/</a></li>
 </ul>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxmdy3147mj30vd03hgm5.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxmdy3147mj30vd03hgm5.jpg" alt=""></p>
 <p>然后查询余额 . </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./bitcoin-cli -conf=/opt/btc/bitcoin-data/bitcoin.conf getbalance</span><br><span class="line">或者</span><br><span class="line">./bitcoin-cli -conf=/opt/btc/bitcoin-data/bitcoin.conf listaddressgroupings</span><br></pre></td></tr></table></figure>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxme8yw1g6j30j804rq3a.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxme8yw1g6j30j804rq3a.jpg" alt=""></p>
 <p>然后转账给 <code>myVftRaBb8Vy3upWaL8TueAhDE2QAsQy1h</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bitcoin-cli -conf=/opt/btc/bitcoin-data/bitcoin.conf sendtoaddress &quot;myVftRaBb8Vy3upWaL8TueAhDE2QAsQy1h&quot; 0.001</span><br></pre></td></tr></table></figure>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxmeethdgtj30k101bmxc.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxmeethdgtj30k101bmxc.jpg" alt=""></p>
 <p>返回的是一串字符串 <code>txhash</code> , 可以去<a href="https://live.blockcypher.com/btc-testnet/tx/302ecc4a3c19a7b2262b07e6a9f0a304ab5288f57dbf49a62e2e28e811aba9d9/" target="_blank" rel="noopener">比特币浏览器</a> 上查找</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxmegv7m17j30vm07pq3x.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fxmegv7m17j30vm07pq3x.jpg" alt=""></p>
 <h3 id="附"><a href="#附" class="headerlink" title="附"></a>附</h3><p><strong>Linux 常用命令:</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 查看磁盘空间</span><br><span class="line">df -hl</span><br><span class="line"># 递归删除</span><br><span class="line">rm -rf [目录]</span><br><span class="line"># 查看所有网络端口</span><br><span class="line">netstat -an</span><br><span class="line"># 查看端口具体被哪个进程占用</span><br><span class="line">lsof -i :[端口号]</span><br><span class="line"># 查看进程详细信息</span><br><span class="line">ps -aux | grep [进程号]</span><br><span class="line"># 杀掉进程</span><br><span class="line">kill -9 [进程号]</span><br><span class="line"># 查看关键字进程</span><br><span class="line">netstat --ip -lpan | grep [关键字]</span><br></pre></td></tr></table></figure>
 <p><strong>参考资料:</strong></p>
@@ -534,9 +534,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Bitcoin/" rel="tag"># Bitcoin</a>
-          
             <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+          
+            <a href="/tags/Bitcoin/" rel="tag"># Bitcoin</a>
           
             <a href="/tags/Linux/" rel="tag"># Linux</a>
           
@@ -632,7 +632,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
+                src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
                 alt="L" />
             
               <p class="site-author-name" itemprop="name">L</p>
@@ -646,7 +646,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -657,7 +657,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -668,7 +668,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

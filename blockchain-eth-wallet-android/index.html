@@ -77,7 +77,7 @@
 
 
 
-  <meta name="keywords" content="Ethereum,Blockchain,Android," />
+  <meta name="keywords" content="Blockchain,Ethereum,Android," />
 
 
 
@@ -91,21 +91,21 @@
 
 
 <meta name="description" content="离上篇文章更新已经接近两个月了,主要由于工作重心转移到了区块链DApp.从无到有去完成一款钱包+去中心化交易所 DApp 目前这款 app Android和iOS 处于公测中,  待上线后会将代码进行开源.笔者计划是对以太坊钱包的创建,导入,智能合约调用等进行系列教程,本文先对区块链的基本概念及以太坊钱包创建等进行说明. 为了良好的阅读体验, 请点击阅读原文">
-<meta name="keywords" content="Ethereum,Blockchain,Android">
+<meta name="keywords" content="Blockchain,Ethereum,Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="区块链-ETH创建钱包">
 <meta property="og:url" content="https://lhalcyon.com/blockchain-eth-wallet-android/index.html">
 <meta property="og:site_name" content="Halcyon days">
 <meta property="og:description" content="离上篇文章更新已经接近两个月了,主要由于工作重心转移到了区块链DApp.从无到有去完成一款钱包+去中心化交易所 DApp 目前这款 app Android和iOS 处于公测中,  待上线后会将代码进行开源.笔者计划是对以太坊钱包的创建,导入,智能合约调用等进行系列教程,本文先对区块链的基本概念及以太坊钱包创建等进行说明. 为了良好的阅读体验, 请点击阅读原文">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1frr1y9lo50j30pn0ezwfl.jpg">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tKfTcgy1frs14iyktzj30hq0dg41w.jpg">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tKfTcgy1frs5n8xslhj30jg0d277n.jpg">
-<meta property="og:updated_time" content="2021-01-20T10:12:57.126Z">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1frr1y9lo50j30pn0ezwfl.jpg">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tKfTcgy1frs14iyktzj30hq0dg41w.jpg">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tKfTcgy1frs5n8xslhj30jg0d277n.jpg">
+<meta property="og:updated_time" content="2021-03-25T15:23:14.326Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="区块链-ETH创建钱包">
 <meta name="twitter:description" content="离上篇文章更新已经接近两个月了,主要由于工作重心转移到了区块链DApp.从无到有去完成一款钱包+去中心化交易所 DApp 目前这款 app Android和iOS 处于公测中,  待上线后会将代码进行开源.笔者计划是对以太坊钱包的创建,导入,智能合约调用等进行系列教程,本文先对区块链的基本概念及以太坊钱包创建等进行说明. 为了良好的阅读体验, 请点击阅读原文">
-<meta name="twitter:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1frr1y9lo50j30pn0ezwfl.jpg">
+<meta name="twitter:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1frr1y9lo50j30pn0ezwfl.jpg">
 
 
 
@@ -307,7 +307,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -437,7 +437,7 @@
 <p>为了良好的阅读体验, 请点击<a href="https://lhalcyon.com/blockchain-eth-wallet">阅读原文</a></p></div>
 <a id="more"></a>
 <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>所有问题大体可以分为三类:区块链基本概念,钱包安全知识以及钱包转账交易</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1frr1y9lo50j30pn0ezwfl.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1frr1y9lo50j30pn0ezwfl.jpg" alt=""></p>
 <h4 id="区块链的基本特性"><a href="#区块链的基本特性" class="headerlink" title="区块链的基本特性"></a>区块链的基本特性</h4><p><strong>去中心化</strong></p>
 <p>因为整个网络没有中心统治者。系统依靠的是网络上多个参与者的公平约束，所以任意每几个节点的权利和义务都是均等的，而且每一个节点都会储存这个区块链上所有数据。即使该节点被损坏或遭受攻击，仍然不会对账簿造成任何威胁。</p>
 <p><strong>不可逆</strong></p>
@@ -454,7 +454,7 @@
 <p>12 (或者 15、18、21) 单词构成, 用户可以通过助记词导入钱包, 但反过来讲, 如果他人得到了你的助记词, 不需要任何密码就可以轻而易举的转移你的资产, 所以要妥善保管自己的助记词</p>
 <p><strong>明文私钥</strong></p>
 <p>64位的16进制哈希值字符串, 用一句话阐述明文私钥的重要性 “谁掌握了私钥, 谁就掌握了该钱包的使用权!” 同样, 如果他人得到了你的明文私钥, 不需要任何密码就可以轻而易举的转移你的资产</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tKfTcgy1frs14iyktzj30hq0dg41w.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tKfTcgy1frs14iyktzj30hq0dg41w.jpg" alt=""></p>
 <p>通俗地去解释,以银行账户为类比,这些名词分别对应内容如下:</p>
 <ul>
 <li>钱包地址 = 银行卡号</li>
@@ -472,7 +472,7 @@
 <p>而其中的 <strong>BIP32, BIP39, BIP44 共同定义了目前被广泛使用的 HD Wallet</strong>，包含其设计动机和理念、实作方式、实例等。</p>
 <p><strong><a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki" target="_blank" rel="noopener">BIP32</a></strong></p>
 <p>定义 <strong>Hierarchical Deterministic wallet (简称 “HD Wallet”)</strong>，是一个系统可以从单一个 <strong>seed</strong> <strong>产生一树状结构储存多组 keypairs（私钥和公钥）</strong>。好处是可以方便的备份、转移到其他相容装置（因为都只需要 seed），以及分层的权限控制等</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tKfTcgy1frs5n8xslhj30jg0d277n.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tKfTcgy1frs5n8xslhj30jg0d277n.jpg" alt=""></p>
 <p><strong><a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki" target="_blank" rel="noopener">BIP39</a></strong></p>
 <p>将 <strong>seed</strong> 用方便记忆和书写的单字表示。一般由 <strong>12 个单字</strong>组成，称为 <strong>mnemonic code(phrase)</strong>，中文称为助记词或助记码。例如</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rose rocket invest real refuse margin festival danger anger border idle brown</span><br></pre></td></tr></table></figure>
@@ -538,9 +538,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Ethereum/" rel="tag"># Ethereum</a>
-          
             <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+          
+            <a href="/tags/Ethereum/" rel="tag"># Ethereum</a>
           
             <a href="/tags/Android/" rel="tag"># Android</a>
           
@@ -636,7 +636,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
+                src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
                 alt="L" />
             
               <p class="site-author-name" itemprop="name">L</p>
@@ -650,7 +650,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -661,7 +661,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -672,7 +672,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

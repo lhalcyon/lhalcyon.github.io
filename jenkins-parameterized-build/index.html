@@ -98,17 +98,17 @@
 <meta property="og:site_name" content="Halcyon days">
 <meta property="og:description" content="最近进行了一次开发测试环境迁移 , 顺带连着之前的 Jenkins 也进行了迁移 , 因为对之前的搭建过程没有记录 , 导致这次的迁移过程中遇到了不少阻力 . 现记录主要流程于此 , 方便之后搭建 . 安装首先我们需要安装 Jenkins , 需要装卸方便 , 因此我们选择用 Docker 或 docker-compose 直接安装 Docker 1docker run --name devops">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-102804.png">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-102804.png">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/8/16519d62527f811b?imageslim">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-104621.png">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-104621.png">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-105021.png">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-105217.png">
-<meta property="og:updated_time" content="2021-01-20T10:12:57.114Z">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-104621.png">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-104621.png">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-105021.png">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-105217.png">
+<meta property="og:updated_time" content="2021-03-25T15:23:14.333Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jenkins前后端项目参数化自动构建">
 <meta name="twitter:description" content="最近进行了一次开发测试环境迁移 , 顺带连着之前的 Jenkins 也进行了迁移 , 因为对之前的搭建过程没有记录 , 导致这次的迁移过程中遇到了不少阻力 . 现记录主要流程于此 , 方便之后搭建 . 安装首先我们需要安装 Jenkins , 需要装卸方便 , 因此我们选择用 Docker 或 docker-compose 直接安装 Docker 1docker run --name devops">
-<meta name="twitter:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-102804.png">
+<meta name="twitter:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-102804.png">
 
 
 
@@ -310,7 +310,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -431,7 +431,7 @@
 <p><strong>docker-compose</strong></p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  jenkins:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">jenkins/jenkins:lts</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">jenkins</span></span><br><span class="line"><span class="attr">    user:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"8080:8080"</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/etc/localtime:/etc/localtime:ro</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$PWD/jenkins_home:/var/jenkins_home</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/var/run/docker.sock:/var/run/docker.sock</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/usr/bin/docker:/usr/bin/docker</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/usr/lib64/libltdl.so.7:/usr/lib/x86_64-linux-gnu/libltdl.so.7</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/mnt/data/docker:/data/docker</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">TZ=Asia/Shanghai</span></span><br></pre></td></tr></table></figure>
 <p>启动后初始化及安装推荐插件</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-102804.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-102804.png" alt=""></p>
 <p>可以通过容器日志查询初始密码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs xxx(容器ID)</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -462,17 +462,17 @@
 <p><code>[\w\W]*</code> 任意项目名均符合</p>
 </blockquote>
 <h3 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h3><h4 id="场景说明"><a href="#场景说明" class="headerlink" title="场景说明"></a>场景说明</h4><p>这里针对 前端 Vue 项目进行构建 . 前端开发人员会本地进行打包 , 得到一个 <code>dist.zip</code>  压缩包 , 此时需要上传到 nginx 服务器上 , 自动解压 . 当然有更好的做法 , 直接在服务器上拉取代码 , 编译 , 部署  , 此处我们只讲解打包后通过 Jenkins 上传的流程 .</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-104621.png" alt=""></p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-104621.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-104621.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-104621.png" alt=""></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 视具体情况进行替换</span></span><br><span class="line">cd /mnt/data/frontend/$MODULE</span><br><span class="line">sudo rm -rf latest.zip</span><br><span class="line">sudo rm -rf dist</span><br><span class="line">unzip pack.zip</span><br><span class="line">mv pack.zip latest.zip</span><br></pre></td></tr></table></figure>
 <h3 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h3><p>后端是使用 Java Spring Cloud 项目. 开发者在 Jenkins 指定对应环境、参数然后就会开始构建 , 过程大致为</p>
 <blockquote>
 <p>选择参数构建 -&gt; Jenkins 从 Git 上拉取代码 -&gt; Maven构建 -&gt; Docker构建镜像 -&gt; 推送到私有镜像仓库 -&gt; 通知 Rancher 集群更新服务 -&gt; 通知协作工具 / 邮件通知</p>
 </blockquote>
 <p>首先确定构建参数</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-105021.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-105021.png" alt=""></p>
 <p>Execute Shell</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-105217.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-105217.png" alt=""></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">docker login --username=仓库USERNAME --password=仓库PASSWORD $DOCKER_REGISTRY</span><br><span class="line">cp $WORKSPACE/$MODULE_NAME/target/*.jar $WORKSPACE/$MODULE_NAME/app.jar</span><br><span class="line">cd $WORKSPACE/$MODULE_NAME</span><br><span class="line">docker build -f Dockerfile-$ENV -t $DOCKER_REGISTRY/$DOCKER_NAMESPACE/$MODULE_NAME:latest .</span><br><span class="line">docker build -f Dockerfile-$ENV -t $DOCKER_REGISTRY/$DOCKER_NAMESPACE/$MODULE_NAME:$DOCKER_TAG .</span><br><span class="line">docker push $DOCKER_REGISTRY/$DOCKER_NAMESPACE/$MODULE_NAME:latest</span><br><span class="line">docker push $DOCKER_REGISTRY/$DOCKER_NAMESPACE/$MODULE_NAME:$DOCKER_TAG</span><br><span class="line"></span><br><span class="line">docker rmi $DOCKER_REGISTRY/$DOCKER_NAMESPACE/$MODULE_NAME:latest</span><br><span class="line"></span><br><span class="line">if [ $&#123;DOCKER_TAG&#125; != "latest" ]; then</span><br><span class="line">    docker rmi $DOCKER_REGISTRY/$DOCKER_NAMESPACE/$MODULE_NAME:$DOCKER_TAG</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
 <p>然后再通过构建后操作使用 <code>Http Request</code> 插件调用接口升级 Rancher 服务 , 具体参考 <code>Rancher通过API升级服务</code> 文章 . </p>
 <blockquote>
@@ -590,7 +590,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
+                src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
                 alt="L" />
             
               <p class="site-author-name" itemprop="name">L</p>
@@ -604,7 +604,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -615,7 +615,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -626,7 +626,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -98,14 +98,14 @@
 <meta property="og:site_name" content="Halcyon days">
 <meta property="og:description" content="WebSocket是HTML5开始提供的一种浏览器与服务器间进行全双工通讯的网络技术。 WebSocket通信协议于2011年被IETF定为标准RFC 6455，WebSocketAPI被W3C定为标准。 在WebSocket API中，浏览器和服务器只需要要做一个握手的动作，然后，浏览器和服务器之间就形成了一条快速通道。两者之间就直接可以数据互相传送。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tKfTcgy1foggpirw1cj30wi064myw.jpg">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1foh8b3cqscj318y056jsy.jpg">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1foh8i8249tg30m30i0tf2.gif">
-<meta property="og:updated_time" content="2021-01-20T10:12:57.120Z">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tKfTcgy1foggpirw1cj30wi064myw.jpg">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1foh8b3cqscj318y056jsy.jpg">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1foh8i8249tg30m30i0tf2.gif">
+<meta property="og:updated_time" content="2021-03-25T15:23:14.339Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringMVC+WebSocket+Gradle实现消息实时推送">
 <meta name="twitter:description" content="WebSocket是HTML5开始提供的一种浏览器与服务器间进行全双工通讯的网络技术。 WebSocket通信协议于2011年被IETF定为标准RFC 6455，WebSocketAPI被W3C定为标准。 在WebSocket API中，浏览器和服务器只需要要做一个握手的动作，然后，浏览器和服务器之间就形成了一条快速通道。两者之间就直接可以数据互相传送。">
-<meta name="twitter:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tKfTcgy1foggpirw1cj30wi064myw.jpg">
+<meta name="twitter:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tKfTcgy1foggpirw1cj30wi064myw.jpg">
 
 
 
@@ -307,7 +307,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -442,7 +442,7 @@
 <p>An interceptor to copy information from the HTTP session to the “handshake<br>attributes” map to made available via <code>WebSocketSession.getAttributes()</code><br>Copies a subset or all HTTP session attributes and/or the HTTP session id</p>
 </blockquote>
 <p>拦截器主要用于用户登录标识的记录,便于后面获取指定用户的会话标识并向指定用户发送消息,</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tKfTcgy1foggpirw1cj30wi064myw.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tKfTcgy1foggpirw1cj30wi064myw.jpg" alt=""></p>
 <p>这里我们继承<code>HttpSessionHandshakeInterceptor</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HandshakeInterceptor</span> <span class="keyword">extends</span> <span class="title">HttpSessionHandshakeInterceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Logger logger = Logger.getLogger(HandshakeInterceptor.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 握手前</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">beforeHandshake</span><span class="params">(ServerHttpRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">                                   ServerHttpResponse response, WebSocketHandler wsHandler,</span></span></span><br><span class="line"><span class="function"><span class="params">                                   Map&lt;String, Object&gt; attributes)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        logger.info(<span class="string">"++ HandshakeInterceptor: beforeHandshake ++"</span>+attributes);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.beforeHandshake(request, response, wsHandler, attributes);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 握手后</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterHandshake</span><span class="params">(ServerHttpRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">                               ServerHttpResponse response, WebSocketHandler wsHandler,</span></span></span><br><span class="line"><span class="function"><span class="params">                               Exception ex)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        logger.info(<span class="string">"++ HandshakeInterceptor: afterHandshake ++"</span>);</span><br><span class="line">        <span class="keyword">super</span>.afterHandshake(request, response, wsHandler, ex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>beforeHandshake(..)</code></p>
@@ -479,10 +479,10 @@
 <p>本文采用的是引入在线地址</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 引入 JQuery  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.5/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>地址写入后需Download下来</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1foh8b3cqscj318y056jsy.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1foh8b3cqscj318y056jsy.jpg" alt=""></p>
 <p>代码不高亮警告后即能生效.</p>
 <p>最后我们来看看效果</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1foh8i8249tg30m30i0tf2.gif" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1foh8i8249tg30m30i0tf2.gif" alt=""></p>
 <hr>
 <ol>
 <li>参考: <a href="http://blog.csdn.net/mybook201314/article/details/70173674" target="_blank" rel="noopener">http://blog.csdn.net/mybook201314/article/details/70173674</a></li>
@@ -602,7 +602,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
+                src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
                 alt="L" />
             
               <p class="site-author-name" itemprop="name">L</p>
@@ -616,7 +616,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -627,7 +627,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -638,7 +638,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

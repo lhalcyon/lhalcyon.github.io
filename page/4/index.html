@@ -297,12 +297,757 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/nginx-504onprod/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/nginx-504onprod/" itemprop="url">记录一次生产请求504排查</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-05T11:12:11+08:00">
+                2019-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">Nginx</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/nginx-504onprod/" class="leancloud_visitors" data-flag-title="记录一次生产请求504排查">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,217
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <div class="note info"><p>最近生产环境上使用公司系统时偶报504超时 , 并且使用起来越来越卡顿 . 于是将排查问题过程记录于此</p></div>
+<h3 id="Linux-amp-Nginx"><a href="#Linux-amp-Nginx" class="headerlink" title="Linux &amp; Nginx"></a>Linux &amp; Nginx</h3><h4 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h4><p>查看 Nginx 错误日志 , 发现报错</p>
+<p><code>worker_connections exceed open file resource limit: 1024</code></p>
+<p>此警告的问题是受限于 Linux 的最大文件数限制</p>
+<p>环境: </p>
+<p>CenterOS7.4 + , Amazon Linux</p>
+<p>查看进程打开的最大文件数 <code>ulimit -n</code> , 显示1024</p>
+<p>修改进程最大可打开文件数 , 打开 <code>/etc/security/limits.conf</code> 文件,在下面添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* soft noproc 65535</span><br><span class="line">* hard noproc 65535</span><br><span class="line">* soft nofile 65535</span><br><span class="line">* hard nofile 65535</span><br></pre></td></tr></table></figure>
+<p>这里将最大线程数和文件数限制提到了 65535 </p>
+<p>想要即时生效 , 需要再输入命令 <code>ulimit -n 65535</code></p>
+<h4 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h4><p>Linux 限制修改后, 还需要去调整 Nginx 进程最大可打开文件数 (worker_processes 和 worker_connections)</p>
+<p><strong>worker_processes</strong> : 操作系统启动多少个工作进程运行 Nginx . 通常是 1个 master process 和 n 个 worker process .</p>
+<p><code>ps -elf | grep nginx</code> </p>
+<p>eg:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost nginx]<span class="comment">#  ps -elf | grep nginx</span></span><br><span class="line">4 S root       2203   2031  0  80   0 - 46881 <span class="built_in">wait</span>   22:18 pts/0    00:00:00 su nginx</span><br><span class="line">4 S nginx      2204   2203  0  80   0 - 28877 <span class="built_in">wait</span>   22:18 pts/0    00:00:00 bash</span><br><span class="line">5 S root       2252      1  0  80   0 - 11390 sigsus 22:20 ?        00:00:00 nginx: master process /usr/<span class="built_in">local</span>/nginx/sbin/nginx -c /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf</span><br><span class="line">5 S nobody     2291   2252  0  80   0 - 11498 ep_pol 22:23 ?        00:00:00 nginx: worker process</span><br><span class="line">5 S nobody     2292   2252  0  80   0 - 11498 ep_pol 22:23 ?        00:00:00 nginx: worker process</span><br><span class="line">5 S nobody     2293   2252  0  80   0 - 11498 ep_pol 22:23 ?        00:00:00 nginx: worker process</span><br><span class="line">5 S nobody     2294   2252  0  80   0 - 11498 ep_pol 22:23 ?        00:00:00 nginx: worker process</span><br><span class="line">0 R root       2312   2299  0  80   0 - 28166 -      22:24 pts/0    00:00:00 grep --color=auto nginx</span><br></pre></td></tr></table></figure>
+<p>上图所示即 1个 nginx 主进程 (master process) , 4个 nginx 工作进程 (worker process) . 主进程负责监控端口 , 协调工作进程的工作状态 , 分配工作任务 , 工作进程负责进行任务处理. 一般这个参数要和操作系统的 CPU 内核数成倍数 .</p>
+<p><strong>worker_connections</strong> : 这个属性是指单个工作进程可以允许同时建立外部连接的数量. 无论这个连接是外部主动建立的 , 还是内部建立的. 这里需要注意的是 , 一个工作进程建立一个连接后 , 进程将打开一个文件副本 . <strong>所以这个数量还受操作系统设定的进程最大可打开文件数有关</strong>.</p>
+<p> 修改 nginx 软件级别<strong>进程最大可打开文件数</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">user root root; </span><br><span class="line">worker_processes 4; </span><br><span class="line">worker_rlimit_nofile 65535;</span><br><span class="line"></span><br><span class="line">events &#123; </span><br><span class="line">        use epoll; </span><br><span class="line">        worker_connections 65535; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>nginx -s reload</code> 重启生效</p>
+<h4 id="验证是否生效"><a href="#验证是否生效" class="headerlink" title="验证是否生效"></a>验证是否生效</h4><p>首先使用 <code>ulimit -n</code> 查看系统参数是否已经改变</p>
+<p>接下来验证 nginx 是否修改生效 .  在 Linux 系统中 , 所有进程都会有一个临时的核心配置文件描述 , 存放路径在<code>/pro/进程号/limit</code> </p>
+<p>首先查看进程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost nginx]<span class="comment">#  ps -elf | grep nginx</span></span><br><span class="line">4 S root       2203   2031  0  80   0 - 46881 <span class="built_in">wait</span>   22:18 pts/0    00:00:00 su nginx</span><br><span class="line">4 S nginx      2204   2203  0  80   0 - 28877 <span class="built_in">wait</span>   22:18 pts/0    00:00:00 bash</span><br><span class="line">5 S root       2252      1  0  80   0 - 11390 sigsus 22:20 ?        00:00:00 nginx: master process /usr/<span class="built_in">local</span>/nginx/sbin/nginx -c /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf</span><br><span class="line">5 S nobody     2291   2252  0  80   0 - 11498 ep_pol 22:23 ?        00:00:00 nginx: worker process</span><br><span class="line">5 S nobody     2292   2252  0  80   0 - 11498 ep_pol 22:23 ?        00:00:00 nginx: worker process</span><br><span class="line">5 S nobody     2293   2252  0  80   0 - 11498 ep_pol 22:23 ?        00:00:00 nginx: worker process</span><br><span class="line">5 S nobody     2294   2252  0  80   0 - 11498 ep_pol 22:23 ?        00:00:00 nginx: worker process</span><br><span class="line">0 R root       2318   2299  0  80   0 - 28166 -      22:42 pts/0    00:00:00 grep --color=auto nginx</span><br></pre></td></tr></table></figure>
+<p>可以看到 nginx 工作进程的进程号分别是 2291 , 2293 , 2293 , 2294 . 我们选择一个进程查看核心配置信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf]<span class="comment"># cat /proc/2351/limits</span></span><br><span class="line">Limit                     Soft Limit           Hard Limit           Units</span><br><span class="line">Max cpu time              unlimited            unlimited            seconds</span><br><span class="line">Max file size             unlimited            unlimited            bytes</span><br><span class="line">Max data size             unlimited            unlimited            bytes</span><br><span class="line">Max stack size            8388608              unlimited            bytes</span><br><span class="line">Max core file size        0                    unlimited            bytes</span><br><span class="line">Max resident <span class="built_in">set</span>          unlimited            unlimited            bytes</span><br><span class="line">Max processes             3829                 3829                 processes</span><br><span class="line">Max open files            65535                65535                files</span><br><span class="line">Max locked memory         65536                65536                bytes</span><br><span class="line">Max address space         unlimited            unlimited            bytes</span><br><span class="line">Max file locks            unlimited            unlimited            locks</span><br><span class="line">Max pending signals       3829                 3829                 signals</span><br><span class="line">Max msgqueue size         819200               819200               bytes</span><br><span class="line">Max nice priority         0                    0</span><br><span class="line">Max realtime priority     0                    0</span><br><span class="line">Max realtime timeout      unlimited            unlimited            us</span><br></pre></td></tr></table></figure>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><ul>
+<li><a href="https://blog.csdn.net/liupeifeng3514/article/details/79007079" target="_blank" rel="noopener">修改 Nginx 进程最大可打开文件数</a></li>
+<li><a href="https://blog.51cto.com/lutaoxu/1614559" target="_blank" rel="noopener">Nginx:worker_connections exceed open file resource limit排错</a></li>
+</ul>
+<h3 id="应用层排查"><a href="#应用层排查" class="headerlink" title="应用层排查"></a>应用层排查</h3><p>在以上修改后 , 发现使用卡顿的情况明显减少 , 可是504超时问题还是会复现 .  此时基本已确认是前端项目的请求在 nginx 转发到后端服务器时发生的超时  , 后来发现超时只出现在 nginx 转发请求到其中一个网关的过程中 , 因此直接在另外的服务器部署了新网关进行替换 , 暂时未出现过超时了 . 后续持续跟踪…</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/docker-networklink-issue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/docker-networklink-issue/" itemprop="url">无法链接到由docker-compose启动的正在运行的容器问题解决</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-20T15:12:11+08:00">
+                2019-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/docker-networklink-issue/" class="leancloud_visitors" data-flag-title="无法链接到由docker-compose启动的正在运行的容器问题解决">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  249
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <div class="note info"><p>在一次环境部署中 ,发现无法 link 到 已运行的通过 docker-compose 部署的 mongo . 报错 </p>
+<p><code>docker: Error response from daemon: Cannot link to /mongo, as it does not belong to the default network</code>  现记录解决方案.</p></div>
+<p>首先通过命令列出所有 docker 网络 . </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network ls</span><br></pre></td></tr></table></figure>
+<p>docker-compose 在运行时会创建一个新的网络 . 例如在我遇到的情况中,是已有一个由 docker-compose 运行的 <code>docker_appnet</code> 的网络 , 后面想通过 <code>docker run xxx</code> 命令链接上 <code>docker_appnet</code> 网络 . </p>
+<p>原本我的运行命令是 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">  --name yapi \</span><br><span class="line">  --link mongo:mongo \</span><br><span class="line">  --workdir /api/vendors \</span><br><span class="line">  -p 3000:3000 \</span><br><span class="line">  registry.cn-hangzhou.aliyuncs.com/anoy/yapi \</span><br><span class="line">  server/app.js</span><br></pre></td></tr></table></figure>
+<p>此时无法正常运行 , 报出文章开头的错误 .</p>
+<p>正确的运行命令应该是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">  --name yapi \</span><br><span class="line">  --link mongo:mongo \</span><br><span class="line">  --net docker_appnet \</span><br><span class="line">  --workdir /api/vendors \</span><br><span class="line">  -p 3000:3000 \</span><br><span class="line">  registry.cn-hangzhou.aliyuncs.com/anoy/yapi \</span><br><span class="line">  server/app.js</span><br></pre></td></tr></table></figure>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><ul>
+<li><a href="https://codeday.me/bug/20171219/110229.html" target="_blank" rel="noopener">无法链接到由docker-compose启动的正在运行的容器</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/docker-date-with-host/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/docker-date-with-host/" itemprop="url">解决Docker容器和宿主机器时间不一致的问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-12T15:00:11+08:00">
+                2019-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/docker-date-with-host/" class="leancloud_visitors" data-flag-title="解决Docker容器和宿主机器时间不一致的问题">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  401
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <div class="note info"><p>之前在 AWS EC2 上部署 docker Java 应用时 , 发现 Java log4j 的打印日志时间和宿主时间不一致 . 应用和宿主均是 CST 时间, 而容器还是 UTC 时区. 网上翻阅了不少解决办法, 现记录于此 .</p></div>
+
+        
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/docker-date-with-host/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/alpine-font-issue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/alpine-font-issue/" itemprop="url">解决docker alpine缺少字体的问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-23T16:02:11+08:00">
+                2019-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JRE/" itemprop="url" rel="index">
+                    <span itemprop="name">JRE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/alpine-font-issue/" class="leancloud_visitors" data-flag-title="解决docker alpine缺少字体的问题">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  305
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <div class="note info"><p>最近一个项目是用 Rancher 统一部署 , 所有程序均在 Docker 环境下运行 . 其中 Java 底包用的 <strong>Alpine</strong> , 但是 <strong>Alpine</strong> 没有自带默认字体 , 造成了一些问题 , 现记录解决方案.</p></div>
+
+        
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/alpine-font-issue/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/amazon-linux-build-env/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -481,7 +1226,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -602,7 +1347,7 @@
 
         
           <div class="out-img-topic">
-            <img src=https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/5cd2e62587b08.jpg class="img-topic" />
+            <img src=https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/5cd2e62587b08.jpg class="img-topic" />
           </div>
         
 
@@ -664,7 +1409,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -848,7 +1593,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1028,7 +1773,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1203,7 +1948,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1324,7 +2069,7 @@
             <p>本文转自 <a href="https://www.cnblogs.com/liuhouhou/p/8975812.html" target="_blank" rel="noopener">CenterOS 7安装和配置SSH</a></p>
 <h3 id="1-安装-openssh-server"><a href="#1-安装-openssh-server" class="headerlink" title="1. 安装 openssh-server"></a>1. 安装 openssh-server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y openssl openssh-server</span><br></pre></td></tr></table></figure>
 <h3 id="2-修改配置文件"><a href="#2-修改配置文件" class="headerlink" title="2. 修改配置文件"></a>2. 修改配置文件</h3><p>用 vim 打开配置文件 /etc/ssh/sshd_config</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/5cc241d8617bd.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/5cc241d8617bd.png" alt=""></p>
 <p>将上图中的 <code>PermitRootLogin</code> , <code>RSAAuthentication</code> , <code>PubkeyAuthentication</code> 的设置打开.</p>
 <p>启动SSH的服务:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start sshd.service</span><br></pre></td></tr></table></figure>
@@ -1333,837 +2078,6 @@
 <p>设置文件夹 ~/.ssh的访问权限</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~</span><br><span class="line">$ chmod 700 .ssh                                                                                                </span><br><span class="line">$ chmod 600 .ssh/*                                                                                              </span><br><span class="line">$ ls -la .ssh                                                                                                   </span><br><span class="line">total 16</span><br><span class="line">drwx------. 2 root root   58 May 15 00:23 .</span><br><span class="line">dr-xr-x---. 8 root root 4096 May 15 00:26 ..</span><br><span class="line">-rw-------. 1 root root  403 May 15 00:22 authorized_keys</span><br><span class="line">-rw-------. 1 root root 1766 May 15 00:21 id_rsa</span><br><span class="line">-rw-------. 1 root root  403 May 15 00:21 id_rsa.pub</span><br></pre></td></tr></table></figure>
 <p><code>authorized_keys</code> 文件存储的是客户端的公共密钥 . 将自己的公钥拷贝进文件即可</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/swift-publish-cocoapod/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/swift-publish-cocoapod/" itemprop="url">Swift发布库到CocoaPod</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-25T00:00:00+08:00">
-                2019-02-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Swift/" itemprop="url" rel="index">
-                    <span itemprop="name">Swift</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/swift-publish-cocoapod/" class="leancloud_visitors" data-flag-title="Swift发布库到CocoaPod">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  799
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>本文转自 <a href="https://www.jianshu.com/p/cea0c916798b" target="_blank" rel="noopener">Swift发布库到CocoaPod</a></p>
-</blockquote>
-<h4 id="建立工程-编写类库"><a href="#建立工程-编写类库" class="headerlink" title="建立工程 , 编写类库"></a>建立工程 , 编写类库</h4><ol>
-<li>新建一个iOS或其他platform的demo工程,通常Single View App即可</li>
-<li><p>在demo工程新建target, <code>file -&gt; new -&gt; target</code>,选择创建Cocoa Touch Framework,该target用于包含你所要开源的所有库,假设取名为framework</p>
-</li>
-<li><p>在framework的target文件夹里面添加自己的开源代码,注意想要暴露出来的类、方法、属性均需要使用public或者open等修饰</p>
-</li>
-<li><p>现在,在demo中可以通过import framework来引用库,测试已写好的功能,测试完成后,就可以准备发布到CocoaPod了</p>
-</li>
-</ol>
-<h4 id="发布到-CocoaPod"><a href="#发布到-CocoaPod" class="headerlink" title="发布到 CocoaPod"></a>发布到 CocoaPod</h4><ol>
-<li><p>将代码提交到GitHub,并打上tag即release版本,该tag必须和pod配置文件的tag一致,否则push到pod会报错</p>
-</li>
-<li><p>创建配置文件xxx.podspec,xxx为发布到pod的名称,取名时先到pod搜索下是否已存在相同的库名,因为是唯一的,如果已存在则需要定义其他名称,命令如下：</p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod spec create xxx</span><br></pre></td></tr></table></figure>
-<ol>
-<li>修改配置文件,可以在GitHub上参考其他项目是怎么写的</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Pod::Spec.new do |s|</span><br><span class="line">    s.name         = &quot;KJTouchIdManager&quot;</span><br><span class="line">  s.module_name  = &quot;TouchIdManager&quot;</span><br><span class="line">  s.version      = &quot;0.0.1&quot;</span><br><span class="line">  s.summary      = &quot;TouchId/FaceId manager on iOS 8 or later.&quot;</span><br><span class="line">  s.description  = &quot;An easy way to use TouchId or FaceId, support iOS 8 or later&quot;</span><br><span class="line">  s.homepage     = &quot;https://github.com/Smiacter/TouchIdManager&quot;</span><br><span class="line">  s.license      = &quot;MIT&quot;</span><br><span class="line">  s.author             = &#123; &quot;Smiacter&quot; =&gt; &quot;Smiacter@gmail.com&quot; &#125;</span><br><span class="line">  s.platform     = :ios</span><br><span class="line">  s.platform     = :ios, &quot;8.0&quot;</span><br><span class="line">  s.swift_version = &quot;4.1&quot;</span><br><span class="line">  s.source       = &#123; :git =&gt; &quot;https://github.com/Smiacter/TouchIdManager.git&quot;, :tag =&gt; &quot;#&#123;s.version&#125;&quot; &#125;</span><br><span class="line">  s.source_files  = &quot;TouchIdManager/*.swift&quot;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- name -&gt; pod库的名称</span><br><span class="line">- mudule_name -&gt; 引用的module名称即工程创建的target名,如果和上述的name不一致的话需要指定,如果一样可以省略</span><br><span class="line">- version -&gt; 版本,和GitHub代码的tag一致</span><br><span class="line">- summary -&gt; pod库的简单介绍</span><br><span class="line">- description -&gt; pod库的详细描述,它的长度一定要比summary长,不要会有警告</span><br><span class="line">- homepage -&gt; GitHub访问路径</span><br><span class="line">- license -&gt; 遵循的授权版本</span><br><span class="line">- author -&gt; 作者,一般是自动生成</span><br><span class="line">- platform -&gt; 操作系统及最低支持版本,可指iOS/tvOS/watchOS/tvOS</span><br><span class="line">- swift_version -&gt; 如果用的是Swift,指定你使用的版本,因为pod在进行代码检查时的版本可能与你的不一致</span><br><span class="line">- source -&gt; GitHub代码仓库地址,请copy使用HTTPS的那个git地址,使用SSL的需要依赖环境,校验无法通过</span><br><span class="line">- source_files -&gt; 库的有用文件,它会告诉pod需要克隆哪些文件,*代表任意文件</span><br><span class="line">- 其他,生成的.podspec文件包含了很多其他参数,可以根据自己的需求打开某些注释,打造属于你自己的podspec</span><br></pre></td></tr></table></figure>
-<ol>
-<li>注册trunk,pod是通过trunk来发布的</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod trunk register &quot;email address&quot; &quot;user name&quot; --description = &quot;optional&quot;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>验证库代码和podspec的有效性,查看代码、配置文件是否有误</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod spec lint xxx.podspec</span><br></pre></td></tr></table></figure>
-<p>如果出现错误,根据相关提示进行修改后再验证,提示一般都比较易懂,如果实在看不懂就自行搜索进行修改.当出现<code>xxx.podspec passed validation.</code>则说明验证通过.</p>
-<ol>
-<li>真正发布（push）到pod仓库, allow-warnings 是可选的</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod trunk push xxx.podspec --allow-warnings</span><br></pre></td></tr></table></figure>
-<h4 id="发布成功"><a href="#发布成功" class="headerlink" title="发布成功"></a>发布成功</h4><p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tKfTcgy1g0ij4j60e9j30vg05qtb0.jpg" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/gradle-dependency-dir/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gradle-dependency-dir/" itemprop="url">转-Gradle下载的依赖包位置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-19T00:00:00+08:00">
-                2019-02-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Gradle/" itemprop="url" rel="index">
-                    <span itemprop="name">Gradle</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/gradle-dependency-dir/" class="leancloud_visitors" data-flag-title="转-Gradle下载的依赖包位置">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  66
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>Mac系统默认下载到 :</strong></p>
-<p><code>/Users/(用户名)/.gradle/caches/modules-2/files-2.1</code><br>或<br><code>~/.gradle/caches/modules-2/files-2.1</code></p>
-<p>打开Finder, Shift+command+G 这3个组合键后,输入以上路径</p>
-<p><strong>Windows系统默认下载到 :</strong></p>
-<p><code>C:\Users\(用户名)\.gradle\caches\modules-2\files-2.1</code></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/h5-visibility-listen/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/h5-visibility-listen/" itemprop="url">转-H5端页面可见监听</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-26T00:00:00+08:00">
-                2018-12-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">Javascript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/h5-visibility-listen/" class="leancloud_visitors" data-flag-title="转-H5端页面可见监听">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,500
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <div class="note info"><p> Android , iOS 均有提供页面可见/不可见的回调方法,通常在其中订阅和取消订阅. 本文将说明如何在H5中监听页面可见状态. </p>
-<p><a href="https://blog.csdn.net/itKingOne/article/details/83616429" target="_blank" rel="noopener">转载原文</a></p></div>
-<h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p><strong>背景:</strong></p>
-<p>一般我们在进行前端页面开发时,对于用户正在离开页面.常用的方法是监听下面三个事件.</p>
-<ul>
-<li>pagehide</li>
-<li>beforeunload</li>
-<li>unload</li>
-</ul>
-<p>但是，这些事件在手机上可能不会触发，页面就直接关闭了。因为手机系统可以将一个进程直接转入后台，然后杀死。</p>
-<ul>
-<li>用户点击了一条系统通知，切换到另一个 App。</li>
-<li>用户进入任务切换窗口，切换到另一个 App。</li>
-<li>用户点击了 Home 按钮，切换回主屏幕。</li>
-<li>操作系统自动切换到另一个 App（比如，收到一个电话)</li>
-</ul>
-<p>上面这些情况，都会导致手机将浏览器进程切换到后台，然后为了节省资源，可能就会杀死浏览器进程。</p>
-<p>以前，页面被系统切换，以及系统清除浏览器进程，是无法监听到的。开发者想要指定，任何一种页面卸载情况下都会执行的代码，也是无法做到的。为了解决这个问题，就诞生了 Page Visibility API。不管手机或桌面电脑，所有情况下，这个 API 都会监听到页面的可见性发生变化。</p>
-<p><strong>意义：</strong></p>
-<p>这个新的 API 的意义在于，通过监听网页的可见性，可以预判网页的卸载，还可以用来节省资源，减缓电能的消耗。比如，一旦用户不看网页，下面这些网页行为都是可以暂停的。</p>
-<ul>
-<li>对服务器的轮询</li>
-<li>网页动画</li>
-<li>正在播放的音频或视频</li>
-</ul>
-<p>官方有个在线的例子大伙可以看一下：<a href="http://daniemon.com/tech/webapps/page-visibility/" target="_blank" rel="noopener">http://daniemon.com/tech/webapps/page-visibility/</a></p>
-<h3 id="二、document-visibilityState"><a href="#二、document-visibilityState" class="headerlink" title="二、document.visibilityState"></a>二、document.visibilityState</h3><p>这个 API 主要在document对象上，新增了一个document.visibilityState属性。该属性返回一个字符串，表示页面当前的可见性状态，共有三个可能的值。</p>
-<ul>
-<li>hidden：页面彻底不可见。</li>
-<li>visible：页面至少一部分可见。</li>
-<li>prerender：页面即将或正在渲染，处于不可见状态。</li>
-<li>unloaded : 页面正在从内存中卸载。 注释：浏览器支持是可选的。</li>
-</ul>
-<p>其中，hidden状态和visible状态是所有浏览器都必须支持的。prerender状态只在支持”预渲染”的浏览器上才会出现，比如 Chrome 浏览器就有预渲染功能，可以在用户不可见的状态下，预先把页面渲染出来，等到用户要浏览的时候，直接展示渲染好的网页。</p>
-<p>只要页面可见，哪怕只露出一个角，document.visibilityState属性就返回visible。只有以下四种情况，才会返回hidden。</p>
-<ul>
-<li>浏览器最小化。</li>
-<li>浏览器没有最小化，但是当前页面切换成了背景页。</li>
-<li>浏览器将要卸载（unload）页面。</li>
-<li>操作系统触发锁屏屏幕。</li>
-</ul>
-<p>可以看到，上面四种场景涵盖了页面可能被卸载的所有情况。也就是说，页面卸载之前，document.visibilityState属性一定会变成hidden。事实上，这也是设计这个 API 的主要目的。</p>
-<p>另外，早期版本的 API，这个属性还有第四个值unloaded，表示页面即将卸载，现在已经被废弃了。</p>
-<blockquote>
-<p> 注意，document.visibilityState属性只针对顶层窗口，内嵌的<iframe>页面的document.visibilityState属性由顶层窗口决定。使用 CSS 属性隐藏<iframe>页面（比如display: none;），并不会影响内嵌页面的可见性。</iframe></iframe></p>
-</blockquote>
-<h3 id="三、document-hidden"><a href="#三、document-hidden" class="headerlink" title="三、document.hidden"></a>三、document.hidden</h3><p>由于历史原因，这个 API 还定义了document.hidden属性。该属性只读，返回一个布尔值，表示当前页面是否可见。</p>
-<p>当document.visibilityState属性返回visible时，document.hidden属性返回false；其他情况下，都返回true。</p>
-<p>该属性只是出于历史原因而保留的，只要有可能，都应该使用document.visibilityState属性，而不是使用这个属性。</p>
-<h3 id="四、visibilitychange-事件的基本应用"><a href="#四、visibilitychange-事件的基本应用" class="headerlink" title="四、visibilitychange 事件的基本应用"></a>四、visibilitychange 事件的基本应用</h3><p>只要document.visibilityState属性发生变化，就会触发visibilitychange事件。因此，可以通过监听这个事件（通过document.addEventListener()方法或document.onvisibilitychange属性），跟踪页面可见性的变化。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'visibilitychange'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="comment">// 用户离开了当前页面</span></span><br><span class="line"> <span class="keyword">if</span> (<span class="built_in">document</span>.visibilityState === <span class="string">'hidden'</span>) &#123;</span><br><span class="line"> <span class="built_in">document</span>.title = <span class="string">'页面不可见'</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">// 用户打开或回到页面</span></span><br><span class="line"> <span class="keyword">if</span> (<span class="built_in">document</span>.visibilityState === <span class="string">'visible'</span>) &#123;</span><br><span class="line"> <span class="built_in">document</span>.title = <span class="string">'页面可见'</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>上面代码是 Page Visibility API 的最基本用法，可以监听可见性变化。</p>
-<p>下面是另一个例子，一旦页面不可见，就暂停视频播放。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vidElem = <span class="built_in">document</span>.getElementById(<span class="string">'video-demo'</span>);</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'visibilitychange'</span>, startStopVideo);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">startStopVideo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (<span class="built_in">document</span>.visibilityState === <span class="string">'hidden'</span>) &#123;</span><br><span class="line"> vidElem.pause();</span><br><span class="line"> &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.visibilityState === <span class="string">'visible'</span>) &#123;</span><br><span class="line"> vidElem.play();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="五、页面卸载监听"><a href="#五、页面卸载监听" class="headerlink" title="五、页面卸载监听"></a>五、页面卸载监听</h3><p>下面专门讨论一下，如何正确监听页面卸载。</p>
-<p>页面卸载可以分成三种情况。</p>
-<ul>
-<li>页面可见时，用户关闭 Tab 页或浏览器窗口。</li>
-<li>页面可见时，用户在当前窗口前往另一个页面。</li>
-<li>页面不可见时，用户或系统关闭浏览器窗口。<br>这三种情况，都会触发visibilitychange事件。前两种情况，该事件在用户离开页面时触发；最后一种情况，该事件在页面从可见状态变为不可见状态时触发。</li>
-</ul>
-<p>由此可见，visibilitychange事件比pagehide、beforeunload、unload事件更可靠，所有情况下都会触发（从visible变为hidden）。因此，可以只监听这个事件，运行页面卸载时需要运行的代码，不用监听后面那三个事件。</p>
-<p>甚至可以这样说，unload事件在任何情况下都不必监听，beforeunload事件只有一种适用场景，就是用户修改了表单，没有提交就离开当前页面。另一方面，指定了这两个事件的监听函数，浏览器就不会缓存当前页面。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/centeros7-docker-springboot/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/centeros7-docker-springboot/" itemprop="url">CentOS7使用Docker部署Springboot项目</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T00:00:00+08:00">
-                2018-12-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CenterOS/" itemprop="url" rel="index">
-                    <span itemprop="name">CenterOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/centeros7-docker-springboot/" class="leancloud_visitors" data-flag-title="CentOS7使用Docker部署Springboot项目">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  455
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>Docker要求64位的系统且内核版本至少为3.10</p>
-</blockquote>
-<h3 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h3><h4 id="1-添加-yum-源"><a href="#1-添加-yum-源" class="headerlink" title="1. 添加 yum 源"></a>1. 添加 yum 源</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># yum install epel-release –y</span><br><span class="line"># yum clean all</span><br><span class="line"># yum list</span><br></pre></td></tr></table></figure>
-<h4 id="2-安装并运行-Docker"><a href="#2-安装并运行-Docker" class="headerlink" title="2. 安装并运行 Docker"></a>2. 安装并运行 Docker</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># yum install docker-io –y</span><br><span class="line"># systemctl start docker</span><br></pre></td></tr></table></figure>
-<p>检查安装结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># docker info</span><br></pre></td></tr></table></figure>
-<h3 id="Docker-基本用法"><a href="#Docker-基本用法" class="headerlink" title="Docker 基本用法"></a>Docker 基本用法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 运行Docker守护进程</span><br><span class="line">systemctl start docker  </span><br><span class="line"># 停止Docker守护进程</span><br><span class="line">systemctl stop docker</span><br><span class="line"># 重启Docker守护进程</span><br><span class="line">systemctl restart docker   </span><br><span class="line"># 查看已有Docker镜像</span><br><span class="line">docker images     </span><br><span class="line"># 进入镜像terminal</span><br><span class="line">docker exec -it [镜像id] bash</span><br><span class="line"># 退出镜像</span><br><span class="line">exit</span><br><span class="line"># 查看正在运行的容器</span><br><span class="line">docker ps</span><br><span class="line"># 删除镜像</span><br><span class="line">docker rmi -f [镜像id]</span><br></pre></td></tr></table></figure>
-<h3 id="部署准备"><a href="#部署准备" class="headerlink" title="部署准备"></a>部署准备</h3><p>部署之前准备一些前提条件</p>
-<ol>
-<li>可以运行 jar 包的环境</li>
-<li>机器上安装了 docker</li>
-<li>准备部署的 springboot 的jar包</li>
-<li>Dockerfile 文件</li>
-</ol>
-<p>准备好了然后创建 Dockfile 文件:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FROM java:8 </span><br><span class="line">VOLUME /tmp </span><br><span class="line">ADD walletdemo_raw.jar /walletdemo.jar</span><br><span class="line">ENTRYPOINT [&quot;java&quot;,&quot;-Djava.security.egd=file:/dev/./urandom&quot;,&quot;-jar&quot;,&quot;/walletdemo.jar&quot;]</span><br></pre></td></tr></table></figure>
-<p><strong>解释一下需要注意的地方</strong></p>
-<ul>
-<li><code>java:8</code> 是使用jdk的版本</li>
-<li><code>walletdemo_raw.jar</code> 是使用jar包的名称</li>
-<li><code>ADD ...</code>  是拷贝jar包到容器</li>
-<li><code>ENTRYPOINT</code> 执行jar文件</li>
-</ul>
-<p>将 Dockerfile 和 jar 放在一个文件夹 , 使用下面命令生成镜像 , 注意最后的 <code>.</code> ,表示当前目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t walletdemo .</span><br></pre></td></tr></table></figure>
-<p><code>walletdemo</code> 是生成的镜像名称</p>
-<p>更多的 docker build 命令可以查看 <a href="http://www.runoob.com/docker/docker-build-command.html" target="_blank" rel="noopener">菜鸟教程</a></p>
-<p>可以用 <code>docker images</code> 查看一下 docker 镜像</p>
-<h3 id="运行-Docker-容器"><a href="#运行-Docker-容器" class="headerlink" title="运行 Docker 容器"></a>运行 Docker 容器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8090:8090 walletdemo</span><br></pre></td></tr></table></figure>
-<p><strong>解释一下需要注意的地方</strong></p>
-<ul>
-<li><code>-d</code>后台运行</li>
-<li><code>-p 8090:8090</code> 将 docker 容器的 8090 端口映射到服务器的 8090 端口</li>
-</ul>
-<p>到这里就配置完成了 , 访问服务器 8090 端口就能访问 springboot 项目了.</p>
-<p>参考链接:</p>
-<ol>
-<li><a href="https://blog.csdn.net/runner1920/article/details/79031124" target="_blank" rel="noopener">ECS上搭建Docker(CentOS7)</a></li>
-<li><a href="https://www.imooc.com/article/44582" target="_blank" rel="noopener">https://www.imooc.com/article/44582</a></li>
-</ol>
 
           
         
@@ -2241,7 +2155,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
+                src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
                 alt="L" />
             
               <p class="site-author-name" itemprop="name">L</p>
@@ -2255,7 +2169,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2266,7 +2180,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2277,7 +2191,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

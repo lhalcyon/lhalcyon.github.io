@@ -297,12 +297,738 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/cny-symbol-issue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/cny-symbol-issue/" itemprop="url">App中的羊角符</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-12T16:02:11+08:00">
+                2020-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/cny-symbol-issue/" class="leancloud_visitors" data-flag-title="App中的羊角符">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  320
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <div class="note info"><p>人民币羊角符是 App 开发中常使用的符号 . 在使用中却偶发觉符号显示不正常 , 在此做记录</p></div>
+<h4 id="两种羊角符"><a href="#两种羊角符" class="headerlink" title="两种羊角符"></a>两种羊角符</h4><h5 id="人民币羊角符"><a href="#人民币羊角符" class="headerlink" title="人民币羊角符"></a>人民币羊角符</h5><blockquote>
+<p>人民币符号为：¥。书写顺序为：先写大写字母“Y”，再在竖划上加上二横，即为“¥”，读音为：yuán（音：元）</p>
+</blockquote>
+<h5 id="日元羊角符"><a href="#日元羊角符" class="headerlink" title="日元羊角符"></a>日元羊角符</h5><blockquote>
+<p>日圆（円），又称作日元，其纸币称为日本银行券，是日本的官方货币，于1871年制定。日圆也经常在美元和欧元之后被当作储备货币。货币符号“¥”，国际标准化组织ISO4217订定其标准代号为JPY。日语罗马字写作Yen。</p>
+</blockquote>
+<p>从定义上看 , 两种羊角符长得一样 , 手写是没有区别的 . 但是在计算机上是有区别的 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">￥¥</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>若看不出区别 , 可以复制到浏览器中再看看</p>
+</blockquote>
+<p>二者在 UTF-8 表中的区别</p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/a.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/b.png" alt=""></p>
+<p>前者是全角元 , 后者是半角元 . 二者在不同的机型上表现不一致 , <strong>全角元在某些机型上只显示一横 , 而半角元都是两横</strong> , 因此实际开发中应该使用半角元</p>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://blog.csdn.net/haizishiwo/article/details/51045642" target="_blank" rel="noopener">CSDN: Android中的羊角符</a></p>
+<p><a href="https://blog.csdn.net/zhaizu/article/details/78562129" target="_blank" rel="noopener">CSDN: 如何解决羊角符只显示一横的问题</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/win10-port-issue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/win10-port-issue/" itemprop="url">转-win10系统端口占用查看</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-19T16:02:11+08:00">
+                2020-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Issue/" itemprop="url" rel="index">
+                    <span itemprop="name">Issue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/win10-port-issue/" class="leancloud_visitors" data-flag-title="转-win10系统端口占用查看">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  134
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <div class="note info"><p>最近win10电脑重启后总是有进程占用端口 , 使得科学上网软件自启时报错 , 这里记录下解决过程</p></div>
+<ol>
+<li>管理员打开 <code>cmd</code></li>
+<li>输入<code>netstat -aon|findstr 8080</code>命令 , 其中8080是被占用的端口号 , 在显示的信息中找到占用端口的进程号PID</li>
+<li>输入<code>tasklist|findstr 2524</code>  其中2524是第二步中找出的进程号</li>
+<li>打开任务管理器 , 找到对应进程的应用,结束掉进程即可</li>
+</ol>
+<h4 id="原文链接"><a href="#原文链接" class="headerlink" title="原文链接"></a>原文链接</h4><p><a href="https://jingyan.baidu.com/article/22fe7cedf2c1c93002617f9c.html" target="_blank" rel="noopener">度娘</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/flutter-issue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/flutter-issue/" itemprop="url">Flutter研发报错归整</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-23T16:02:11+08:00">
+                2020-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Flutter/" itemprop="url" rel="index">
+                    <span itemprop="name">Flutter</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/flutter-issue/" class="leancloud_visitors" data-flag-title="Flutter研发报错归整">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  245
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <div class="note info"><p>记录一些 Flutter 研发中遇到错误及处理.</p></div>
+
+        
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/flutter-issue/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/element-ui-style-issue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/element-ui-style-issue/" itemprop="url">ElementUI组件修改样式覆盖无效</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-07T00:00:00+08:00">
+                2020-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/element-ui-style-issue/" class="leancloud_visitors" data-flag-title="ElementUI组件修改样式覆盖无效">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  209
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <div class="note info"><p>在使用ElementUI组件库开发时往往会需要对组件进行样式修改 , 为了 Vue 页面样式模块化 , 不对全局样式造成污染 , 我们往往都会加入 <code>scoped</code> 属性用来限制样式的作用域 , 然后这也会导致当我们修改部分 UI 组件样式失效. </p></div>
+<p>为了避免这种问题 , 我们常用以下方式来解决</p>
+<h4 id="1-深度作用选择器"><a href="#1-深度作用选择器" class="headerlink" title="1. 深度作用选择器"></a>1. 深度作用选择器</h4><p><code>&gt;&gt;&gt;</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">style</span> <span class="selector-tag">scoped</span>&gt;</span><br><span class="line"><span class="selector-class">.box</span> &gt;&gt;&gt; <span class="selector-class">.content</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>:<span class="number">20px</span>;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-deep-预处理器-less-下使用"><a href="#2-deep-预处理器-less-下使用" class="headerlink" title="2. /deep/ 预处理器 less 下使用"></a>2. /deep/ 预处理器 less 下使用</h4><p>深度选择器 <code>/deep/</code>  与 <code>&gt;&gt;&gt;</code> 作用相同</p>
+<p>通过 <code>&gt;&gt;&gt;</code> 可以使得在使用 <code>scoped</code> 属性的情况下 , 穿透 scoped , 修改其他组件的值</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;style scoped lang="less"&gt;</span><br><span class="line"><span class="selector-class">.select</span> &#123;</span><br><span class="line">     /deep/ .ivu-card-body &#123;</span><br><span class="line">        <span class="selector-tag">width</span>: 100%;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://blog.csdn.net/qq_37548296/article/details/90716827" target="_blank" rel="noopener">CSDN:elementUI组件修改样式 覆盖无效</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/docker-command/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -490,7 +1216,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -609,7 +1335,7 @@
         
           
             <div class="note info"><p>在项目中使用到了 Element UI 的 Uploader 组件 . 需求是达到上传文件上限后 , 将组件的添加图片按钮隐藏.</p></div>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20200401-120418.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20200401-120418.png" alt=""></p>
 <p>首先给 <code>el-upload</code> 组件增加 class</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-upload</span><br><span class="line">            :<span class="class"><span class="keyword">class</span></span>=<span class="string">"&#123;hide:hideUpload&#125;"</span></span><br><span class="line">            :on-change=<span class="string">"handleImgChange"</span>&gt;</span><br></pre></td></tr></table></figure>
 <p>然后 data 里面设定一个初始状态值</p>
@@ -677,7 +1403,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -856,7 +1582,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -975,7 +1701,7 @@
         
           
             <p>最近在 maven 项目将一个子 module 删除重新创建后 , 有依赖关系的 module 编译就会报错  , 表现则为 maven 模块变为灰色. </p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/20180828231300131.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/20180828231300131.png" alt=""></p>
 <blockquote>
 <p>以上图来自参考链接</p>
 </blockquote>
@@ -1038,7 +1764,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1165,8 +1891,8 @@
 <p><code>defaults write com.microsoft.Excel AppleLanguages &#39;(&quot;zh-cn&quot;)&#39;</code></p>
 <p><strong>修改成其他语言</strong></p>
 <p>修改对应的语言代号即可 , 语言代码与国家地区对照表</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/lan1.png" alt=""></p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/lan2.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/lan1.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/lan2.png" alt=""></p>
 <h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><ul>
 <li><p><a href="https://blog.csdn.net/student9128/article/details/80026645" target="_blank" rel="noopener">https://blog.csdn.net/student9128/article/details/80026645</a></p>
 </li>
@@ -1226,7 +1952,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1351,7 +2077,7 @@
 <p><strong>docker-compose</strong></p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  jenkins:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">jenkins/jenkins:lts</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">jenkins</span></span><br><span class="line"><span class="attr">    user:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"8080:8080"</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/etc/localtime:/etc/localtime:ro</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$PWD/jenkins_home:/var/jenkins_home</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/var/run/docker.sock:/var/run/docker.sock</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/usr/bin/docker:/usr/bin/docker</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/usr/lib64/libltdl.so.7:/usr/lib/x86_64-linux-gnu/libltdl.so.7</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/mnt/data/docker:/data/docker</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">TZ=Asia/Shanghai</span></span><br></pre></td></tr></table></figure>
 <p>启动后初始化及安装推荐插件</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-102804.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-102804.png" alt=""></p>
 <p>可以通过容器日志查询初始密码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs xxx(容器ID)</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -1382,17 +2108,17 @@
 <p><code>[\w\W]*</code> 任意项目名均符合</p>
 </blockquote>
 <h3 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h3><h4 id="场景说明"><a href="#场景说明" class="headerlink" title="场景说明"></a>场景说明</h4><p>这里针对 前端 Vue 项目进行构建 . 前端开发人员会本地进行打包 , 得到一个 <code>dist.zip</code>  压缩包 , 此时需要上传到 nginx 服务器上 , 自动解压 . 当然有更好的做法 , 直接在服务器上拉取代码 , 编译 , 部署  , 此处我们只讲解打包后通过 Jenkins 上传的流程 .</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-104621.png" alt=""></p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-104621.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-104621.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-104621.png" alt=""></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 视具体情况进行替换</span></span><br><span class="line">cd /mnt/data/frontend/$MODULE</span><br><span class="line">sudo rm -rf latest.zip</span><br><span class="line">sudo rm -rf dist</span><br><span class="line">unzip pack.zip</span><br><span class="line">mv pack.zip latest.zip</span><br></pre></td></tr></table></figure>
 <h3 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h3><p>后端是使用 Java Spring Cloud 项目. 开发者在 Jenkins 指定对应环境、参数然后就会开始构建 , 过程大致为</p>
 <blockquote>
 <p>选择参数构建 -&gt; Jenkins 从 Git 上拉取代码 -&gt; Maven构建 -&gt; Docker构建镜像 -&gt; 推送到私有镜像仓库 -&gt; 通知 Rancher 集群更新服务 -&gt; 通知协作工具 / 邮件通知</p>
 </blockquote>
 <p>首先确定构建参数</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-105021.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-105021.png" alt=""></p>
 <p>Execute Shell</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-105217.png" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/QQ20191227-105217.png" alt=""></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">docker login --username=仓库USERNAME --password=仓库PASSWORD $DOCKER_REGISTRY</span><br><span class="line">cp $WORKSPACE/$MODULE_NAME/target/*.jar $WORKSPACE/$MODULE_NAME/app.jar</span><br><span class="line">cd $WORKSPACE/$MODULE_NAME</span><br><span class="line">docker build -f Dockerfile-$ENV -t $DOCKER_REGISTRY/$DOCKER_NAMESPACE/$MODULE_NAME:latest .</span><br><span class="line">docker build -f Dockerfile-$ENV -t $DOCKER_REGISTRY/$DOCKER_NAMESPACE/$MODULE_NAME:$DOCKER_TAG .</span><br><span class="line">docker push $DOCKER_REGISTRY/$DOCKER_NAMESPACE/$MODULE_NAME:latest</span><br><span class="line">docker push $DOCKER_REGISTRY/$DOCKER_NAMESPACE/$MODULE_NAME:$DOCKER_TAG</span><br><span class="line"></span><br><span class="line">docker rmi $DOCKER_REGISTRY/$DOCKER_NAMESPACE/$MODULE_NAME:latest</span><br><span class="line"></span><br><span class="line">if [ $&#123;DOCKER_TAG&#125; != "latest" ]; then</span><br><span class="line">    docker rmi $DOCKER_REGISTRY/$DOCKER_NAMESPACE/$MODULE_NAME:$DOCKER_TAG</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
 <p>然后再通过构建后操作使用 <code>Http Request</code> 插件调用接口升级 Rancher 服务 , 具体参考 <code>Rancher通过API升级服务</code> 文章 . </p>
 <blockquote>
@@ -1401,728 +2127,6 @@
 <h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://juejin.im/post/5b6af759e51d451951138eb4" target="_blank" rel="noopener">jenkins+docker持续集成</a></p>
 
           
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/nginx-403-forbidden/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/nginx-403-forbidden/" itemprop="url">Nginx出现403 Forbidden报错解决办法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-02T22:12:11+08:00">
-                2020-01-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">Nginx</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/nginx-403-forbidden/" class="leancloud_visitors" data-flag-title="Nginx出现403 Forbidden报错解决办法">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  331
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <div class="note info"><p>之前 AWS EC2 上安装 nginx 时 ,访问一直正常 , 直到在物理机和 <code>GCP</code> 上使用时就会出现 <code>403 Forbidden</code> 的情况 , 查看 nginx 日志 , 默认路径为 <code>/var/log/nginx/error.log</code> , 发现报错内容为 <code>Permission denied</code> .</p>
-<p>于是谷歌解决办法 . <a href="https://blog.csdn.net/onlysunnyboy/article/details/75270533" target="_blank" rel="noopener">CSDN</a> 此篇文章分析的比较完整 , 现简单总结如下 .</p></div>
-<h4 id="1-由于启动用户和-nginx-工作用户不一致所致"><a href="#1-由于启动用户和-nginx-工作用户不一致所致" class="headerlink" title="1. 由于启动用户和 nginx 工作用户不一致所致"></a>1. 由于启动用户和 nginx 工作用户不一致所致</h4><p>查看命令 <code>ps aux | grep &quot;nginx: worker process&quot; | awk&#39;{print $1}&#39;</code></p>
-<p>如若不一致 , 则要将 <code>nginx.conf</code> 中的 <code>user</code> 改为和启动用户一致</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">user  nginx;</span><br><span class="line">worker_processes  4;</span><br><span class="line"></span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  65535;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-缺少-index-html-或者-index-php-文件"><a href="#2-缺少-index-html-或者-index-php-文件" class="headerlink" title="2. 缺少 index.html 或者 index.php 文件"></a>2. 缺少 <code>index.html</code> 或者 <code>index.php</code> 文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server &#123;  </span><br><span class="line"></span><br><span class="line">     listen       80;  </span><br><span class="line"></span><br><span class="line">     server_name  localhost;  </span><br><span class="line"></span><br><span class="line">     index  index.php index.html;  </span><br><span class="line"></span><br><span class="line">     root  /data/www/;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p>如果在 <code>/data/www/</code> 下没有 <code>index.php</code> 或 <code>index.html</code> 时 就会报 <code>403 forbidden</code></p>
-<h4 id="3-权限问题-若-nginx-没有-web-目录的操作权限-也会出现403错误"><a href="#3-权限问题-若-nginx-没有-web-目录的操作权限-也会出现403错误" class="headerlink" title="3. 权限问题 , 若 nginx 没有 web 目录的操作权限 , 也会出现403错误"></a>3. 权限问题 , 若 nginx 没有 web 目录的操作权限 , 也会出现403错误</h4><p>解决办法: 修改 web 目录的读写权限 , 或者是把nginx的启动用户改成目录的所属用户 , 重启 nginx 解决</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 777 /data</span><br><span class="line">chmod -R 777 /data/www/</span><br></pre></td></tr></table></figure>
-<h4 id="4-SELinux-设置为开启的原因"><a href="#4-SELinux-设置为开启的原因" class="headerlink" title="4. SELinux 设置为开启的原因"></a>4. SELinux 设置为开启的原因</h4><p>查看当前 selinux 状态</p>
-<p><code>cat /etc/selinux/conf</code></p>
-<p>将状态改为<code>disabled</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELINUX=disabled</span><br></pre></td></tr></table></figure>
-<p>重启 <code>reboot</code> 生效</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/MySQL简易备份/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/MySQL简易备份/" itemprop="url">MySQL简易备份</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-10T09:52:11+08:00">
-                2019-12-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Script/" itemprop="url" rel="index">
-                    <span itemprop="name">Script</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/MySQL简易备份/" class="leancloud_visitors" data-flag-title="MySQL简易备份">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  457
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <div class="note info"><p>简易的 MySQL 数据全量日备</p></div>
-<h4 id="备份脚本"><a href="#备份脚本" class="headerlink" title="备份脚本"></a>备份脚本</h4><p>首先确定下目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">## 总目录</span><br><span class="line">/mnt/data/backups</span><br><span class="line">## 内容</span><br><span class="line">- mysql-back.list 指定备份数据库名</span><br><span class="line">- mysql_backups.sh 备份脚本</span><br><span class="line">- mysqldump.log 备份日志</span><br></pre></td></tr></table></figure>
-<p><strong>mysql-back.list</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">## 备份数据库名</span><br><span class="line">test_db</span><br><span class="line">test_db2</span><br></pre></td></tr></table></figure>
-<p><strong>mysql_backups.sh</strong></p>
-<p>备份前推20天内的db数据</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#This replication for Ali RDS</span></span><br><span class="line">PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/<span class="built_in">local</span>/bin:/usr/<span class="built_in">local</span>/sbin:/usr/<span class="built_in">local</span>/mysql/bin</span><br><span class="line"><span class="built_in">export</span> PATH</span><br><span class="line"></span><br><span class="line">DAT=`date +%m%d`</span><br><span class="line">HOR=`date +%H`</span><br><span class="line">begin=`date +%F<span class="string">" "</span>%T`</span><br><span class="line">DIR=/mnt/data/backups/db</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ ! -d <span class="variable">$DIR</span>/<span class="variable">$DAT</span> ]];<span class="keyword">then</span></span><br><span class="line">        mkdir <span class="variable">$DIR</span>/<span class="variable">$DAT</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `cat /mnt/data/backups/mysql-back.list`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">        /bin/mysqldump -uroot -p密码  <span class="variable">$i</span> &gt; <span class="variable">$DIR</span>/<span class="variable">$DAT</span>/<span class="variable">$i</span>-<span class="variable">$DAT</span><span class="variable">$HOR</span>.sql</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">find /mnt/data/backups/db/* -mtime +20 -<span class="built_in">exec</span> rm -rf &#123;&#125; \;</span><br><span class="line">end=`date +%F<span class="string">" "</span>%T`</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$begin</span> dump mysql   -------&gt;   <span class="variable">$end</span> has done"</span> &gt;&gt; /mnt/data/backups/mysqldump.log</span><br></pre></td></tr></table></figure>
-<h4 id="脚本执行"><a href="#脚本执行" class="headerlink" title="脚本执行"></a>脚本执行</h4><h5 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h5><p><code>vim /etc/crontab</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">SHELL=/bin/bash</span><br><span class="line">PATH=/sbin:/bin:/usr/sbin:/usr/bin</span><br><span class="line">MAILTO=root</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> For details see man 4 crontabs</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Example of job definition:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> .---------------- minute (0 - 59)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> |  .------------- hour (0 - 23)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> |  |  .---------- day of month (1 - 31)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> |  |  |  |  |</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> *  *  *  *  * user-name  <span class="built_in">command</span> to be executed</span></span><br><span class="line">01 11 * * * root sh /mnt/data/backups/mysql_backups.sh</span><br></pre></td></tr></table></figure>
-<h5 id="手动执行"><a href="#手动执行" class="headerlink" title="手动执行"></a>手动执行</h5><p><code>bash /mnt/data/backups/mysql_backups.sh</code></p>
-<h4 id="Docker-安装的MySQL修改点"><a href="#Docker-安装的MySQL修改点" class="headerlink" title="Docker 安装的MySQL修改点"></a>Docker 安装的MySQL修改点</h4><p><code>mysql-backup.sh</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">DAT=`date +%m%d`</span><br><span class="line">HOR=`date +%H`</span><br><span class="line">begin=`date +%F<span class="string">" "</span>%T`</span><br><span class="line">PARENT_DIR=/mnt/data/mysql/backups</span><br><span class="line">DIR=<span class="variable">$PARENT_DIR</span>/db</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ ! -d <span class="variable">$DIR</span>/<span class="variable">$DAT</span> ]];<span class="keyword">then</span></span><br><span class="line">        mkdir <span class="variable">$DIR</span>/<span class="variable">$DAT</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `cat <span class="variable">$PARENT_DIR</span>/mysql-back.list`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">        docker <span class="built_in">exec</span>  mysql容器名 mysqldump -uroot -p数据库密码 <span class="variable">$i</span> &gt; <span class="variable">$DIR</span>/<span class="variable">$DAT</span>/<span class="variable">$i</span>-<span class="variable">$DAT</span><span class="variable">$HOR</span>.sql</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">find <span class="variable">$DIR</span>/* -mtime +20 -<span class="built_in">exec</span> rm -rf &#123;&#125; \;</span><br><span class="line">end=`date +%F<span class="string">" "</span>%T`</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$begin</span> dump mysql   -------&gt;   <span class="variable">$end</span> has done"</span> &gt;&gt; <span class="variable">$PARENT_DIR</span>/mysqldump.log</span><br></pre></td></tr></table></figure>
-<p><code>/etc/crontab</code> 每天 2:00 备份</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 2  * * * sh /mnt/data/mysql/backups/mysql-backup.sh &gt;&gt;/mnt/data/mysql/backups/checkES.log 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/docker-ethereum-rinkeby/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/docker-ethereum-rinkeby/" itemprop="url">Docker部署区块链节点</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-01T22:12:11+08:00">
-                2019-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index">
-                    <span itemprop="name">Docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/docker-ethereum-rinkeby/" class="leancloud_visitors" data-flag-title="Docker部署区块链节点">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  32
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="Ethereum"><a href="#Ethereum" class="headerlink" title="Ethereum"></a>Ethereum</h4><h5 id="Rinkeby"><a href="#Rinkeby" class="headerlink" title="Rinkeby"></a>Rinkeby</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d --name ethereum-node -p 8545:8545 -p 30303:30303  -v /mnt/data/ethereum:/root/.ethereum ethereum/client-go --rinkeby --rpc --rpcaddr <span class="string">"0.0.0.0"</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/hystrix-dashboard/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/hystrix-dashboard/" itemprop="url">Hystrix Dashboard 断路器监控</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-25T00:00:00+08:00">
-                2019-11-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/hystrix-dashboard/" class="leancloud_visitors" data-flag-title="Hystrix Dashboard 断路器监控">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  728
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <div class="note info"><p>Hystrix Dashboard 是 Hystrix 提供的一个可以查看 Hystrix 监控数据的控制面板 . Hystrix提供了近实时的数据监控 , Hystrix 会实时、累加的记录所有关于 HystrixCommand 的执行信息  ,  包括每秒执行多少请求  , 多少成功和多少失败等.</p></div>
-
-        
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/hystrix-dashboard/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -2198,7 +2202,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
+                src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
                 alt="L" />
             
               <p class="site-author-name" itemprop="name">L</p>
@@ -2212,7 +2216,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2223,7 +2227,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2234,7 +2238,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

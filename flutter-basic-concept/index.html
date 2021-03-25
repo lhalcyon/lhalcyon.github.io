@@ -98,16 +98,16 @@
 <meta property="og:site_name" content="Halcyon days">
 <meta property="og:description" content="在 上一篇文章 中,我们讲解了 Flutter 开发环境搭建 , 以及运行了官方demo简单体验了下 Flutter app . 此篇我们将开始对一些 Flutter app 中的一些基本概念进行讲解 , 一些基本的操作做一些示例 , 主要是参考官网的教程 Write Your First Flutter App  若你对面向对象编程熟悉,以及对基本编程概念如变量、循环、条件了解 , 则适合阅读本">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp6eb8abo5g306e0dw1kx.gif">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp6is372okj309q0j5wf4.jpg">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp6udcnhf3j309q0j4q44.jpg">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp82yfuodij309q0j40u5.jpg">
-<meta property="og:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fp98s3h46ij30va0uqaeo.jpg">
-<meta property="og:updated_time" content="2021-01-20T10:12:57.109Z">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp6eb8abo5g306e0dw1kx.gif">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp6is372okj309q0j5wf4.jpg">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp6udcnhf3j309q0j4q44.jpg">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp82yfuodij309q0j40u5.jpg">
+<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fp98s3h46ij30va0uqaeo.jpg">
+<meta property="og:updated_time" content="2021-03-25T15:23:14.324Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flutter基础-(2)基本概念及首个应用">
 <meta name="twitter:description" content="在 上一篇文章 中,我们讲解了 Flutter 开发环境搭建 , 以及运行了官方demo简单体验了下 Flutter app . 此篇我们将开始对一些 Flutter app 中的一些基本概念进行讲解 , 一些基本的操作做一些示例 , 主要是参考官网的教程 Write Your First Flutter App  若你对面向对象编程熟悉,以及对基本编程概念如变量、循环、条件了解 , 则适合阅读本">
-<meta name="twitter:image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp6eb8abo5g306e0dw1kx.gif">
+<meta name="twitter:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp6eb8abo5g306e0dw1kx.gif">
 
 
 
@@ -309,7 +309,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -439,7 +439,7 @@
 <li><a href="#done">完成!</a></li>
 </ul>
 <h3 id="我们将创建什么"><a href="#我们将创建什么" class="headerlink" title="我们将创建什么"></a>我们将创建什么</h3><p>我们将实现一个简单的移动应用 , 它会生成创业公司的名称 . 用户可以选择和反选名称 , 保存喜好的那些 . 代码一次生成 10 个名称 . 当用户滑动时 , 新一批的名称就会生成 . 用户可以点击导航栏右上的按钮进入一个只展示喜好的名称的列表新页面.</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp6eb8abo5g306e0dw1kx.gif" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp6eb8abo5g306e0dw1kx.gif" alt=""></p>
 <div class="note default"><p><strong>我们将学到:</strong></p>
 <ul>
 <li>Flutter app 的基本结构</li>
@@ -457,7 +457,7 @@
 <p>简单地 , 我们先将 <code>lib/main.dart</code>中的代码全部删除 , 替换为以下代码 , 其主要就是在屏幕中间展示 ‘Hello World’ .  </p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(<span class="keyword">new</span> MyApp());</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MaterialApp(</span><br><span class="line">      title: <span class="string">'Welcome to Flutter'</span>,</span><br><span class="line">      home: <span class="keyword">new</span> Scaffold(</span><br><span class="line">        appBar: <span class="keyword">new</span> AppBar(</span><br><span class="line">          title: <span class="keyword">new</span> Text(<span class="string">'Welcome to Flutter'</span>),</span><br><span class="line">        ),</span><br><span class="line">        body: <span class="keyword">new</span> Center(</span><br><span class="line">          child: <span class="keyword">new</span> Text(<span class="string">'Hello World'</span>),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>重新运行得到结果</p>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp6is372okj309q0j5wf4.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp6is372okj309q0j5wf4.jpg" alt=""></p>
 <h4 id="发现"><a href="#发现" class="headerlink" title="发现"></a>发现</h4><ul>
 <li>这个例子创建了一个 Material Design 风格的app . <a href="https://material.io/guidelines/" target="_blank" rel="noopener">Material</a> 是一种在移动端及web上标准的视觉设计语言 . Flutter 提供了丰富的 Material 风格小部件</li>
 <li>main 方法使用了一个大箭头<code>=&gt;</code>写法 , 它是一行代码功能或方法的缩写 . 同许多语言开发一样, <code>main()</code> 方法为程序入口 .</li>
@@ -504,7 +504,7 @@
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Scaffold (</span><br><span class="line">      appBar: <span class="keyword">new</span> AppBar(</span><br><span class="line">        title: <span class="keyword">new</span> Text(<span class="string">'Startup Name Generator'</span>),</span><br><span class="line">      ),</span><br><span class="line">    body: _buildSuggestions(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>5. </strong>更新 MyApp 的 build 方法 . 从 MyApp 中移除 Scaffold 和 AppBar 实例. 这些将会被 RandomWordsState 管理 ,这样将更容易地在下个步骤页面跳转时去改变导航栏上的名称.</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MaterialApp(</span><br><span class="line">      title: <span class="string">'Startup Name Generator'</span>,</span><br><span class="line">      home: <span class="keyword">new</span> RandomWords(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp6udcnhf3j309q0j4q44.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp6udcnhf3j309q0j4q44.jpg" alt=""></p>
 <p><span id="step5"></span></p>
 <h3 id="步骤-5-增加交互"><a href="#步骤-5-增加交互" class="headerlink" title="步骤 5 : 增加交互"></a>步骤 5 : 增加交互</h3><p>这个步骤中 , 我们将增加可点击的心形图标到每一行 . 当用户点击列表条目时 , 触发其 “favorite” 状态 ,状态改变会将对应单词对添加到保存的集合或从中移除</p>
 <p><strong>1. </strong> 添加 <code>_saved</code> 集合到 RandomWordsState 里 . 集合存储用户喜好的单词对 , 更倾向于用 Set 是因为 Set 中不允许有重复的条目</p>
@@ -516,7 +516,7 @@
 <p><strong>5. </strong>在<code>_buildRow</code> 中设置心形可点击. 如果一个单词条目被添加到喜欢的集合时, 再次单击它就能从喜欢的集合中移除 . 当心形被点击 , 函数会调用 <code>setState()</code>去通知框架状态被改变了.</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Widget _buildRow(WordPair pair) &#123;</span><br><span class="line">  <span class="keyword">final</span> alreadySaved = _saved.contains(pair);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> ListTile(</span><br><span class="line">    title: <span class="keyword">new</span> Text(</span><br><span class="line">      pair.asPascalCase,</span><br><span class="line">      style: _biggerFont,</span><br><span class="line">    ),</span><br><span class="line">    trailing: <span class="keyword">new</span> Icon(</span><br><span class="line">      alreadySaved ? Icons.favorite : Icons.favorite_border,</span><br><span class="line">      color: alreadySaved ? Colors.red : <span class="keyword">null</span>,</span><br><span class="line">    ),</span><br><span class="line">    onTap: () &#123;</span><br><span class="line">      setState(() &#123;</span><br><span class="line">        <span class="keyword">if</span> (alreadySaved) &#123;</span><br><span class="line">          _saved.remove(pair);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          _saved.add(pair);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <div class="note info"><p>在 Flutter react式的框架中 , 调用 setState() 会为 State 对象触发 build() 方法 , 最后更新到UI上.</p></div>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp82yfuodij309q0j40u5.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fp82yfuodij309q0j40u5.jpg" alt=""></p>
 <p><span id="step6"></span></p>
 <h3 id="步骤-6-跳转到新页面"><a href="#步骤-6-跳转到新页面" class="headerlink" title="步骤 6 : 跳转到新页面"></a>步骤 6 : 跳转到新页面</h3><p>在这个步骤里 , 我们将添加一个页面 (在Flutter里叫 route ) 展示喜好的推荐词对 . 我们将学到如何从主页面导航到新页面 .</p>
 <p>在 Flutter 中 , Navigator 管理着一个包含app页面的栈 . 推送一个页面进入 Navigator 的栈中, 则会更新显示这个页面 .  从 Navigator栈中推出一个页面 , 则会显示上一个页面 .</p>
@@ -527,7 +527,7 @@
 <p><strong>4 ~ 6. </strong> 添加 MaterialPageRoute 及它的 builder . 添加代码生成 ListTile 行 . ListTile 的<code>divideTiles()</code> 方法在每一条条目间增加水平距离 . <code>divided</code> 变量保存着最终的行 , 通过函数 <code>toList()</code> 转换为列表</p>
 <p>builder 属性返回一个 Scaffold , 包含了新页面的导航栏 ,名为 “Saved Suggestion” .新页面的内容部分由 ListView包含 ListTiles 行组成 , 每一行由一个 divider 分隔 .</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> _pushSaved() &#123;</span><br><span class="line">  Navigator.of(context).push(</span><br><span class="line">    <span class="keyword">new</span> MaterialPageRoute(</span><br><span class="line">      builder: (context) &#123;</span><br><span class="line">        <span class="keyword">final</span> tiles = _saved.map(</span><br><span class="line">          (pair) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ListTile(</span><br><span class="line">              title: <span class="keyword">new</span> Text(</span><br><span class="line">                pair.asPascalCase,</span><br><span class="line">                style: _biggerFont,</span><br><span class="line">              ),</span><br><span class="line">            );</span><br><span class="line">          &#125;,</span><br><span class="line">        );</span><br><span class="line">        <span class="keyword">final</span> divided = ListTile</span><br><span class="line">          .divideTiles(</span><br><span class="line">            context: context,</span><br><span class="line">            tiles: tiles,</span><br><span class="line">          )</span><br><span class="line">          .toList();</span><br><span class="line">      &#125;,</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fp98s3h46ij30va0uqaeo.jpg" alt=""></p>
+<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fp98s3h46ij30va0uqaeo.jpg" alt=""></p>
 <p><span id="step7"></span></p>
 <h3 id="步骤-7-通过主题改变UI"><a href="#步骤-7-通过主题改变UI" class="headerlink" title="步骤 7 : 通过主题改变UI"></a>步骤 7 : 通过主题改变UI</h3><p>在这个最终步骤中, 我们将改变app的主题 . </p>
 <p><strong>1. </strong>我们可以简单地通过配置 ThemeData 类 改变app的主题 . 当前app是默认主题, 我们将改变主色为紫色</p>
@@ -648,7 +648,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="https://lhalcyon-1259153080.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
+                src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
                 alt="L" />
             
               <p class="site-author-name" itemprop="name">L</p>
@@ -662,7 +662,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -673,7 +673,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -684,7 +684,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="Python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Halcyon days" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="本文转自 知乎   模块导入原理 ModuleNotFoundError 绝对路径 导入相对 路径导入 添加路径到sys.path 参考  最近遇到一个python import的问题，经过是这样的： 我先实现好一个功能模块，这个功能模块有多级目录和很多 .py 文件，然后把该功能模块放到其他目录下作为子模块，运行代码时，就报错ModuleNotFoundError。 为了解决这个问题，就把 p">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="转-Python问题浅谈">
+<meta property="og:url" content="https://lhalcyon.com/python-import/index.html">
+<meta property="og:site_name" content="Halcyon days">
+<meta property="og:description" content="本文转自 知乎   模块导入原理 ModuleNotFoundError 绝对路径 导入相对 路径导入 添加路径到sys.path 参考  最近遇到一个python import的问题，经过是这样的： 我先实现好一个功能模块，这个功能模块有多级目录和很多 .py 文件，然后把该功能模块放到其他目录下作为子模块，运行代码时，就报错ModuleNotFoundError。 为了解决这个问题，就把 p">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-03-22T12:21:06.158Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="转-Python问题浅谈">
+<meta name="twitter:description" content="本文转自 知乎   模块导入原理 ModuleNotFoundError 绝对路径 导入相对 路径导入 添加路径到sys.path 参考  最近遇到一个python import的问题，经过是这样的： 我先实现好一个功能模块，这个功能模块有多级目录和很多 .py 文件，然后把该功能模块放到其他目录下作为子模块，运行代码时，就报错ModuleNotFoundError。 为了解决这个问题，就把 p">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lhalcyon.com/python-import/"/>
+
+
+
+
+
+  <title>转-Python问题浅谈 | Halcyon days</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Halcyon days</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/python-import/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">转-Python问题浅谈</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-05T16:02:11+08:00">
+                2021-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/python-import/" class="leancloud_visitors" data-flag-title="转-Python问题浅谈">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,279
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>本文转自 <a href="https://zhuanlan.zhihu.com/p/69099185" target="_blank" rel="noopener">知乎</a></p>
+</blockquote>
+<ul>
+<li><strong>模块导入原理</strong></li>
+<li><strong>ModuleNotFoundError</strong></li>
+<li><strong>绝对路径</strong></li>
+<li><strong>导入相对</strong></li>
+<li><strong>路径导入</strong></li>
+<li><strong>添加路径到sys.path</strong></li>
+<li><strong>参考</strong></li>
+</ul>
+<p>最近遇到一个python import的问题，经过是这样的：</p>
+<p>我先实现好一个功能模块，这个功能模块有多级目录和很多 <code>.py</code> 文件，然后把该功能模块放到其他目录下作为子模块，运行代码时，就报错<code>ModuleNotFoundError</code>。</p>
+<p>为了解决这个问题，就把 python 的 import 部分给研究了一下（本文不介绍import的语法）。</p>
+<h4 id="模块导入原理"><a href="#模块导入原理" class="headerlink" title="模块导入原理"></a>模块导入原理</h4><p>一个module(模块)就是一个<code>.py</code>文件，一个package(包)就是一个包含<code>.py</code>文件的文件夹（对于python2，该文件夹下还需要<code>__init__.py</code>）。</p>
+<p>我这里只考虑python3的情况。</p>
+<p>在python脚本被执行，python导入其他包或模块时，python会根据<code>sys.path</code>列表里的路径寻找这些包或模块。如果没找到的话，程序就会报错<code>ModuleNotFoundError</code>。</p>
+<p>既然要根据<code>sys.path</code>列表里的路径找到这些需要导入包或模块，就需要知道这个列表里都是些什么东西。</p>
+<p>先看下如下程序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ /usr/bin/python3.5</span><br><span class="line">&gt;&gt;&gt; import sys</span><br><span class="line">&gt;&gt;&gt; print(sys.path)</span><br><span class="line">[&apos;&apos;, &apos;/usr/lib/python35.zip&apos;, &apos;/usr/lib/python3.5&apos;, &apos;/usr/lib/python3.5/plat-x86_64-linux-gnu&apos;, &apos;/usr/lib/python3.5/lib-dynload&apos;, &apos;/home/username/.local/lib/python3.5/site-packages&apos;, &apos;/usr/local/lib/python3.5/dist-packages&apos;, &apos;/usr/lib/python3/dist-packages&apos;]</span><br></pre></td></tr></table></figure>
+<p><code>sys.path</code>列表中的每个元素为一个搜索模块的路径，程序中要导入包或模块就需要在这些路径中进行查找，主要分为三种情况：</p>
+<ol>
+<li>当前执行脚本（主动执行，而不是被其他模块调用）所在路径。上面例子是在交互界面进行操作，没有执行脚本，所以为空字符串。</li>
+<li>python内置的<a href="https://link.zhihu.com/?target=https%3A//docs.python.org/3/library/" target="_blank" rel="noopener">标准库</a>路径，<a href="https://link.zhihu.com/?target=https%3A//docs.python.org/3/using/cmdline.html%23envvar-PYTHONPATH" target="_blank" rel="noopener">PYTHONPATH</a>。</li>
+<li>安装的第三方模块路径。</li>
+</ol>
+<p>在运行程序时，先在第一个路径下查找所需模块，没找到就到第二个路径下找，以此类推，按顺序在所有路径都查找后依然没找到所需模块，则抛出错误。列表的第一项是调用python解释器的脚本所在的目录，所以默认先在脚本所在路径下寻找模块。</p>
+<p>所以从这里可以知道的是，如果我们在脚本所在路径下定义和python标准库同名的模块，那么程序就会调用我们自定义的该模块而不是标准库中的模块。</p>
+<h4 id="ModuleNotFoundError"><a href="#ModuleNotFoundError" class="headerlink" title="ModuleNotFoundError"></a>ModuleNotFoundError</h4><p>知道了调用模块的流程，现在来分析一下文章最开始提到的那个错误。</p>
+<p>假设功能模块的目录树为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">package_0</span><br><span class="line">├── module_0.py</span><br><span class="line">├── module_1.py</span><br><span class="line">├── package_1</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── module_2.py</span><br><span class="line">│   ├── module_3.py</span><br><span class="line">│   └── package_2</span><br><span class="line">│       ├── __init__.py</span><br><span class="line">│       ├── module_21.py</span><br><span class="line">│       └── module_22.py</span><br><span class="line">└── package_3</span><br><span class="line">    ├── __init__.py</span><br><span class="line">    └── module_4.py</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>要构建一个package，则对应文件夹下需要包含<code>__init.py</code>文件（python2版本）。</p>
+</blockquote>
+<p>执行命令为 <code>python module_0.py</code>，即通过 <code>module_0.py</code> 来调用python解释器，则该脚本文件所在的路径（’/home/…/package_0’）会被添加到 <code>sys.path</code> 中，可以通过该路径找到其他模块的，比如下面这些语句：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># module_0.py</span></span><br><span class="line"><span class="keyword">import</span> module_1</span><br><span class="line"><span class="keyword">from</span> package_1 <span class="keyword">import</span> module_2</span><br><span class="line"><span class="keyword">from</span> package_1.package_2 <span class="keyword">import</span> module_21</span><br></pre></td></tr></table></figure>
+<p>而在 <code>module_2.py</code> 中加入下面这句：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># module_2.py</span></span><br><span class="line"><span class="keyword">import</span> module_3</span><br></pre></td></tr></table></figure>
+<p>分为下面两种情况：</p>
+<ol>
+<li>执行 <code>python module_2.py</code> 时，不会出现错误。</li>
+<li>执行 <code>python module_0.py</code> 时，出现错误：<code>ModuleNotFoundError: No module named &#39;module_3&#39;</code>。</li>
+</ol>
+<p>第一种情况把路径（’/home/…/package_0/package_1’）添加到 <code>sys.path</code> 中，可以通过<code>package_1</code> 找到 <code>module_3</code>。</p>
+<p>第二种情况把路径（’/home/…/package_0’）添加到 <code>sys.path</code> 中，该路径下就不能在 <code>module_2.py</code> 中通过这种方式找到<code>module_3</code>，因为<code>module_2.py</code> 在路径<code>/home/.../package_0/package_1</code>下。</p>
+<h4 id="绝对路径导入"><a href="#绝对路径导入" class="headerlink" title="绝对路径导入"></a>绝对路径导入</h4><p>在上面第二种情况中想调用<code>module_3</code>的话，可以使用<strong>绝对路径导入</strong>的方式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># module_2.py</span></span><br><span class="line"><span class="keyword">from</span> package_1 <span class="keyword">import</span> module_3</span><br></pre></td></tr></table></figure>
+<p>即在路径<code>/home/.../package_0/package_1</code>下先找到<code>package_1</code>，再找到<code>module_3</code>。</p>
+<p>同理，想在<code>module_21.py</code>中调用<code>module_22</code>，可以使用如下方式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># module_21.py</span></span><br><span class="line"><span class="keyword">from</span> package_1.package_2 <span class="keyword">import</span> module_21</span><br></pre></td></tr></table></figure>
+<p>绝对导入根据从项目根文件夹开始的完整路径导入各个模块。</p>
+<p>使用绝对路径的方式就可以解决这个问题，但是如果<code>package_0</code>这个文件夹要放到其他项目中，则这个文件夹下的所有相关导入都要修改，即在绝对导入的基础上再加一层。</p>
+<p>而且如果文件夹层级太多，调用一个模块就需要写很长一串，显得很冗余。想要简单一些的话，可以考虑相对路径导入。</p>
+<h4 id="相对路径导入"><a href="#相对路径导入" class="headerlink" title="相对路径导入"></a>相对路径导入</h4><p>相对导入的形式取决于当前位置以及要导入的模块、包或对象的位置。相对导入看起来就比绝对导入简洁一些。</p>
+<p>相对导入使用点符号来指定位置。</p>
+<ul>
+<li>单点表示引用的模块或包与当前模块在同一目录中（同一个包中）。</li>
+<li>两点表示在当前模块所在位置的父目录中。</li>
+</ul>
+<p>还是执行命令为 <code>python module_0.py</code>，想在 <code>module_2.py</code> 中导入其他模块，可以使用如下方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># module_2.py</span></span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> module_3</span><br><span class="line"><span class="keyword">from</span> .package_2 <span class="keyword">import</span> module_21</span><br></pre></td></tr></table></figure>
+<p>第一行表示调用和<code>module_2</code> 在同一路径的<code>module_3</code> 模块。</p>
+<p>第二行表示调用和<code>module_2</code> 在同一路径的<code>package_2</code> 包下的<code>module_21</code> 模块。</p>
+<p>还有两种用法：</p>
+<p><code>from .. import module_name</code>：导入本模块上一级目录的模块。</p>
+<p><code>from ..package_name import module_name</code>。导入本模块上一级目录下的包中的模块。</p>
+<p>不过相对导入要注意两个地方（仍然执行命令为 <code>python module_0.py</code>）：</p>
+<p><strong>第一个：</strong></p>
+<ul>
+<li>在 module_21 中导入 module_2：<code>from .. import module_2</code></li>
+<li>在 module_2 中导入 module_4：<code>from ..package_3 import module_4</code></li>
+</ul>
+<p>理论上这两句都没错，但是第二句会报如下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ValueError: attempted relative import beyond top-level package</span><br></pre></td></tr></table></figure>
+<p>这个报错的意思是：试图在顶级包（top-level package）之外进行相对导入。也就是说相对导入只适用于顶级包之内的模块。</p>
+<p>如果将 <code>module_0.py</code> 当作执行模块，则和该模块同级的 <code>package_1</code> 和 <code>package_3</code> 就是顶级包（top-level package），而 module_2 在<code>package_1</code>中，module_0、module_1和module_4都在 <code>package_1</code>之外，所以调用这三个模块时，就会报这个错误。</p>
+<p><strong>第二个：</strong></p>
+<p>还有个注意点就是使用了相对导入的模块文件不能作为顶层执行文件，即不能通过 <code>python</code> 命令执行，比如执行<code>python module_0.py</code>，在 <code>module_0</code> 中添加如下语句：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># module_0.py</span></span><br><span class="line"><span class="keyword">from</span> .package_1 <span class="keyword">import</span> module_2</span><br></pre></td></tr></table></figure>
+<p>报错如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ModuleNotFoundError: No module named &apos;__main__.package_1&apos;; &apos;__main__&apos; is not a package</span><br></pre></td></tr></table></figure>
+<p>python 的相对导入会通过模块的 <code>__name__</code> 属性来判断该模块的位置，当模块作为顶层文件被执行时，其 <code>__name__</code> 这个值为 <code>__main__</code>，不包含任何包的名字，而当这个模块被别的模块调用时，其 <code>__name__</code> 的值为这个模块和其所在包的名字，比如 <code>module_2</code> 的 <code>__name__</code> 值为 <code>package_1.module_2</code>。</p>
+<p>。。。其实这个内部原理我也没弄清楚，可以查看这个<a href="https://link.zhihu.com/?target=https%3A//stackoverflow.com/questions/45446418/modulenotfounderror-no-module-named-main-xxxx-main-is-not-a-packag" target="_blank" rel="noopener">stackoverflow 问题</a>，最后结论就是使用了相对导入的模块文件不能被直接运行，只能通过其他模块调用。</p>
+<p>使用相对导入没有绝对导入那么直观，而且如果目录结构发生改变，则也要修改对应模块的导入语句。所以我最后使用的是下面这种方法。</p>
+<h4 id="添加路径到sys-path"><a href="#添加路径到sys-path" class="headerlink" title="添加路径到sys.path"></a>添加路径到sys.path</h4><p>前面说过程序只会在<code>sys.path</code> 列表的路径中搜索模块，那么就可以想到另一个解决方法，即将想调用包或模块的路径添加到<code>sys.path</code> 中。</p>
+<p>还是执行 <code>python module_0.py</code>，已经知道在 <code>module_2.py</code> 中直接导入<code>module_3</code> 模块会报错，除了使用绝对导入和相对导入，还可以将<code>module_2.py</code> 所在目录添加到<code>sys.path</code> 中。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># module_2.py</span></span><br><span class="line">sys.path.append(os.path.dirname(__file__))</span><br><span class="line"><span class="keyword">import</span> module_3</span><br><span class="line"><span class="keyword">from</span> package_2 <span class="keyword">import</span> module_21</span><br></pre></td></tr></table></figure>
+<p><code>sys.path.append(os.path.dirname(__file__))</code> 表示的含义如下：</p>
+<ul>
+<li>使用 <code>sys.path.append</code> 将某路径添加到<code>sys.path</code> 中。</li>
+<li><code>__file__</code> 获得该模块文件的绝对路径</li>
+<li><code>os.path.dirname(__file__)</code> 获得模块文件所在的目录</li>
+</ul>
+<p>所以这条语句就是把模块文件所在的目录添加到<code>sys.path</code> 中。</p>
+<p>通过这种方法可以比较灵活地把其他路径添加到<code>sys.path</code> 中，而没有什么限制。</p>
+<p>比如导入<code>module_4.py</code> 所在路径：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># module_2.py</span></span><br><span class="line">sys.path.append(os.path.join(os.path.dirname(__file__), <span class="string">'../package_3'</span>))</span><br><span class="line"><span class="keyword">import</span> module_4</span><br></pre></td></tr></table></figure>
+<p>其中的 <code>os.path.join(os.path.dirname(__file__), &#39;../package_3&#39;)</code> 的值为：<code>/home/zxd/Documents/package_0/package_1/../package_3</code>，两点表示上一级目录。然后我们就可以直接导入<code>module_4</code> 了。</p>
+<p>当通过这种方法导入工程文件中的很多模块路径在<code>sys.path</code> 中时，如果工程文件中存在重名模块，可能会报错：<a href="https://link.zhihu.com/?target=https%3A//stackoverflow.com/questions/35580749/importerror-cannot-import-name" target="_blank" rel="noopener">ImportError: cannot import name</a>。这个要小心一点。</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://link.zhihu.com/?target=https%3A//realpython.com/absolute-vs-relative-python-imports/" target="_blank" rel="noopener">Absolute vs Relative Imports in Python</a></p>
+<p><a href="https://link.zhihu.com/?target=https%3A//realpython.com/python-modules-packages/" target="_blank" rel="noopener">Python Modules and Packages – An Introduction</a></p>
+<p><a href="https://link.zhihu.com/?target=https%3A//www.datacamp.com/community/tutorials/modules-in-python" target="_blank" rel="noopener">Working with Modules in Python</a></p>
+<p><a href="https://link.zhihu.com/?target=https%3A//chrisyeh96.github.io/2017/08/08/definitive-guide-python-imports.html" target="_blank" rel="noopener">The Definitive Guide to Python import Statements</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/69099185/[https://medium.com/pyladies-taiwan/python-的-import-陷阱-3538e74f57e3](https://medium.com/pyladies-taiwan/python-的-import-陷阱-3538e74f57e3" target="_blank" rel="noopener">z.defying：import 问题浅谈</a>)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/hello-pyqt5/" rel="next" title="PyQT5环境搭建及应用打包">
+                <i class="fa fa-chevron-left"></i> PyQT5环境搭建及应用打包
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/python-requirements/" rel="prev" title="Python项目自动生成requirements.txt文件">
+                Python项目自动生成requirements.txt文件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
+                alt="L" />
+            
+              <p class="site-author-name" itemprop="name">L</p>
+              <p class="site-description motion-element" itemprop="description">琴棋书画诗酒花 , 柴米油盐酱醋茶.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lhalcyon" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:longhai@lhalcyon.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/56a18660816dfa005a7e58df" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-archive"></i>掘金</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#模块导入原理"><span class="nav-number">1.</span> <span class="nav-text">模块导入原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ModuleNotFoundError"><span class="nav-number">2.</span> <span class="nav-text">ModuleNotFoundError</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绝对路径导入"><span class="nav-number">3.</span> <span class="nav-text">绝对路径导入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相对路径导入"><span class="nav-number">4.</span> <span class="nav-text">相对路径导入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加路径到sys-path"><span class="nav-number">5.</span> <span class="nav-text">添加路径到sys.path</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">L</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Goodbye , Halcyon Days .</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("UbniSKfBsoNe7s8pbumwYrJX-gzGzoHsz", "PwtF7EaCdn3QisFXC9XsMo9T");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"scale":0.8,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":1,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-24},"mobile":{"show":false,"scale":0.3},"react":{"opacityDefault":0.7,"opacityOnHover":0.2}});</script></body>
+</html>

@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Docker部署Python项目]]></title>
+    <url>%2Fdocker-deploy-python%2F</url>
+    <content type="text"><![CDATA[使用 Docker 部署 Python 项目 前提准备首先生成项目依赖文件 1pip freeze &gt; requirements.txt 此时会在项目目录下生成 requirements.txt 文件 创建 Dockerfile 文件 12345678910# 基于镜像基础FROM python:3.7# 设置代码文件夹工作目录 /appWORKDIR /app# 复制当前代码文件到容器中 /appADD . /app# 安装所需的包RUN pip install -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com -r requirements.txt# Run app.py when the container launchesCMD ["python", "main.py"] 比如我们的项目入口文件是 main.py 命令行对应配置即可 个人习惯使用 docker-compose 启动 , 创建 docker-compose.yml 文件 1234567version: '3'services: pes-spider: build: . restart: always volumes: - /etc/localtime:/etc/localtime:ro 以上具体配置可参考往期文章 Dockerfile详解 上传文件将项目 py 文件 、以上2个 docker 文件 ,依赖文件 requirements.txt 上传到服务器同一目录 构建&amp;运行1234# 首次构建docker-compose up -d# 若更新了py文件需要重新构建镜像及容器docker-compose up -d --build 参考链接 Docker下部署python项目 Docker如何部署Python项目]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Python项目自动生成requirements.txt文件]]></title>
+    <url>%2Fpython-requirements%2F</url>
+    <content type="text"><![CDATA[通过设置 requirements.txt 来快速安装依赖库. 生成文件1pip freeze &gt; requirements.txt 此时会在项目目录下生成 requirements.txt 文件 安装依赖文件格式 12requests==1.2.0 Flask==0.10.1 通过命令安装依赖 1pip install -r requirements.txt 使用镜像往往很多库下载起来会很慢 , 我们需要使用国内镜像仓库. 常用镜像 清华：https://pypi.tuna.tsinghua.edu.cn/simple 阿里云：http://mirrors.aliyun.com/pypi/simple/ 中国科技大学 https://pypi.mirrors.ustc.edu.cn/simple/ 华中理工大学：http://pypi.hustunique.com/ 山东理工大学：http://pypi.sdutlinux.org/ 豆瓣：http://pypi.douban.com/simple/ 指定镜像仓库安装 requirements.txt 依赖 1pip install -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com -r requirements.txt 参考链接 python 项目自动生成requirements.txt文件 Python用国内镜像下载REQUIREMENTS.TXT中的所有包]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[转-Python问题浅谈]]></title>
+    <url>%2Fpython-import%2F</url>
+    <content type="text"><![CDATA[本文转自 知乎 模块导入原理 ModuleNotFoundError 绝对路径 导入相对 路径导入 添加路径到sys.path 参考 最近遇到一个python import的问题，经过是这样的： 我先实现好一个功能模块，这个功能模块有多级目录和很多 .py 文件，然后把该功能模块放到其他目录下作为子模块，运行代码时，就报错ModuleNotFoundError。 为了解决这个问题，就把 python 的 import 部分给研究了一下（本文不介绍import的语法）。 模块导入原理一个module(模块)就是一个.py文件，一个package(包)就是一个包含.py文件的文件夹（对于python2，该文件夹下还需要__init__.py）。 我这里只考虑python3的情况。 在python脚本被执行，python导入其他包或模块时，python会根据sys.path列表里的路径寻找这些包或模块。如果没找到的话，程序就会报错ModuleNotFoundError。 既然要根据sys.path列表里的路径找到这些需要导入包或模块，就需要知道这个列表里都是些什么东西。 先看下如下程序： 1234$ /usr/bin/python3.5&gt;&gt;&gt; import sys&gt;&gt;&gt; print(sys.path)[&apos;&apos;, &apos;/usr/lib/python35.zip&apos;, &apos;/usr/lib/python3.5&apos;, &apos;/usr/lib/python3.5/plat-x86_64-linux-gnu&apos;, &apos;/usr/lib/python3.5/lib-dynload&apos;, &apos;/home/username/.local/lib/python3.5/site-packages&apos;, &apos;/usr/local/lib/python3.5/dist-packages&apos;, &apos;/usr/lib/python3/dist-packages&apos;] sys.path列表中的每个元素为一个搜索模块的路径，程序中要导入包或模块就需要在这些路径中进行查找，主要分为三种情况： 当前执行脚本（主动执行，而不是被其他模块调用）所在路径。上面例子是在交互界面进行操作，没有执行脚本，所以为空字符串。 python内置的标准库路径，PYTHONPATH。 安装的第三方模块路径。 在运行程序时，先在第一个路径下查找所需模块，没找到就到第二个路径下找，以此类推，按顺序在所有路径都查找后依然没找到所需模块，则抛出错误。列表的第一项是调用python解释器的脚本所在的目录，所以默认先在脚本所在路径下寻找模块。 所以从这里可以知道的是，如果我们在脚本所在路径下定义和python标准库同名的模块，那么程序就会调用我们自定义的该模块而不是标准库中的模块。 ModuleNotFoundError知道了调用模块的流程，现在来分析一下文章最开始提到的那个错误。 假设功能模块的目录树为： 1234567891011121314package_0├── module_0.py├── module_1.py├── package_1│ ├── __init__.py│ ├── module_2.py│ ├── module_3.py│ └── package_2│ ├── __init__.py│ ├── module_21.py│ └── module_22.py└── package_3 ├── __init__.py └── module_4.py 要构建一个package，则对应文件夹下需要包含__init.py文件（python2版本）。 执行命令为 python module_0.py，即通过 module_0.py 来调用python解释器，则该脚本文件所在的路径（’/home/…/package_0’）会被添加到 sys.path 中，可以通过该路径找到其他模块的，比如下面这些语句： 1234# module_0.pyimport module_1from package_1 import module_2from package_1.package_2 import module_21 而在 module_2.py 中加入下面这句： 12# module_2.pyimport module_3 分为下面两种情况： 执行 python module_2.py 时，不会出现错误。 执行 python module_0.py 时，出现错误：ModuleNotFoundError: No module named &#39;module_3&#39;。 第一种情况把路径（’/home/…/package_0/package_1’）添加到 sys.path 中，可以通过package_1 找到 module_3。 第二种情况把路径（’/home/…/package_0’）添加到 sys.path 中，该路径下就不能在 module_2.py 中通过这种方式找到module_3，因为module_2.py 在路径/home/.../package_0/package_1下。 绝对路径导入在上面第二种情况中想调用module_3的话，可以使用绝对路径导入的方式： 12# module_2.pyfrom package_1 import module_3 即在路径/home/.../package_0/package_1下先找到package_1，再找到module_3。 同理，想在module_21.py中调用module_22，可以使用如下方式： 12# module_21.pyfrom package_1.package_2 import module_21 绝对导入根据从项目根文件夹开始的完整路径导入各个模块。 使用绝对路径的方式就可以解决这个问题，但是如果package_0这个文件夹要放到其他项目中，则这个文件夹下的所有相关导入都要修改，即在绝对导入的基础上再加一层。 而且如果文件夹层级太多，调用一个模块就需要写很长一串，显得很冗余。想要简单一些的话，可以考虑相对路径导入。 相对路径导入相对导入的形式取决于当前位置以及要导入的模块、包或对象的位置。相对导入看起来就比绝对导入简洁一些。 相对导入使用点符号来指定位置。 单点表示引用的模块或包与当前模块在同一目录中（同一个包中）。 两点表示在当前模块所在位置的父目录中。 还是执行命令为 python module_0.py，想在 module_2.py 中导入其他模块，可以使用如下方法： 123# module_2.pyfrom . import module_3from .package_2 import module_21 第一行表示调用和module_2 在同一路径的module_3 模块。 第二行表示调用和module_2 在同一路径的package_2 包下的module_21 模块。 还有两种用法： from .. import module_name：导入本模块上一级目录的模块。 from ..package_name import module_name。导入本模块上一级目录下的包中的模块。 不过相对导入要注意两个地方（仍然执行命令为 python module_0.py）： 第一个： 在 module_21 中导入 module_2：from .. import module_2 在 module_2 中导入 module_4：from ..package_3 import module_4 理论上这两句都没错，但是第二句会报如下错误： 1ValueError: attempted relative import beyond top-level package 这个报错的意思是：试图在顶级包（top-level package）之外进行相对导入。也就是说相对导入只适用于顶级包之内的模块。 如果将 module_0.py 当作执行模块，则和该模块同级的 package_1 和 package_3 就是顶级包（top-level package），而 module_2 在package_1中，module_0、module_1和module_4都在 package_1之外，所以调用这三个模块时，就会报这个错误。 第二个： 还有个注意点就是使用了相对导入的模块文件不能作为顶层执行文件，即不能通过 python 命令执行，比如执行python module_0.py，在 module_0 中添加如下语句： 12# module_0.pyfrom .package_1 import module_2 报错如下： 1ModuleNotFoundError: No module named &apos;__main__.package_1&apos;; &apos;__main__&apos; is not a package python 的相对导入会通过模块的 __name__ 属性来判断该模块的位置，当模块作为顶层文件被执行时，其 __name__ 这个值为 __main__，不包含任何包的名字，而当这个模块被别的模块调用时，其 __name__ 的值为这个模块和其所在包的名字，比如 module_2 的 __name__ 值为 package_1.module_2。 。。。其实这个内部原理我也没弄清楚，可以查看这个stackoverflow 问题，最后结论就是使用了相对导入的模块文件不能被直接运行，只能通过其他模块调用。 使用相对导入没有绝对导入那么直观，而且如果目录结构发生改变，则也要修改对应模块的导入语句。所以我最后使用的是下面这种方法。 添加路径到sys.path前面说过程序只会在sys.path 列表的路径中搜索模块，那么就可以想到另一个解决方法，即将想调用包或模块的路径添加到sys.path 中。 还是执行 python module_0.py，已经知道在 module_2.py 中直接导入module_3 模块会报错，除了使用绝对导入和相对导入，还可以将module_2.py 所在目录添加到sys.path 中。 1234# module_2.pysys.path.append(os.path.dirname(__file__))import module_3from package_2 import module_21 sys.path.append(os.path.dirname(__file__)) 表示的含义如下： 使用 sys.path.append 将某路径添加到sys.path 中。 __file__ 获得该模块文件的绝对路径 os.path.dirname(__file__) 获得模块文件所在的目录 所以这条语句就是把模块文件所在的目录添加到sys.path 中。 通过这种方法可以比较灵活地把其他路径添加到sys.path 中，而没有什么限制。 比如导入module_4.py 所在路径： 123# module_2.pysys.path.append(os.path.join(os.path.dirname(__file__), '../package_3'))import module_4 其中的 os.path.join(os.path.dirname(__file__), &#39;../package_3&#39;) 的值为：/home/zxd/Documents/package_0/package_1/../package_3，两点表示上一级目录。然后我们就可以直接导入module_4 了。 当通过这种方法导入工程文件中的很多模块路径在sys.path 中时，如果工程文件中存在重名模块，可能会报错：ImportError: cannot import name。这个要小心一点。 参考Absolute vs Relative Imports in Python Python Modules and Packages – An Introduction Working with Modules in Python The Definitive Guide to Python import Statements z.defying：import 问题浅谈)]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[PyQT5环境搭建及应用打包]]></title>
+    <url>%2Fhello-pyqt5%2F</url>
+    <content type="text"><![CDATA[通用开发框架 electorn：基于node-js，跨平台，开发成本低，运行效率低 qt：基于C++，跨平台，效率高，开发成本高 javafx：基于java，主要用于跨平台桌面程序开发 flutter：基于dart语言，谷歌开源移动UI框架，可以快速在iOS和Android上构建高质量的原生用户界面 Python方案 PyQt：PyQt5是Qt v5的Python版本，功能强大复杂，提供QT Designer设计UI （GPL V3协议，开源，商用收费） Pyside: PySide2是来自QT for Python项目的官方Python模块 （LGPL协议，闭源商用） Tkinter：Python标准库，Tk GUI 工具包的接口 ，布局通过代码实现，简单易用，但开发效率低 WxPython：开源免费，提供wxFormbuilder，压缩版PyQT 因为现有脚本绝大多数是基于Python开发，同时调研了上述框架的官方支持力度及网络资料丰富程度，最终还是选用了最流行最强大的PyQt 。 本文主要详细介绍下PyQt5完整入门教程，包含环境配置，使用Qt Disinger设计UI，最终完成一个天气预报的GUI实例开发。 环境为：Windows 10 + Python 3.8 + PyCharm 2019.2 PyQt环境配置安装PyQtPyQt当前最新版为PyQt5 5.14.1 直接pip安装即可： 12pip install PyQt5pip install pyqt5-tools 建议使用国内源，进行快速安装： 12pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pyqt5pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pyqt5-tools PyCharm配置环境启动PyCharm后，新建一个PyQt5空项目后，需要配置Qt Designer、pyuic、pyrcc工具，相关配置方法如下： Qt DesignerQt Designer 是通过拖拽的方式放置控件，并实时查看控件效果进行快速UI设计。最终生成.ui文件（实质上是XML格式的文件），可以通过pyuic5工具转换成.py文件。 在Pycharm中，依次打开 File - Settings - Tools - External Tools，点击 + Create Tool，配置如下： 123Name: QtDisignerProgram : C:\Python38\Lib\site-packages\pyqt5_tools\Qt\bin\designer.exe # 当前designer目录，请根据实际修改Working directory: $FileDir$ Qt Designer 汉化默认Qt Designer是英文版的，可以使用翻译文件进行汉化，下载地址：百度网盘，提取码：kxvx 下载文件 designer_zh_CN.qm后， 拷贝至本地pyqt5_tools的translations文件夹下即可，示例目录： 1C:\Python38\Lib\site-packages\pyqt5_tools\Qt\bin\translations 在PyCharm主界面，依次点击 Tools - External Tools - QtDisigner，即可启动中文界面的Qt Disigner PyUIC 配置PyUIC主要是把Qt Designer生成的.ui文件换成.py文件。 在Pycharm中，依次打开 File - Settings - Tools - External Tools，点击 + Create Tool，配置如下： 1234Name: PyUICProgram : C:\Python38\python.exe # 当前Python目录，请根据实际修改Arguments: -m PyQt5.uic.pyuic $FileName$ -o $FileNameWithoutExtension$.pyWorking directory: $FileDir$ PyRCC 配置PyRCC主要是把编写的.qrc资源文件换成.py文件。 在Pycharm中，依次打开 File - Settings - Tools - External Tools，点击 + Create Tool，配置如下： 1234Name: PyRCCProgram : C:\Python38\Scripts\pyrcc5.exe # 当前rcc工具目录，请根据实际修改Arguments: $FileName$ -o $FileNameWithoutExtension$_rc.pyWorking directory: $FileDir$ 应用打包若需要打包成客户端 , 先安装插件 pyinstaller 1pip install PyInstaller 进入需要打包的目录下 , 执行命令 1Pyinstaller [opts] yourprogram.py 示例 1pyinstaller -F -W main.py opts可选参数 参数 含义 -F 指定打包后只生成一个exe格式的文件 -D -onedir 创建一个目录 , 包含exe文件, 但会依赖很多文件(默认选项) -c -console , -nowindowed , 使用控制台 , 无窗口(默认) -w -windowed, -noconsole 使用窗口 , 无控制台 -p 添加搜索路径 , 让其找到对应的库 -i 改变生成应用的icon图标 Pyinstaller在PyCharm的支持配置点击 Settings-&gt;Tools-&gt;External Tools , 新增 Tool Name : 自定义工具名称 Program : pyinstaller.exe 文件所在的路径 , 通常在项目目录下的 Scripts 文件夹内 Arguments : -F $FileNameWithoutExtension$.py -w -i logo.ico 参数命令见上文 Working directory : $FileDir$ 保存配置 , 然后选择要执行的文件 , 例如 main.py 右键点击-&gt;External Tools-&gt; Pyinstaller Exe 然后开始打包 , 完成后项目目录下会出现 dist 文件夹 , 可执行包就在其中 参考资料 https://www.riverbankcomputing.com/static/Docs/PyQt5/ http://code.py40.com/face 《PyQt5快速开发与实战 PDF》 网盘地址 提取码：k3xx CSDN:Python GUI pycharm+Pyqt5 配置以及打包exe Python打包工具PyInstaller的安装与pycharm配置支持PyInstaller详细方法 大爱的博客]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>PyQt5</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[解决Docker镜像拉取慢]]></title>
     <url>%2Fdocker-pull-speedup%2F</url>
     <content type="text"><![CDATA[在国内服务器上操作 Docker 拉取镜像太慢 ,无非是镜像在国外 . 解决办法就是配置国内镜像源 , 一般由阿里、网易、docker 中国官方等等 推荐方案1. 编辑 /etc/docker/daemon.json (若无 , 则创建) , 添加以下 json 123&#123; "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn", "http://hub-mirror.c.163.com", "https://registry.docker-cn.com"]&#125; 2. 重启 docker 服务 1systemctl restart docker 参考链接Docker - 解决镜像拉取慢]]></content>
@@ -69,7 +114,7 @@
   <entry>
     <title><![CDATA[App中的羊角符]]></title>
     <url>%2Fcny-symbol-issue%2F</url>
-    <content type="text"><![CDATA[人民币羊角符是 App 开发中常使用的符号 . 在使用中却偶发觉符号显示不正常 , 在此做记录 两种羊角符人民币羊角符 人民币符号为：¥。书写顺序为：先写大写字母“Y”，再在竖划上加上二横，即为“¥”，读音为：yuán（音：元） 日元羊角符 日圆（円），又称作日元，其纸币称为日本银行券，是日本的官方货币，于1871年制定。日圆也经常在美元和欧元之后被当作储备货币。货币符号“¥”，国际标准化组织ISO4217订定其标准代号为JPY。日语罗马字写作Yen。 从定义上看 , 两种羊角符长得一样 , 手写是没有区别的 . 但是在计算机上是有区别的 1￥¥ 若看不出区别 , 可以复制到浏览器中再看看 二者在 UTF-8 表中的区别 前者是全角元 , 后者是半角元 . 二者在不同的机型上表现不一致 , 全角元在某些机型上只显示一横 , 而半角元都是两横 , 因此实际开发中应该使用半角元 参考链接CSDN: Android中的羊角符 CSDN:如何解决羊角符只显示一横的问题]]></content>
+    <content type="text"><![CDATA[人民币羊角符是 App 开发中常使用的符号 . 在使用中却偶发觉符号显示不正常 , 在此做记录 两种羊角符人民币羊角符 人民币符号为：¥。书写顺序为：先写大写字母“Y”，再在竖划上加上二横，即为“¥”，读音为：yuán（音：元） 日元羊角符 日圆（円），又称作日元，其纸币称为日本银行券，是日本的官方货币，于1871年制定。日圆也经常在美元和欧元之后被当作储备货币。货币符号“¥”，国际标准化组织ISO4217订定其标准代号为JPY。日语罗马字写作Yen。 从定义上看 , 两种羊角符长得一样 , 手写是没有区别的 . 但是在计算机上是有区别的 1￥¥ 若看不出区别 , 可以复制到浏览器中再看看 二者在 UTF-8 表中的区别 前者是全角元 , 后者是半角元 . 二者在不同的机型上表现不一致 , 全角元在某些机型上只显示一横 , 而半角元都是两横 , 因此实际开发中应该使用半角元 参考链接CSDN: Android中的羊角符 CSDN: 如何解决羊角符只显示一横的问题]]></content>
       <categories>
         <category>Android</category>
       </categories>
@@ -91,7 +136,7 @@
   <entry>
     <title><![CDATA[Flutter研发报错归整]]></title>
     <url>%2Fflutter-issue%2F</url>
-    <content type="text"><![CDATA[记录一些 Flutter 研发中遇到错误及处理. 1. Unexpected end of file from server在新环境安装好 Flutter 环境后 , 运行项目报错 Exception in thread &quot;main&quot; java.net.SocketException: Unexpected end of file from server 搜索后发现是因为 gradle 设置了代理 . 前往 C:/Users/&lt;username&gt;/.gradle/gradle.properties ) (不是项目下的gradle.properties) , 删除多余的代理设置 systemProp.https.proxyPort=1080 … 参考链接简书: 解决Flutter报错 Unexpected…]]></content>
+    <content type="text"><![CDATA[记录一些 Flutter 研发中遇到错误及处理. 1. Unexpected end of file from server在新环境安装好 Flutter 环境后 , 运行项目报错 Exception in thread &quot;main&quot; java.net.SocketException: Unexpected end of file from server 搜索后发现是因为 gradle 设置了代理 . 前往 C:/Users/&lt;username&gt;/.gradle/gradle.properties ) (不是项目下的gradle.properties) , 删除多余的代理设置 systemProp.https.proxyPort=1080 … 参考链接简书: 解决Flutter报错 Unexpected… 2. Waiting for another flutter command to release the startup lock…在安装依赖时 , 偶尔出现 Waiting for another flutter command to release the startup lock... , 通常是上一个命令还未执行完毕 , 但是因为墙的原因可能继续等待也未必成功 . 想要终止等待状态 , 需要前往 flutter 安装目录下删除 bin/cache/lockfile 文件即可 . 若显示该文件被使用中无法删除 , 则先杀死 dart 进程再删除即可 12345// Linuxkillall -9 dart// Windowstaskkill /F /IM dart.exe 参考链接知乎]]></content>
       <categories>
         <category>Flutter</category>
       </categories>
@@ -189,7 +234,7 @@
   </entry>
   <entry>
     <title><![CDATA[MySQL简易备份]]></title>
-    <url>%2FMySQL%E7%AE%80%E6%98%93%E5%A4%87%E4%BB%BD%2F</url>
+    <url>%2F48.MySQL%E7%AE%80%E6%98%93%E5%A4%87%E4%BB%BD%2F</url>
     <content type="text"><![CDATA[简易的 MySQL 数据全量日备 备份脚本首先确定下目录 123456## 总目录/mnt/data/backups## 内容- mysql-back.list 指定备份数据库名- mysql_backups.sh 备份脚本- mysqldump.log 备份日志 mysql-back.list 123## 备份数据库名test_dbtest_db2 mysql_backups.sh 备份前推20天内的db数据 12345678910111213141516171819202122#!/bin/bash#This replication for Ali RDSPATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/binexport PATHDAT=`date +%m%d`HOR=`date +%H`begin=`date +%F" "%T`DIR=/mnt/data/backups/dbif [[ ! -d $DIR/$DAT ]];then mkdir $DIR/$DATfifor i in `cat /mnt/data/backups/mysql-back.list`do /bin/mysqldump -uroot -p密码 $i &gt; $DIR/$DAT/$i-$DAT$HOR.sqldonefind /mnt/data/backups/db/* -mtime +20 -exec rm -rf &#123;&#125; \;end=`date +%F" "%T`echo "$begin dump mysql -------&gt; $end has done" &gt;&gt; /mnt/data/backups/mysqldump.log 脚本执行定时任务vim /etc/crontab 123456789101112131415SHELL=/bin/bashPATH=/sbin:/bin:/usr/sbin:/usr/binMAILTO=root# For details see man 4 crontabs# Example of job definition:# .---------------- minute (0 - 59)# | .------------- hour (0 - 23)# | | .---------- day of month (1 - 31)# | | | .------- month (1 - 12) OR jan,feb,mar,apr ...# | | | | .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat# | | | | |# * * * * * user-name command to be executed01 11 * * * root sh /mnt/data/backups/mysql_backups.sh 手动执行bash /mnt/data/backups/mysql_backups.sh Docker 安装的MySQL修改点mysql-backup.sh 1234567891011121314151617181920#!/bin/bashDAT=`date +%m%d`HOR=`date +%H`begin=`date +%F" "%T`PARENT_DIR=/mnt/data/mysql/backupsDIR=$PARENT_DIR/dbif [[ ! -d $DIR/$DAT ]];then mkdir $DIR/$DATfifor i in `cat $PARENT_DIR/mysql-back.list`do docker exec mysql容器名 mysqldump -uroot -p数据库密码 $i &gt; $DIR/$DAT/$i-$DAT$HOR.sqldonefind $DIR/* -mtime +20 -exec rm -rf &#123;&#125; \;end=`date +%F" "%T`echo "$begin dump mysql -------&gt; $end has done" &gt;&gt; $PARENT_DIR/mysqldump.log /etc/crontab 每天 2:00 备份 10 2 * * * sh /mnt/data/mysql/backups/mysql-backup.sh &gt;&gt;/mnt/data/mysql/backups/checkES.log 2&gt;&amp;1]]></content>
       <categories>
         <category>Script</category>
@@ -206,10 +251,10 @@
         <category>Docker</category>
       </categories>
       <tags>
-        <tag>Docker</tag>
-        <tag>BlockChain</tag>
         <tag>Ethereum</tag>
         <tag>Bitcoin</tag>
+        <tag>Docker</tag>
+        <tag>BlockChain</tag>
       </tags>
   </entry>
   <entry>
@@ -349,9 +394,9 @@
         <category>AWS</category>
       </categories>
       <tags>
-        <tag>MySQL</tag>
         <tag>Docker</tag>
         <tag>Nginx</tag>
+        <tag>MySQL</tag>
         <tag>GitLab</tag>
         <tag>Docker-Compose</tag>
         <tag>Redis</tag>
@@ -401,8 +446,8 @@
         <category>CenterOS</category>
       </categories>
       <tags>
-        <tag>CenterOS</tag>
         <tag>ss</tag>
+        <tag>CenterOS</tag>
       </tags>
   </entry>
   <entry>
@@ -460,8 +505,8 @@
         <category>CenterOS</category>
       </categories>
       <tags>
-        <tag>Docker</tag>
         <tag>CenterOS</tag>
+        <tag>Docker</tag>
         <tag>Springboot</tag>
       </tags>
   </entry>
@@ -486,9 +531,9 @@
         <category>Utility</category>
       </categories>
       <tags>
-        <tag>ss</tag>
         <tag>proxy</tag>
         <tag>mac</tag>
+        <tag>ss</tag>
       </tags>
   </entry>
   <entry>
@@ -512,8 +557,8 @@
         <category>Blockchain</category>
       </categories>
       <tags>
-        <tag>Bitcoin</tag>
         <tag>Blockchain</tag>
+        <tag>Bitcoin</tag>
         <tag>Linux</tag>
       </tags>
   </entry>
@@ -528,9 +573,9 @@
         <category>Flutter</category>
       </categories>
       <tags>
-        <tag>Ethereum</tag>
         <tag>Flutter</tag>
         <tag>Blockchain</tag>
+        <tag>Ethereum</tag>
         <tag>Android</tag>
         <tag>iOS</tag>
       </tags>
@@ -544,8 +589,8 @@
         <category>Android</category>
       </categories>
       <tags>
-        <tag>Ethereum</tag>
         <tag>Blockchain</tag>
+        <tag>Ethereum</tag>
         <tag>Android</tag>
       </tags>
   </entry>
@@ -558,8 +603,8 @@
         <category>Android</category>
       </categories>
       <tags>
-        <tag>Ethereum</tag>
         <tag>Blockchain</tag>
+        <tag>Ethereum</tag>
         <tag>Android</tag>
       </tags>
   </entry>
@@ -572,8 +617,8 @@
         <category>Android</category>
       </categories>
       <tags>
-        <tag>Ethereum</tag>
         <tag>Blockchain</tag>
+        <tag>Ethereum</tag>
         <tag>Android</tag>
       </tags>
   </entry>
@@ -751,8 +796,8 @@
       </categories>
       <tags>
         <tag>Android</tag>
-        <tag>Jenkins</tag>
         <tag>Linux</tag>
+        <tag>Jenkins</tag>
       </tags>
   </entry>
   <entry>
@@ -764,8 +809,8 @@
       </categories>
       <tags>
         <tag>Android</tag>
-        <tag>Jenkins</tag>
         <tag>Linux</tag>
+        <tag>Jenkins</tag>
       </tags>
   </entry>
   <entry>
