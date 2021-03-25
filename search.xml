@@ -439,18 +439,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[转-CenterOS7安装ss]]></title>
-    <url>%2Fcenteros-install-ss%2F</url>
-    <content type="text"><![CDATA[本文转自徒弟的有道笔记 Ubuntu安装Shadowsocks 1234567891011121314151617# 1. 下载包：wget https://storage.googleapis.com/golang/go1.9.1.linux-amd64.tar.gz# 2. 解压到/usr/local/gotar -C /usr/local -xzf go1.9.1.linux-amd64.tar.gz# 3. 导入到系统环境变量 (临时导入,可用其他方式)export PATH=$PATH:/usr/local/go/bin# 下载 sswget --no-check-certificate https://raw.githubusercontent.com/iMeiji/shadowsocks_install/master/shadowsocks-go.sh# 给予权限chmod +x shadowsocks-go.sh# 运行./shadowsocks-go.sh 2&gt;&amp;1 | tee shadowsocks-go.log# 开发端口, CenterOS 与 Ubuntu 略有不同.iptables -I INPUT -p tcp --dport 8989 -j ACCEPT 另转 Outline搭建VPN 也不错!]]></content>
-      <categories>
-        <category>CenterOS</category>
-      </categories>
-      <tags>
-        <tag>ss</tag>
-        <tag>CenterOS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[转-CenterOS7安装和配置SSH]]></title>
     <url>%2Fcenteros-ssh-configuration%2F</url>
     <content type="text"><![CDATA[本文转自 CenterOS 7安装和配置SSH 1. 安装 openssh-server1yum install -y openssl openssh-server 2. 修改配置文件用 vim 打开配置文件 /etc/ssh/sshd_config 将上图中的 PermitRootLogin , RSAAuthentication , PubkeyAuthentication 的设置打开. 启动SSH的服务: 1systemctl start sshd.service 设置开机自动启动SSH服务 1systemctl enable sshd.service 设置文件夹 ~/.ssh的访问权限 12345678910$ cd ~$ chmod 700 .ssh $ chmod 600 .ssh/* $ ls -la .ssh total 16drwx------. 2 root root 58 May 15 00:23 .dr-xr-x---. 8 root root 4096 May 15 00:26 ..-rw-------. 1 root root 403 May 15 00:22 authorized_keys-rw-------. 1 root root 1766 May 15 00:21 id_rsa-rw-------. 1 root root 403 May 15 00:21 id_rsa.pub authorized_keys 文件存储的是客户端的公共密钥 . 将自己的公钥拷贝进文件即可]]></content>
@@ -460,6 +448,18 @@
       <tags>
         <tag>CenterOS</tag>
         <tag>SSH</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[转-CenterOS7安装ss]]></title>
+    <url>%2Fcenteros-install-ss%2F</url>
+    <content type="text"><![CDATA[本文转自徒弟的有道笔记 Ubuntu安装Shadowsocks 1234567891011121314151617# 1. 下载包：wget https://storage.googleapis.com/golang/go1.9.1.linux-amd64.tar.gz# 2. 解压到/usr/local/gotar -C /usr/local -xzf go1.9.1.linux-amd64.tar.gz# 3. 导入到系统环境变量 (临时导入,可用其他方式)export PATH=$PATH:/usr/local/go/bin# 下载 sswget --no-check-certificate https://raw.githubusercontent.com/iMeiji/shadowsocks_install/master/shadowsocks-go.sh# 给予权限chmod +x shadowsocks-go.sh# 运行./shadowsocks-go.sh 2&gt;&amp;1 | tee shadowsocks-go.log# 开发端口, CenterOS 与 Ubuntu 略有不同.iptables -I INPUT -p tcp --dport 8989 -j ACCEPT 另转 Outline搭建VPN 也不错!]]></content>
+      <categories>
+        <category>CenterOS</category>
+      </categories>
+      <tags>
+        <tag>ss</tag>
+        <tag>CenterOS</tag>
       </tags>
   </entry>
   <entry>
