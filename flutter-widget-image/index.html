@@ -98,18 +98,18 @@
 <meta property="og:site_name" content="Halcyon Days">
 <meta property="og:description" content="本篇将讲解图片加载及特定平台图片处理. 为了更好的阅读体验 , 请点击 阅读原文 概览Image 是用来展示图片的 widget.  系统提供着不同方式去构造 Image :  new Image, 从 ImageProvider 获取图片 new Image.asset , 从 AssetBundle 获取图片 new Image.network , 从网络获取图片 new Image.file">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fpzgpjsp5jg307y0gi779.gif">
-<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fpzt0t09yrj304u05cwf1.jpg">
-<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fq0g3uy9fij305903x0sv.jpg">
-<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fpztwo2w0cj302s0343yd.jpg">
+<meta property="og:image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/006tNc79gy1fpzgpjsp5jg307y0gi779.gif">
+<meta property="og:image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/006tNbRwgy1fpzt0t09yrj304u05cwf1.jpg">
+<meta property="og:image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/006tNc79gy1fq0g3uy9fij305903x0sv.jpg">
+<meta property="og:image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/006tNbRwgy1fpztwo2w0cj302s0343yd.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwgy1fpztxrirxfj307109eaag.jpg">
-<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fpzu30fkbsj307s0bgdg3.jpg">
-<meta property="og:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fq0fz6qak5j30r207imxx.jpg">
-<meta property="og:updated_time" content="2021-03-25T15:23:14.325Z">
+<meta property="og:image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/006tNbRwgy1fpzu30fkbsj307s0bgdg3.jpg">
+<meta property="og:image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/006tNc79gy1fq0fz6qak5j30r207imxx.jpg">
+<meta property="og:updated_time" content="2021-03-26T01:39:41.864Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flutter基础-(4)widget-图片Image">
 <meta name="twitter:description" content="本篇将讲解图片加载及特定平台图片处理. 为了更好的阅读体验 , 请点击 阅读原文 概览Image 是用来展示图片的 widget.  系统提供着不同方式去构造 Image :  new Image, 从 ImageProvider 获取图片 new Image.asset , 从 AssetBundle 获取图片 new Image.network , 从网络获取图片 new Image.file">
-<meta name="twitter:image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fpzgpjsp5jg307y0gi779.gif">
+<meta name="twitter:image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/006tNc79gy1fpzgpjsp5jg307y0gi779.gif">
 
 
 
@@ -311,7 +311,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L.">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -439,7 +439,7 @@
 <p>Image 支持以下图片格式 : </p>
 <p>JPEG , PNG ,GIF , 动态 GIF , WebP , 动态WebP , BMP WBMP .</p>
 <p>直接上示例</p>
-<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fpzgpjsp5jg307y0gi779.gif" alt=""></p>
+<p><img src="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/006tNc79gy1fpzgpjsp5jg307y0gi779.gif" alt=""></p>
 <a id="more"></a>
 <p>图中三个示例分别表示</p>
 <ol>
@@ -454,7 +454,7 @@
 <p>示例:</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">flutter:</span></span><br><span class="line"><span class="attr">  assets:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">assets/images/ic_link.png</span></span><br></pre></td></tr></table></figure>
 <div class="note warning"><p>注意此处资产路径是根目录下的路径.示例中assets和源码lib是同级目录</p>
-<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fpzt0t09yrj304u05cwf1.jpg" alt=""></p></div>
+<p><img src="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/006tNbRwgy1fpzt0t09yrj304u05cwf1.jpg" alt=""></p></div>
 <p>加载代码:</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">var</span> imageAssets = <span class="string">'assets/images/ic_link.png'</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Image.asset(</span><br><span class="line">         imageAssets,</span><br><span class="line">         width: <span class="number">150.0</span>,</span><br><span class="line">         height: <span class="number">150.0</span>,</span><br><span class="line">         )</span><br><span class="line">  );</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>或</p>
@@ -487,26 +487,26 @@
 </blockquote>
 <p>这里我们可以发现 , 我们未主动地在Android应用清单文件中申明网络权限,Flutter默认已经授予了网络权限用以提供热部署等等.</p>
 <h3 id="分辨率处理"><a href="#分辨率处理" class="headerlink" title="分辨率处理"></a>分辨率处理</h3><p>手机有不同的像素比率 , 这时就需要根据手机的像素比率来加载不同图片 . 做法很简单,只需要在图片同级目录下创建 2.0x/abc.png 和 3.0x/abc.png 的目录即可</p>
-<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fq0g3uy9fij305903x0sv.jpg" alt=""></p>
+<p><img src="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/006tNc79gy1fq0g3uy9fij305903x0sv.jpg" alt=""></p>
 <p><em>在 <code>pubspec.yaml</code> 中定义的assets路径不需要增加 2.0x 3.0x</em></p>
 <p>例如以前图片是</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">flutter:</span></span><br><span class="line"><span class="attr">  assets:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">assets/images/ic_link.png</span></span><br></pre></td></tr></table></figure>
 <p>加入分辨率目录后不变 , 依然是该路径</p>
 <h3 id="特定平台图片"><a href="#特定平台图片" class="headerlink" title="特定平台图片"></a>特定平台图片</h3><p>对于 Android , iOS 特定平台的资产图片需要我们去对应的平台文件夹下去设置 . 以下为两个常见的场景 , 我们将在Flutter框架运行前使用到图片资产</p>
 <h4 id="更新应用图标"><a href="#更新应用图标" class="headerlink" title="更新应用图标"></a>更新应用图标</h4><p>更新应用图标的方式与在开发原生Android,iOS应用时一样.</p>
-<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fpztwo2w0cj302s0343yd.jpg" alt=""></p>
+<p><img src="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/006tNbRwgy1fpztwo2w0cj302s0343yd.jpg" alt=""></p>
 <p><strong>Android</strong></p>
 <p>在项目根目录下的 <code>.../android/app/src/main/res</code>里,默认应用图标为<code>ic_launcher.png</code> ,可分别替换对应分辨率下的图片从而更新应用图标</p>
 <p><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fpztxrirxfj307109eaag.jpg" alt=""></p>
 <p><strong>iOS</strong></p>
 <p>在项目根目录下的 <code>.../ios/Runner/Assets.xcassets/AppIcon.appiconset</code> , 替换相应图片从而更新应用图标</p>
-<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNbRwgy1fpzu30fkbsj307s0bgdg3.jpg" alt=""></p>
+<p><img src="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/006tNbRwgy1fpzu30fkbsj307s0bgdg3.jpg" alt=""></p>
 <h4 id="更新启动页"><a href="#更新启动页" class="headerlink" title="更新启动页"></a>更新启动页</h4><p><strong>Android</strong></p>
 <p>Flutter 默认设置了个启动页 <code>.../android/app/src/main/res/drawable/launch_background.xml</code> . 可通过修改该文件来定制个性化的元素</p>
 <p><strong>iOS</strong></p>
 <p>在 <code>.../ios/Runner/Assets.xcassets/LaunchImage.imageset</code> , 放置<code>LaunchImage.png</code> ,<code>LaunchImage@2x.png</code> , <code>LaunchImage@3x.png</code>. 若用到不同的文件名称 , 需要在同目录下更新 <code>Contents.json</code>中的文件名称</p>
 <p>还可以通过打开…/ios/Runner.xcworkspace , 来完全定制启动屏幕storyboard . </p>
-<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/006tNc79gy1fq0fz6qak5j30r207imxx.jpg" alt=""></p>
+<p><img src="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/006tNc79gy1fq0fz6qak5j30r207imxx.jpg" alt=""></p>
 <p>好了, 关于 Image 的部分就讲到这里了. 相关代码已经上传 <a href="https://github.com/lhalcyon/flutter_study" target="_blank" rel="noopener">GitHub</a> ,如有帮到你, 请不吝点个Star🤗</p>
 
       
@@ -619,7 +619,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
+                src="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg"
                 alt="L." />
             
               <p class="site-author-name" itemprop="name">L.</p>

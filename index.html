@@ -302,7 +302,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L.">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -489,7 +489,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L.">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -683,7 +683,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L.">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -959,7 +959,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L.">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1101,7 +1101,7 @@
 <h6 id="Qt-Designer"><a href="#Qt-Designer" class="headerlink" title="Qt Designer"></a>Qt Designer</h6><p>Qt Designer 是通过拖拽的方式放置控件，并实时查看控件效果进行快速UI设计。最终生成.ui文件（实质上是XML格式的文件），可以通过pyuic5工具转换成.py文件。</p>
 <p>在Pycharm中，依次打开 File - Settings - Tools - External Tools，点击 + Create Tool，配置如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Name: QtDisigner</span><br><span class="line">Program : C:\Python38\Lib\site-packages\pyqt5_tools\Qt\bin\designer.exe # 当前designer目录，请根据实际修改</span><br><span class="line">Working directory: $FileDir$</span><br></pre></td></tr></table></figure>
-<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/PyQt_1.jpg" alt=""></p>
+<p><img src="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/PyQt_1.jpg" alt=""></p>
 <h6 id="Qt-Designer-汉化"><a href="#Qt-Designer-汉化" class="headerlink" title="Qt Designer 汉化"></a>Qt Designer 汉化</h6><p>默认Qt Designer是英文版的，可以使用翻译文件进行汉化，下载地址：<a href="https://pan.baidu.com/s/1tJ3P2UQEv7OF5ArfKCOsjA" target="_blank" rel="noopener">百度网盘</a>，提取码：kxvx</p>
 <p>下载文件 designer_zh_CN.qm后， 拷贝至本地pyqt5_tools的translations文件夹下即可，示例目录：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Python38\Lib\site-packages\pyqt5_tools\Qt\bin\translations</span><br></pre></td></tr></table></figure>
@@ -1109,11 +1109,11 @@
 <h6 id="PyUIC-配置"><a href="#PyUIC-配置" class="headerlink" title="PyUIC 配置"></a>PyUIC 配置</h6><p>PyUIC主要是把Qt Designer生成的.ui文件换成.py文件。</p>
 <p>在Pycharm中，依次打开 File - Settings - Tools - External Tools，点击 + Create Tool，配置如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Name: PyUIC</span><br><span class="line">Program : C:\Python38\python.exe # 当前Python目录，请根据实际修改</span><br><span class="line">Arguments: -m PyQt5.uic.pyuic $FileName$ -o $FileNameWithoutExtension$.py</span><br><span class="line">Working directory: $FileDir$</span><br></pre></td></tr></table></figure>
-<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/PyQt_2.jpg" alt=""></p>
+<p><img src="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/PyQt_2.jpg" alt=""></p>
 <h6 id="PyRCC-配置"><a href="#PyRCC-配置" class="headerlink" title="PyRCC 配置"></a>PyRCC 配置</h6><p>PyRCC主要是把编写的.qrc资源文件换成.py文件。</p>
 <p>在Pycharm中，依次打开 File - Settings - Tools - External Tools，点击 + Create Tool，配置如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Name: PyRCC</span><br><span class="line">Program : C:\Python38\Scripts\pyrcc5.exe # 当前rcc工具目录，请根据实际修改</span><br><span class="line">Arguments: $FileName$ -o $FileNameWithoutExtension$_rc.py</span><br><span class="line">Working directory: $FileDir$</span><br></pre></td></tr></table></figure>
-<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/PyQt_3.jpg" alt=""></p>
+<p><img src="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/PyQt_3.jpg" alt=""></p>
 <h4 id="应用打包"><a href="#应用打包" class="headerlink" title="应用打包"></a>应用打包</h4><p>若需要打包成客户端 , 先安装插件 pyinstaller </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install PyInstaller</span><br></pre></td></tr></table></figure>
 <p>进入需要打包的目录下 , 执行命令</p>
@@ -1156,7 +1156,7 @@
 </tbody>
 </table>
 <h5 id="Pyinstaller在PyCharm的支持配置"><a href="#Pyinstaller在PyCharm的支持配置" class="headerlink" title="Pyinstaller在PyCharm的支持配置"></a>Pyinstaller在PyCharm的支持配置</h5><p>点击 <code>Settings-&gt;Tools-&gt;External Tools</code> , 新增 Tool</p>
-<p><img src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/4.png" alt=""></p>
+<p><img src="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/4.png" alt=""></p>
 <p><strong>Name</strong> : 自定义工具名称</p>
 <p><strong>Program</strong> : pyinstaller.exe 文件所在的路径 , 通常在项目目录下的 Scripts 文件夹内</p>
 <p><strong>Arguments</strong> :  <code>-F $FileNameWithoutExtension$.py -w -i logo.ico</code>  参数命令见上文</p>
@@ -1223,7 +1223,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L.">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1400,7 +1400,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L.">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1579,7 +1579,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L.">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1768,7 +1768,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L.">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1948,7 +1948,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L.">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -2128,7 +2128,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="L.">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg">
+      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -2337,7 +2337,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="https://lhalcyon-1258836598.cos.ap-shenzhen-fsi.myqcloud.com/blog/avatar.jpeg"
+                src="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg"
                 alt="L." />
             
               <p class="site-author-name" itemprop="name">L.</p>
