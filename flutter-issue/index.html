@@ -99,7 +99,7 @@
 <meta property="og:description" content="记录一些 Flutter 研发中遇到错误及处理.">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/1413364-d0256e8e7c4af403.webp">
-<meta property="og:updated_time" content="2021-03-26T01:39:41.875Z">
+<meta property="og:updated_time" content="2021-06-18T03:27:45.540Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flutter研发报错归整">
 <meta name="twitter:description" content="记录一些 Flutter 研发中遇到错误及处理.">
@@ -394,7 +394,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  245
+                  538
                 </span>
               
 
@@ -433,7 +433,14 @@
 <h4 id="2-Waiting-for-another-flutter-command-to-release-the-startup-lock…"><a href="#2-Waiting-for-another-flutter-command-to-release-the-startup-lock…" class="headerlink" title="2. Waiting for another flutter command to release the startup lock…"></a>2. Waiting for another flutter command to release the startup lock…</h4><p>在安装依赖时 , 偶尔出现 <code>Waiting for another flutter command to release the startup lock...</code> , 通常是上一个命令还未执行完毕 , 但是因为墙的原因可能继续等待也未必成功 .</p>
 <p>想要终止等待状态 , 需要前往 <code>flutter</code> 安装目录下删除 <code>bin/cache/lockfile</code> 文件即可 . 若显示该文件被使用中无法删除 , 则先杀死 dart 进程再删除即可</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// Linux</span><br><span class="line">killall -9 dart</span><br><span class="line"></span><br><span class="line">// Windows</span><br><span class="line">taskkill /F /IM dart.exe</span><br></pre></td></tr></table></figure>
-<h4 id="参考链接-1"><a href="#参考链接-1" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://zhuanlan.zhihu.com/p/113223263" target="_blank" rel="noopener">知乎</a></p>
+<h5 id="参考链接-1"><a href="#参考链接-1" class="headerlink" title="参考链接"></a>参考链接</h5><p><a href="https://zhuanlan.zhihu.com/p/113223263" target="_blank" rel="noopener">知乎</a></p>
+<h4 id="3-Flutter命令输入后卡住"><a href="#3-Flutter命令输入后卡住" class="headerlink" title="3. Flutter命令输入后卡住"></a>3. Flutter命令输入后卡住</h4><blockquote>
+<p>很多人遇到这个问题 , 在一段时间未用 Flutter 后尝试更新版本 , 或者在使用其他 <code>flutter xxx</code> 命令时 , 命令行窗口直接卡死 , 许久许久之后爆红 , 显示超时之类的 .在此期间下一个 flutter 命令也无法使用 , 只能干等着  , 导致工作效率大大下降 . </p>
+</blockquote>
+<p>首先可以参考上面 <strong>2</strong> 中所述先强制终止上一个命令 . 然后弄清楚为什么会导致命令执行如此慢的原因.</p>
+<p>执行的命令通常是包含了访问 Flutter Git 仓库 ,或者访问 Pub Dart 仓库 , 而这些仓库通常是在海外 . 而当前连 GitHub 直连的速度都比较感人的情况下 , 科学上网是必不可少的 . 当科学上网全局配置时 , 其实对于 Git , Terminal 等默认都是不生效的 , 还得一一去配置 , 显得比较麻烦 . 因此我这边选择配置仓库对应的国内镜像 , 一劳永逸 .</p>
+<p>具体可参考 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/flutter/" target="_blank" rel="noopener">清华大学开源软件镜像站</a> </p>
+<h5 id="参考链接-2"><a href="#参考链接-2" class="headerlink" title="参考链接"></a>参考链接</h5><p>其他参考: <a href="http://blog.fpliu.com/it/software/FlutterSDK" target="_blank" rel="noopener">链接</a></p>
 
       
     </div>
@@ -559,7 +566,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -570,7 +577,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -581,7 +588,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -643,7 +650,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Unexpected-end-of-file-from-server"><span class="nav-number">1.</span> <span class="nav-text">1. Unexpected end of file from server</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考链接"><span class="nav-number">1.1.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Waiting-for-another-flutter-command-to-release-the-startup-lock…"><span class="nav-number">2.</span> <span class="nav-text">2. Waiting for another flutter command to release the startup lock…</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接-1"><span class="nav-number">3.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Unexpected-end-of-file-from-server"><span class="nav-number">1.</span> <span class="nav-text">1. Unexpected end of file from server</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考链接"><span class="nav-number">1.1.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Waiting-for-another-flutter-command-to-release-the-startup-lock…"><span class="nav-number">2.</span> <span class="nav-text">2. Waiting for another flutter command to release the startup lock…</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考链接-1"><span class="nav-number">2.1.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Flutter命令输入后卡住"><span class="nav-number">3.</span> <span class="nav-text">3. Flutter命令输入后卡住</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考链接-2"><span class="nav-number">3.1.</span> <span class="nav-text">参考链接</span></a></li></ol></li></ol></div>
             
 
           </div>

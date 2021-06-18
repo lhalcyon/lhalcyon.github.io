@@ -77,7 +77,7 @@
 
 
 
-  <meta name="keywords" content="halcyon,Hexo,Android,iOS,Java" />
+  <meta name="keywords" content="Godot," />
 
 
 
@@ -90,16 +90,20 @@
 
 
 
-<meta name="description" content="琴棋书画诗酒花 , 柴米油盐酱醋茶.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Halcyon Days">
-<meta property="og:url" content="https://lhalcyon.com/categories/Android/iOS/Javascript/Flutter/index.html">
+<meta name="description" content="在 Godot 中设置 3D 人物 Walk 动画时 ,设置其 AnimationPlayer 中 Walk 为循环模式 , 可运行后只运行了一次 , 搜索到一篇文章问题相同 , 转至此处记录  查看一下层级图会发现 , 除了场景的根节点以外其它都是灰色的 , animationPlayer 也是灰色的 , 意味着不会修改 , 这是因为该场景是我们直接从导入的资源直接继承过来的 , 要解决该问题">
+<meta name="keywords" content="Godot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="转-Godot 3D动画loop无效的问题解决">
+<meta property="og:url" content="https://lhalcyon.com/godot-3danimation-loop-issue/index.html">
 <meta property="og:site_name" content="Halcyon Days">
-<meta property="og:description" content="琴棋书画诗酒花 , 柴米油盐酱醋茶.">
+<meta property="og:description" content="在 Godot 中设置 3D 人物 Walk 动画时 ,设置其 AnimationPlayer 中 Walk 为循环模式 , 可运行后只运行了一次 , 搜索到一篇文章问题相同 , 转至此处记录  查看一下层级图会发现 , 除了场景的根节点以外其它都是灰色的 , animationPlayer 也是灰色的 , 意味着不会修改 , 这是因为该场景是我们直接从导入的资源直接继承过来的 , 要解决该问题">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/20200121100226492.png">
+<meta property="og:updated_time" content="2021-07-03T08:02:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Halcyon Days">
-<meta name="twitter:description" content="琴棋书画诗酒花 , 柴米油盐酱醋茶.">
+<meta name="twitter:title" content="转-Godot 3D动画loop无效的问题解决">
+<meta name="twitter:description" content="在 Godot 中设置 3D 人物 Walk 动画时 ,设置其 AnimationPlayer 中 Walk 为循环模式 , 可运行后只运行了一次 , 搜索到一篇文章问题相同 , 转至此处记录  查看一下层级图会发现 , 除了场景的根节点以外其它都是灰色的 , animationPlayer 也是灰色的 , 意味着不会修改 , 这是因为该场景是我们直接从导入的资源直接继承过来的 , 要解决该问题">
+<meta name="twitter:image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/20200121100226492.png">
 
 
 
@@ -129,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="https://lhalcyon.com/categories/Android/iOS/Javascript/Flutter/"/>
+  <link rel="canonical" href="https://lhalcyon.com/godot-3danimation-loop-issue/"/>
 
 
 
 
 
-  <title>分类: Flutter | Halcyon Days</title>
+  <title>转-Godot 3D动画loop无效的问题解决 | Halcyon Days</title>
   
 
 
@@ -154,7 +158,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -282,55 +286,210 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Flutter<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/godot-3danimation-loop-issue/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L.">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon Days">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/frontend-throttling/" itemprop="url">
-              
-                <span itemprop="name">大前端常用按钮限流防抖总结</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">转-Godot 3D动画loop无效的问题解决</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-09-17T21:12:11+08:00"
-              content="2019-09-17" >
-          09-17
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-03T16:02:11+08:00">
+                2021-07-03
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Godot/" itemprop="url" rel="index">
+                    <span itemprop="name">Godot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/godot-3danimation-loop-issue/" class="leancloud_visitors" data-flag-title="转-Godot 3D动画loop无效的问题解决">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  179
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="note info"><p>在 Godot 中设置 3D 人物 Walk 动画时 ,设置其 AnimationPlayer 中 Walk 为循环模式 , 可运行后只运行了一次 , 搜索到一篇文章问题相同 , 转至此处记录</p></div>
+<p><img src="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/20200121100226492.png" alt=""></p>
+<p>查看一下层级图会发现 , 除了场景的根节点以外其它都是灰色的 , <code>animationPlayer</code> 也是灰色的 , 意味着不会修改 , 这是因为该场景是我们直接从导入的资源直接继承过来的 , 要解决该问题 , 需要选择根节点右键 <code>清除继承</code></p>
+<blockquote>
+<p>清除继承是不可撤销的 , 因此要特别注意</p>
+</blockquote>
+<p>这样所有节点都是可编辑的了 , 再去修改 animationPlayer 的动画即可</p>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://blog.csdn.net/ttm2d/article/details/104058958" target="_blank" rel="noopener">CSDN</a></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Godot/" rel="tag"># Godot</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/umeng-sdk-issue/" rel="next" title="友盟推送分享接入问题">
+                <i class="fa fa-chevron-left"></i> 友盟推送分享接入问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/godot-gitignore/" rel="prev" title="Godot gitignore设置">
+                Godot gitignore设置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -338,6 +497,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -360,8 +523,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -380,7 +552,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -391,7 +563,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -402,7 +574,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -454,6 +626,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接"><span class="nav-number">1.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -598,6 +786,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

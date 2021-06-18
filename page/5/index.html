@@ -297,6 +297,728 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/javafx-customize-table-cell/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L.">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon Days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/javafx-customize-table-cell/" itemprop="url">JavaFx向TableViewColumn添加Image</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-02T00:00:00+08:00">
+                2019-05-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaFX/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaFX</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/javafx-customize-table-cell/" class="leancloud_visitors" data-flag-title="JavaFx向TableViewColumn添加Image">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  373
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>JavaFX 的表格控件使用稍微不同于 Android 和 iOS 中的表格 . 流程上是向 <code>TableView</code> 中 添加列 <code>TableColumn</code> 然后再给列绑定数据 , 再设置 <code>TableView</code> 的数据 , 刷新即可得到可视结果 .</p>
+<p>其中需要自定义 <code>CellFactory</code></p>
+<p><strong>1. 加载图片</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">KiwiId.setCellFactory(<span class="keyword">new</span> Callback&lt;TableColumn&lt;NewBeautifulKiwi, Integer&gt;, TableCell&lt;NewBeautifulKiwi, Integer&gt;&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TableCell&lt;NewBeautifulKiwi, Integer&gt; <span class="title">call</span><span class="params">(TableColumn&lt;NewBeautifulKiwi, Integer&gt; param)</span> </span>&#123;</span><br><span class="line">      ...</span><br><span class="line">      TableCell&lt;NewBeautifulKiwi, Integer&gt; cell = <span class="keyword">new</span> TableCell&lt;NewBeautifulKiwi, Integer&gt;() &#123;</span><br><span class="line">         <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateItem</span><span class="params">(Integer item, <span class="keyword">boolean</span> empty)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (item != <span class="keyword">null</span>) &#123;</span><br><span class="line">              imageview.setImage(<span class="keyword">new</span> Image(<span class="string">"arrow.png"</span>));</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;;</span><br><span class="line">      <span class="comment">// Attach the imageview to the cell</span></span><br><span class="line">      cell.setGraphic(imageview);</span><br><span class="line">      <span class="keyword">return</span> cell;</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;);</span><br><span class="line"> KiwiId.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;NewBeautifulKiwi, Integer&gt;(<span class="string">"KiwiId"</span>));</span><br></pre></td></tr></table></figure>
+<p><strong>2. 从数据类 <code>NewBeautifulKiwi</code> 中属性加载图片</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span>(name = <span class="string">"KIWI_TABLE"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NewBeautifulKiwi</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue</span>(strategy = GenerationType.AUTO)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> KiwiId;</span><br><span class="line">    <span class="keyword">private</span> String Kiwi;</span><br><span class="line">    <span class="keyword">private</span> Image kiwiImage;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getKiwiId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> KiwiId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setKiwiId</span><span class="params">(<span class="keyword">int</span> KiwiId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.KiwiId = KiwiId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getKiwi</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Kiwi;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setKiwi</span><span class="params">(String Kiwi)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.Kiwi = Kiwi;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Image <span class="title">getKiwiImage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> kiwiImage;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setKiwiImage</span><span class="params">(Image kiwiImage)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.kiwiImage = kiwiImage;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>3. 在 table 中给 tableColumn绑定属性</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="meta">@FXML</span></span><br><span class="line"><span class="keyword">private</span> TableColumn&lt;NewBeautifulKiwi, Image&gt; KiwiImageCol;</span><br><span class="line">...</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(URL url, ResourceBundle rb)</span> </span>&#123;</span><br><span class="line">    KiwiImageCol.setCellFactory(param -&gt; &#123;</span><br><span class="line">       <span class="comment">//Set up the ImageView</span></span><br><span class="line">       <span class="keyword">final</span> ImageView imageview = <span class="keyword">new</span> ImageView();</span><br><span class="line">       imageview.setFitHeight(<span class="number">50</span>);</span><br><span class="line">       imageview.setFitWidth(<span class="number">50</span>);</span><br><span class="line"></span><br><span class="line">       <span class="comment">//Set up the Table</span></span><br><span class="line">       TableCell&lt;NewBeautifulKiwi, Image&gt; cell = <span class="keyword">new</span> TableCell&lt;NewBeautifulKiwi, Image&gt;() &#123;</span><br><span class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateItem</span><span class="params">(Image item, <span class="keyword">boolean</span> empty)</span> </span>&#123;</span><br><span class="line">             <span class="keyword">if</span> (item != <span class="keyword">null</span>) &#123;</span><br><span class="line">                  imageview.setImage(item);</span><br><span class="line">             &#125;</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">// Attach the imageview to the cell</span></span><br><span class="line">        cell.setGraphic(imageview);</span><br><span class="line">        <span class="keyword">return</span> cell;</span><br><span class="line">   &#125;);</span><br><span class="line">   KiwiImageCol.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;NewBeautifulKiwi, Image&gt;(<span class="string">"kiwiImage"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>参考资料:</p>
+<ol>
+<li><a href="https://stackoverflow.com/questions/22005115/how-to-add-an-image-into-a-javafx-tableview-column?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">stackoverflow</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/javafx-project-artifacts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L.">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon Days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/javafx-project-artifacts/" itemprop="url">JavaFX Maven项目打包exe</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T00:00:00+08:00">
+                2019-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaFX/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaFX</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/javafx-project-artifacts/" class="leancloud_visitors" data-flag-title="JavaFX Maven项目打包exe">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  262
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <div class="note default"><p>最近帮朋友写了一个 UI 小工具 . 起初是用 Javascript 写的, 但是需要对结果进行文件归类 , 而 Javascript 没有权限创建文件夹 , 因此只好换 JavaFX 来写 . 在程序写完打包时遇到一些问题 , 记录在此 , 方便后续查阅 .</p></div>
+<h3 id="常规-JavaFX-项目打包"><a href="#常规-JavaFX-项目打包" class="headerlink" title="常规 JavaFX 项目打包"></a>常规 JavaFX 项目打包</h3><p>这个直接利用 IDEA 的 Build artifacts  , 步骤比较常规 , 此处不做展开 . </p>
+<p><a href="https://blog.csdn.net/wangyinlon/article/details/79247606" target="_blank" rel="noopener">传送门</a></p>
+<h3 id="Maven-JavaFX-项目打包"><a href="#Maven-JavaFX-项目打包" class="headerlink" title="Maven JavaFX 项目打包"></a>Maven JavaFX 项目打包</h3><p>maven 项目如果直接用以上的方法打包, 会发现客户端无法打开 , 可以直接使用 <code>java -jar xxx.jar</code> 部署查看具体原因 , 通常是因为项目通过 maven 引入的类及资源未打进 jar 包里 .  因此这里我们需要借助打包插件 .</p>
+<p><a href="https://github.com/javafx-maven-plugin/javafx-maven-plugin" target="_blank" rel="noopener">javafx-maven-plugin</a></p>
+<p>引入插件包 , 并修改 <code>vendor</code> 和 <code>mainClass</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.zenjava<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javafx-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.8.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">vendor</span>&gt;</span>YourCompany<span class="tag">&lt;/<span class="name">vendor</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>your.package.with.Launcher<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后打包</p>
+<p><code>mvn jfx:jar</code> , 打包完成的目录在 <code>target/jfx/app</code></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/centeros-ssh-configuration/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L.">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon Days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/centeros-ssh-configuration/" itemprop="url">转-CenterOS7安装和配置SSH</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-04T00:00:00+08:00">
+                2019-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CenterOS/" itemprop="url" rel="index">
+                    <span itemprop="name">CenterOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/centeros-ssh-configuration/" class="leancloud_visitors" data-flag-title="转-CenterOS7安装和配置SSH">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  193
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本文转自 <a href="https://www.cnblogs.com/liuhouhou/p/8975812.html" target="_blank" rel="noopener">CenterOS 7安装和配置SSH</a></p>
+<h3 id="1-安装-openssh-server"><a href="#1-安装-openssh-server" class="headerlink" title="1. 安装 openssh-server"></a>1. 安装 openssh-server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y openssl openssh-server</span><br></pre></td></tr></table></figure>
+<h3 id="2-修改配置文件"><a href="#2-修改配置文件" class="headerlink" title="2. 修改配置文件"></a>2. 修改配置文件</h3><p>用 vim 打开配置文件 /etc/ssh/sshd_config</p>
+<p><img src="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/5cc241d8617bd.png" alt=""></p>
+<p>将上图中的 <code>PermitRootLogin</code> , <code>RSAAuthentication</code> , <code>PubkeyAuthentication</code> 的设置打开.</p>
+<p>启动SSH的服务:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start sshd.service</span><br></pre></td></tr></table></figure>
+<p>设置开机自动启动SSH服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> sshd.service</span><br></pre></td></tr></table></figure>
+<p>设置文件夹 ~/.ssh的访问权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~</span><br><span class="line">$ chmod 700 .ssh                                                                                                </span><br><span class="line">$ chmod 600 .ssh/*                                                                                              </span><br><span class="line">$ ls -la .ssh                                                                                                   </span><br><span class="line">total 16</span><br><span class="line">drwx------. 2 root root   58 May 15 00:23 .</span><br><span class="line">dr-xr-x---. 8 root root 4096 May 15 00:26 ..</span><br><span class="line">-rw-------. 1 root root  403 May 15 00:22 authorized_keys</span><br><span class="line">-rw-------. 1 root root 1766 May 15 00:21 id_rsa</span><br><span class="line">-rw-------. 1 root root  403 May 15 00:21 id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p><code>authorized_keys</code> 文件存储的是客户端的公共密钥 . 将自己的公钥拷贝进文件即可</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/centeros-install-ss/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L.">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Halcyon Days">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/centeros-install-ss/" itemprop="url">转-CenterOS7安装ss</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-04T00:00:00+08:00">
+                2019-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CenterOS/" itemprop="url" rel="index">
+                    <span itemprop="name">CenterOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/centeros-install-ss/" class="leancloud_visitors" data-flag-title="转-CenterOS7安装ss">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  159
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本文转自徒弟的有道笔记 <a href="https://note.youdao.com/ynoteshare1/index.html?id=bcf93795b1e3c5090e148d0cfc79b279&amp;type=note#/" target="_blank" rel="noopener">Ubuntu安装Shadowsocks</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 1. 下载包：</span><br><span class="line">wget https://storage.googleapis.com/golang/go1.9.1.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"># 2. 解压到/usr/local/go</span><br><span class="line">tar -C /usr/local -xzf go1.9.1.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"># 3. 导入到系统环境变量 (临时导入,可用其他方式)</span><br><span class="line">export PATH=$PATH:/usr/local/go/bin</span><br><span class="line"></span><br><span class="line"># 下载 ss</span><br><span class="line">wget --no-check-certificate https://raw.githubusercontent.com/iMeiji/shadowsocks_install/master/shadowsocks-go.sh</span><br><span class="line"># 给予权限</span><br><span class="line">chmod +x shadowsocks-go.sh</span><br><span class="line"># 运行</span><br><span class="line">./shadowsocks-go.sh 2&gt;&amp;1 | tee shadowsocks-go.log</span><br><span class="line"># 开发端口, CenterOS 与 Ubuntu 略有不同.</span><br><span class="line">iptables -I INPUT -p tcp --dport 8989 -j ACCEPT</span><br></pre></td></tr></table></figure>
+<hr>
+<p>另转 <a href="https://vien.tech/article/93" target="_blank" rel="noopener">Outline搭建VPN</a> 也不错!</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/swift-publish-cocoapod/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1476,796 +2198,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/blockchain-usdt-node/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L.">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon Days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blockchain-usdt-node/" itemprop="url">区块链-Linux下USDT测试节点搭建</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-28T00:00:00+08:00">
-                2018-11-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Blockchain/" itemprop="url" rel="index">
-                    <span itemprop="name">Blockchain</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/blockchain-usdt-node/" class="leancloud_visitors" data-flag-title="区块链-Linux下USDT测试节点搭建">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,393
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>本篇将说明在 Linux 下搭建USDT测试节点. 为了更好的阅读体验 , 请点击<a href="https://lhalcyon.com/blockchain-usdt-node/">阅读原文</a></p>
-<p>Tether Limited 公司基于 Omni Layer 这层协议(Omni Layer protocol)发行tetherUSD . Omni Layer 是基于比特币区块链的通信协议 , 它实现了智能合约的特性 , 也就是说 tetherUSD是 Omni Layer的一个智能合约 . 而实现 Omni Layer protocol 的开源软件项目是 <a href="https://github.com/OmniLayer/omnicore" target="_blank" rel="noopener">Omni Core</a> . </p>
-
-        
-          <div class="out-img-topic">
-            <img src=https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/006tNbRwgy1fxnjkm2wmwj30hr09qt9a.jpg class="img-topic" />
-          </div>
-        
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/blockchain-usdt-node/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/blockchain-bitcoin-node/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L.">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon Days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blockchain-bitcoin-node/" itemprop="url">区块链-Linux下Bitcoin测试节点搭建</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-26T00:00:00+08:00">
-                2018-11-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Blockchain/" itemprop="url" rel="index">
-                    <span itemprop="name">Blockchain</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/blockchain-bitcoin-node/" class="leancloud_visitors" data-flag-title="区块链-Linux下Bitcoin测试节点搭建">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,245
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在近期的研发中 , 需要用到比特币测试节点 . 本来想找个类似以太坊 <a href="https://infura.io/login" target="_blank" rel="noopener">infura</a> 这样的三方节点 , 最终只找到 <a href="https://www.blockcypher.com/dev/bitcoin/" target="_blank" rel="noopener">BLOCKCYPHER</a> . 其提供了 testnet 和 mainnet 的环境 , 不过 API 是包装过一层的 , 出于严谨 , 还是决定自行搭建节点. </p>
-<p>本篇将说明在 Linux 下搭建 Bitcoin 测试节点. 为了良好的阅读体验 , 请点击<a href="https://lhalcyon.com/blockchain-bitcoin-node/">阅读原文</a></p>
-
-        
-          <div class="out-img-topic">
-            <img src=https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/006tNbRwgy1fxlhnqas36j30f108cjs0.jpg class="img-topic" />
-          </div>
-        
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/blockchain-bitcoin-node/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/blockchain-flutter-app/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L.">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon Days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blockchain-flutter-app/" itemprop="url">Flutter实战-以太坊钱包</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T00:00:00+08:00">
-                2018-08-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Blockchain/" itemprop="url" rel="index">
-                    <span itemprop="name">Blockchain</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Blockchain/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Blockchain/Android/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Blockchain/Android/iOS/Flutter/" itemprop="url" rel="index">
-                    <span itemprop="name">Flutter</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/blockchain-flutter-app/" class="leancloud_visitors" data-flag-title="Flutter实战-以太坊钱包">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  378
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>之前由于工作重心偏移到了去中心化交易所 <a href="http://www.loois.org/index.html" target="_blank" rel="noopener">Loois</a> 的开发中,对 Flutter 的学习暂停了. 现在计划重新开始,发现已经有许多不错的学习资源,比如 <a href="https://flutterchina.club/" target="_blank" rel="noopener">Flutter中文网</a> , <a href="https://juejin.im/tag/Flutter?utm_source=flutterchina&amp;utm_medium=word&amp;utm_content=btn&amp;utm_campaign=q3_website" target="_blank" rel="noopener">Flutter掘金社区</a> 等等.因此若我们仍按 <a href="https://lhalcyon.com/flutter-toc/">原专栏计划</a> 从基础一篇篇讲起,难免有些重复.不如直接进入实战,开发一款 <strong>Flutter以太坊钱包</strong> .笔者会在开发学习过程中,将与原计划中的学习内容有交集的部分进行教程说明.</p>
-<h4 id="产品原型"><a href="#产品原型" class="headerlink" title="产品原型"></a>产品原型</h4><p>我们将参考 <code>imToken</code> , <code>Loois</code> 钱包产品设计.后面将会补充 <a href="https://modao.cc/" target="_blank" rel="noopener">墨刀</a> 的原型.</p>
-<p><a href="https://token.im/download" target="_blank" rel="noopener">imToken下载地址</a> , <a href="http://www.loois.org/app.html" target="_blank" rel="noopener">Loois下载地址</a></p>
-<p><img src="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/0069RVTdgy1ftzx3laz4cj30980eldhj.jpg" alt=""></p>
-<p><img src="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/0069RVTdgy1ftzxbupw0pj30ad0ieaax.jpg" alt=""></p>
-<div class="note default"><p>这里有些区别的是, <strong>imToken</strong> 目前对接的是 <a href="https://www.0xproject.com/" target="_blank" rel="noopener">0x</a> 和 <a href="https://kyber.network/" target="_blank" rel="noopener">Kyber</a> 协议 , <strong>Loois</strong> 目前对接的是 <a href="http://loopring.org/" target="_blank" rel="noopener">Loopring</a> 协议 . 后面在做市场交易时,我们具体进行说明.</p></div>
-<h4 id="资源支持"><a href="#资源支持" class="headerlink" title="资源支持"></a>资源支持</h4><p>这里我们将用到  Material Design Icons , FontAwesome Icons , Loois相应图片,以及反编译imToken获取的图片.</p>
-<p><img src="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/0069RVTdgy1ftzxghjv94j30aq07kjt6.jpg" alt=""></p>
-<h4 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h4><p>环境安装等请参考</p>
-<p><a href="https://lhalcyon.com/flutter-basic-env/">Flutter基础-(1)环境搭建及demo运行</a></p>
-<h4 id="知识储备"><a href="#知识储备" class="headerlink" title="知识储备"></a>知识储备</h4><p>Flutter 基本了解请参考 <a href="https://lhalcyon.com/flutter-basic-concept/">Flutter基础-(2)基本概念及首个应用</a></p>
-<p>涉及到以太坊钱包相关的内容,可以参考其它几篇文章.</p>
-<ol>
-<li><a href="https://lhalcyon.com/blockchain-eth-wallet-android/">以太坊创建钱包</a></li>
-<li><a href="https://lhalcyon.com/blockchain-eth-unlock-android/">以太坊解锁钱包</a></li>
-<li><a href="https://lhalcyon.com/blockchain-eth-transaction-sign/">以太坊转账离线签名</a></li>
-</ol>
-<p><em>以上几篇文章是 Java 版本,我们将实现 Dart 版本</em> </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lhalcyon.com/blockchain-eth-transaction-sign/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="L.">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Halcyon Days">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blockchain-eth-transaction-sign/" itemprop="url">区块链-以太坊转账离线签名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T00:00:00+08:00">
-                2018-07-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Blockchain/" itemprop="url" rel="index">
-                    <span itemprop="name">Blockchain</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Blockchain/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/blockchain-eth-transaction-sign/" class="leancloud_visitors" data-flag-title="区块链-以太坊转账离线签名">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,465
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>前<a href="https://lhalcyon.com/archives/">两篇文章</a>中,我们讲到如何创建和解锁以太坊钱包.本章我们将讲解转账相关的内容.</p>
-<p>为了良好的阅读体验, 请<a href="https://lhalcyon.com/blockchain-eth-transaction-sign">阅读原文</a></p>
-
-        
-          <div class="out-img-topic">
-            <img src=https://halcyon-1258836598.cos.ap-guangzhou.myqcloud.com/blog/006tKfTcgy1ft818zmklfj30hs09wjrf.jpg class="img-topic" />
-          </div>
-        
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/blockchain-eth-transaction-sign/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2317,7 +2254,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2328,7 +2265,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2339,7 +2276,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

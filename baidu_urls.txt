@@ -1,3 +1,7 @@
+https://lhalcyon.com/godot-gitignore/
+https://lhalcyon.com/godot-3danimation-loop-issue/
+https://lhalcyon.com/umeng-sdk-issue/
+https://lhalcyon.com/python-batch-modify-md-content/
 https://lhalcyon.com/docker-deploy-python/
 https://lhalcyon.com/python-requirements/
 https://lhalcyon.com/python-import/
